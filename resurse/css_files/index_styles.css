@@ -1,7 +1,205 @@
 body{
-    --bg-color: #1a1a1a;
+    --bg-color: #1a1a1af1;
     --button-color: #4dd0e1;
     --highlight: #f15a24;
     --text-color: #efefef;
     --border-color: #a6a6a6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    
+}
+#welcome img{
+    width: 600px;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media screen and (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    html {
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 768px) {
+    *{
+        animation: none !important;
+        transition: none !important;
+    }
+    
+}
+
+body {
+    transition: font-size 0.5s ease-in-out;
+}
+
+h1 {
+    font-size: 2em;
+    transition: font-size 0.5s ease-in-out;
+}
+
+p {
+    font-size: 1em;
+    transition: font-size 0.5s ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    
+    p {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 3em;
+    }
+    
+    p {
+        font-size: 1.4em;
+    }
+}
+
+#grid-pagina{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "z-welcome z-welcome z-welcome"
+                        "z-tabel z-tabel z-store"
+                        "z-event-calendar z-user-stats z-store"
+                        "z-online-users z-user-stats z-store"
+                        "z-online-users z-news z-site-stats"
+                        "z-faq z-faq z-faq"
+                        "z-game-trailers z-game-trailers z-game-trailers"
+                        "z-support z-about z-about"
+                        "z-locations z-locations z-wishlist"
+                         
+}
+
+#grid-pagina > *{
+    outline: 1px solid var(--border-color);
+    margin: 0;
+}
+
+#welcome{
+    grid-area: z-welcome;
+}
+
+#store{
+    grid-area: z-store;
+}
+
+#wishlist{
+    grid-area: z-wishlist;
+}
+
+#locations{
+    grid-area: z-locations;
+}
+
+#tabel{
+    grid-area: z-tabel;
+}
+
+#event-calendar{
+    grid-area: z-event-calendar;
+}
+
+#online-users{
+    grid-area: z-online-users;
+}
+
+#user-stats{
+    grid-area: z-user-stats;
+}
+
+#site-stats{
+    grid-area: z-site-stats;
+}
+
+#faq{
+    grid-area: z-faq;
+}
+
+#news{
+    grid-area: z-news;
+}
+
+#game-trailers{
+    grid-area: z-game-trailers;
+}
+
+#support{
+    grid-area: z-support;
+}
+
+#about{
+    grid-area: z-about;
+}
+#welcome img{
+    width: 600px;
+}
+
+#grid-pagina{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "z-locations z-locations z-locations"
+                        "z-welcome z-welcome z-welcome"
+                         "z-store z-wishlist z-news"
+                         "z-store z-wishlist z-news"
+                         "z-store z-wishlist z-news"
+                         "z-game-trailers z-game-trailers z-game-trailers"
+                         "z-support z-support z-support"
+                         "z-faq z-faq z-faq"
+                         "z-about z-about z-about"
+                         "z-locations z-locations z-locations";
+}
+
+#grid-pagina > *{
+    outline: 1px solid orange;
+    margin: 0;
+}
+
+#welcome{
+    grid-area: z-welcome;
+}
+
+#store{
+    grid-area: z-store;
+}
+
+#wishlist{
+    grid-area: z-wishlist;
+}
+
+#locations{
+    grid-area: z-locations;
+}
+
+#faq{
+    grid-area: z-faq;
+}
+
+#news{
+    grid-area: z-news;
+}
+
+#game-trailers{
+    grid-area: z-game-trailers;
+}
+
+#support{
+    grid-area: z-support;
+}
+
+#about{
+    grid-area: z-about;
 }
