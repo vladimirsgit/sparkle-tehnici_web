@@ -1,3 +1,7 @@
-:root{
-    --prim
+body{
+    --bg-color: #1a1a1a;
+    --button-color: #4dd0e1;
+    --highlight: #f15a24;
+    --text-color: #efefef;
+    --border-color: #a6a6a6;
 }
