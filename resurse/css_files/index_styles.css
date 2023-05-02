@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:wght@300&display=swap');
 html{
     --bg-color: #1a1a1af1;
     --button-color: #4dd0e1;
@@ -5,16 +6,30 @@ html{
     --text-color: #efefef;
     --border-color: #a6a6a6;
 }
-
+*{
+    box-sizing: border-box;
+}
 html{
     background-color: var(--bg-color);
     color: var(--text-color);
     font-size: 18px;
     transition: font-size 0.3s ease;
+    font-family: 'Exo 2', sans-serif;
 }
+body{
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+h1, h2, h3{
+    font-family: 'Audiowide', cursive;
+    margin-bottom: 0.2em;
+    letter-spacing: 0.1em;
 
+}
 h1{
     font-size: 2.5em;
+    letter-spacing: 0.3em;
 }
 h2{
     font-size: 2em;
@@ -28,6 +43,14 @@ body{
 #welcome img{
     width: 600px;
 }
+
+img{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border: 3.5px solid var(--border-color);
+    border-radius: 10%;
+}
 #grid-pagina{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -38,6 +61,9 @@ body{
                          "z-online-users z-announcements z-site-stats";
 }
 
+#grid-pagina > section{
+    padding: 10px;
+}
 #grid-pagina > *{
     outline: 1px solid var(--border-color);
     margin: 0;
@@ -88,6 +114,10 @@ body{
 
 #news{
     grid-area: z-news;
+    padding: 10px;
+}
+#news h3{
+    margin-top: 0.3em;
 }
 
 #game-trailers{
