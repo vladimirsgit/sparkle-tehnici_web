@@ -135,30 +135,33 @@ img{
 
 #link-top {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 0.3em;
+    right: 1.8em;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 1.7em;
+    height: 1.8em;
     border-radius: 50% 50% 0 0;
     border: 2px solid #fff;
     text-align: center;
     font-size: 24px;
     color: #fff;
     text-decoration: none;
-    transition: all 0.5s ease-in-out;
-    opacity: 0.8;
- }
+    transition: all 0.3s ease-in-out;
+    opacity: 0.5;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--button-color);
+}
  
  #link-top:hover {
-    background-color: #fff;
     color: #333;
     opacity: 1;
     transform: scale(1.2);
  }
-
+#link-top > span{
+    transition: all 0.3s ease-out;
+}
  #link-top:hover > span{
     font-size: 60px;
  }
@@ -171,7 +174,7 @@ img{
     transform: translateX(-50%);
     padding: 5px;
     background-color: #333;
-    color: #fff;
+    color: var(--text-color);
     font-size: 12px;
     border-radius: 5px;
     opacity: 0;
@@ -182,9 +185,53 @@ img{
     opacity: 1;
  }
 
-
 #arrow{
     font-size: 40px;
+}
+
+
+
+
+.container-iframe{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.taburi-iframe a{
+    font-weight: bold;
+    display: block;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    margin-bottom: 0.1em;
+    background-color: var(--button-color);
+    width: 10em;
+    height: 3em;
+    text-align: center;
+    line-height: 3em;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: all 0.3s ease-in-out;
+   
+}
+
+.taburi-iframe a:hover{
+    background-color: var(--text-color);
+    color: var(--button-color);
+}
+
+
+.taburi-iframe{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+iframe{
+
+    border: 4px solid var(--border-color);
+    border-right-color: #c7c7c7
 }
 
 @media screen and (max-width: 768) {
