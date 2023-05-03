@@ -136,12 +136,12 @@ img{
 #link-top {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50% 50% 0 0;
     border: 2px solid #fff;
     text-align: center;
@@ -149,16 +149,19 @@ img{
     color: #fff;
     text-decoration: none;
     transition: all 0.5s ease-in-out;
-    opacity: 0.8;
- }
+    opacity: 0.5;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--button-color);
+}
  
  #link-top:hover {
-    background-color: #fff;
     color: #333;
     opacity: 1;
     transform: scale(1.2);
  }
-
+#link-top > span{
+    transition: all 0.5s ease-in-out;
+}
  #link-top:hover > span{
     font-size: 60px;
  }
@@ -171,7 +174,7 @@ img{
     transform: translateX(-50%);
     padding: 5px;
     background-color: #333;
-    color: #fff;
+    color: var(--text-color);
     font-size: 12px;
     border-radius: 5px;
     opacity: 0;
@@ -181,7 +184,6 @@ img{
  #link-top:hover::after {
     opacity: 1;
  }
-
 
 #arrow{
     font-size: 40px;
