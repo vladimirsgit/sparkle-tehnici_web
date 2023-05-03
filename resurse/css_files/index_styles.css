@@ -41,8 +41,13 @@ h3{
 body{
     font-size: 1em;
 }
+
+#welcome{
+    text-align: center;
+}
 #welcome img{
-    width: 600px;
+    display: inline-flex;
+    width: 30%;
 }
 
 img{
