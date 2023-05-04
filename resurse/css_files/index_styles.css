@@ -42,13 +42,20 @@ body{
     font-size: 1em;
 }
 
-#welcome{
+#welcome-img-container{
+    display: flex;
+    justify-content: center;
+}
+
+#welcome-img-container img{
+    width: 100%;
+}
+
+#welcome-img-container{
     text-align: center;
 }
-#welcome img{
-    display: inline-flex;
-    width: 30%;
-}
+
+
 
 img{
     margin-top: 10px;
