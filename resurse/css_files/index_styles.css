@@ -41,9 +41,21 @@ h3{
 body{
     font-size: 1em;
 }
-#welcome img{
-    width: 600px;
+
+#welcome-img-container{
+    display: flex;
+    justify-content: center;
 }
+
+#welcome-img-container img{
+    width: 100%;
+}
+
+#welcome-img-container{
+    text-align: center;
+}
+
+
 
 img{
     margin-top: 10px;
