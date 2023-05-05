@@ -2,11 +2,15 @@
 html{
     --bg-color: #1a1a1af1;
     --button-color: #4dd0e1;
+    --header-color: #4c3949;
+    --grid-color: #4f5a61;
+    --footer-color: #915665;
     --highlight: #f15a24;
     --text-color: #efefef;
     --links-color: #719dfd;
     --border-color: #a6a6a6;
 }
+
 *{
     box-sizing: border-box;
 }
@@ -17,11 +21,7 @@ html{
     transition: font-size 0.3s ease;
     font-family: 'Exo 2', sans-serif;
 }
-body{
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
-}
+
 h1, h2, h3{
     font-family: 'Audiowide', cursive;
     margin-bottom: 0.2em;
