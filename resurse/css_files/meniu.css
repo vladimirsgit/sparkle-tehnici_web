@@ -1,0 +1,47 @@
+body{
+    --latime-buton: 100px;
+    --intaltime-buton: 30px;
+    --menu-text-color: #d3d2d2;
+    --active-button-color: #8ee3ee;
+}
+
+nav{
+    height: var(--intaltime-buton);
+    background-color: var(--button-color);
+}
+ul.meniu li{
+    width: var(--latime-buton);
+    height: var(--intaltime-buton);
+    border: 1px solid var(--border-color);
+    background-color: var(--button-color);
+    text-align: center;
+    line-height: var(--intaltime-buton);
+    transition: all 0.2s ease-in-out;
+    
+}
+
+ul.meniu a, ul.meniu div{
+    color: var(--text-color);
+    display: block;
+    height: 100%;
+    
+}
+ul.meniu{
+    display: flex;
+}
+
+ul.meniu ul{
+    display: none;
+    position:relative;
+    z-index: 100;
+}
+ul.meniu li:hover{
+    background-color: var(--active-button-color);
+}
+
+ul.meniu > li:hover ul{
+    display: block;
+    position: relative;
+    z-index: 100;
+
+}
