@@ -8,7 +8,12 @@ body{
 nav{
     height: var(--intaltime-buton);
     background-color: var(--button-color);
-    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* BUTONUL */

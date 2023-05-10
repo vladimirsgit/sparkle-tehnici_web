@@ -22,7 +22,9 @@ html{
     transition: font-size 0.3s ease;
     font-family: 'Exo 2', sans-serif;
 }
-
+header.myheader{
+  margin-top: 40px
+}
 main{
     width: 100%;
     height: 100%;
