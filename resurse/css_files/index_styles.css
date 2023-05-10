@@ -49,6 +49,9 @@ h3{
 body{
     font-size: 1.1em;
 }
+#welcome{
+    text-align: center;
+}
 
 /* //////////////////////// IMAGES //////////////////////// */
 
@@ -173,7 +176,7 @@ img{
     border: 2px solid #fff;
     text-align: center;
     font-size: 24px;
-    color: #fff;
+    color: var(--text-color);
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     opacity: 0.5;
@@ -184,7 +187,6 @@ img{
  #link-top:hover {
     color: #333;
     opacity: 1;
-    transform: scale(1.2);
  }
 #link-top > span{
     transition: all 0.3s ease-out;

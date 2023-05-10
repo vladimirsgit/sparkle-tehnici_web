@@ -26,6 +26,7 @@ html{
     height: 100%;
     width: 100%;
     overflow: auto;
+    
 }
 
 #tabel table{
@@ -54,4 +55,10 @@ html{
 #tabel tr:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: box-shadow 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+    #tabel{
+        overflow-x: auto;
+    }
 }

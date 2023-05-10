@@ -1,6 +1,6 @@
 body{
     --latime-buton: 100px;
-    --intaltime-buton: 30px;
+    --intaltime-buton: 40px;
     --menu-text-color: #d3d2d2;
     --active-button-color: #8ee3ee;
 }
@@ -8,17 +8,36 @@ body{
 nav{
     height: var(--intaltime-buton);
     background-color: var(--button-color);
+    
 }
+
+/* BUTONUL */
 ul.meniu li{
     width: var(--latime-buton);
     height: var(--intaltime-buton);
-    border: 1px solid var(--border-color);
     background-color: var(--button-color);
     text-align: center;
     line-height: var(--intaltime-buton);
-    transition: all 0.2s ease-in-out;
-    
+    position: relative;
 }
+
+/* ////////// EFECTUL DE GRADIENT ////////// */
+
+ul.meniu > li a::before{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0.3em;
+    content: '';
+    opacity: 0;
+    background: linear-gradient(to left, var(--text-color), var(--button-color));
+    transition: opacity 0.3s ease-in-out;
+}
+ul.meniu > li a:hover::before{
+    opacity: 1;
+}
+
 
 ul.meniu a, ul.meniu div{
     color: var(--text-color);
@@ -35,13 +54,32 @@ ul.meniu ul{
     position:relative;
     z-index: 100;
 }
-ul.meniu li:hover{
+
+ul.meniu li > div{
+    transition: background-color 0.3s ease-in-out;
+}
+
+ul.meniu li > div:hover{
     background-color: var(--active-button-color);
 }
+
+/* ////////// ANIMATIE DROPDOWN SUBMENIU //////////*/
 
 ul.meniu > li:hover ul{
     display: block;
     position: relative;
     z-index: 100;
+    animation: dropdown 0.3s ease-in-out forwards;
 
+}
+
+@keyframes dropdown{
+    from{
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to{
+        opacity: 1;
+        transform: rotateY(0);
+    }
 }
