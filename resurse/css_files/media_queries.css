@@ -87,3 +87,48 @@
         margin-bottom: var(--main-sections-spacing);
     }
 }
+
+/* GRID */
+
+
+@media screen and (min-width:1001px) {
+    #grid-pagina{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "z-welcome z-welcome z-welcome"
+                             "z-tabel z-tabel z-news"
+                             "z-event-calendar z-user-stats z-news"
+                             "z-online-users z-user-stats z-news"
+                             "z-online-users z-announcements z-site-stats";
+    }
+    
+}
+
+@media screen and (max-width: 1000px) {
+    #grid-pagina{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: "z-welcome z-welcome"
+                             "z-tabel z-tabel"
+                             "z-news z-event-calendar"
+                             "z-news z-user-stats"
+                             "z-online-users z-site-stats"
+                             "z-announcements z-announcements";
+    }
+    
+}
+
+@media screen and (max-width: 768px) {
+    #grid-pagina{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-areas: "z-welcome"
+                             "z-news"
+                             "z-event-calendar"
+                             "z-tabel"
+                             "z-online-users"
+                             "z-user-stats"
+                             "z-announcements"
+                             "z-site-stats";
+    }
+}

@@ -64,22 +64,13 @@ body{
 
 #welcome-img-container img{
     width: 100%;
+    min-width: 80px;
 }
 
 
 
 /* ////////////////////////     GRID PAGINA       //////////////////////// */
 
-
-#grid-pagina{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: "z-welcome z-welcome z-welcome"
-                         "z-tabel z-tabel z-news"
-                         "z-event-calendar z-user-stats z-news"
-                         "z-online-users z-user-stats z-news"
-                         "z-online-users z-announcements z-site-stats";
-}
 
 #grid-pagina > section{
     padding: 20px;
