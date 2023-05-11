@@ -1,6 +1,6 @@
 body{
-    --latime-buton: 100px;
-    --intaltime-buton: 40px;
+    --latime-buton: 7em;
+    --intaltime-buton: 2em;
     --menu-text-color: #d3d2d2;
     --active-button-color: #8ee3ee;
 }
@@ -21,6 +21,17 @@ nav{
 nav:hover{
     opacity: 1;
 }
+
+ 
+span.fa-solid{
+    margin-right: 0.2em;
+}
+
+#acasa-mediu, #acasa, #store-mediu, #store-menu, #welcome-mediu, #welcome-menu, #news-mediu, #news-menu, #support-mediu, #support-menu, #about-mediu, #about-menu{
+    display: inline-block;
+}
+
+
 /* BUTONUL */
 ul.meniu li{
     width: var(--latime-buton);
@@ -33,46 +44,10 @@ ul.meniu li{
 
 /* ////////// EFECTUL DE GRADIENT ////////// */
 
-ul.meniu > li a::before{
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 0.3em;
-    content: '';
-    opacity: 0;
-    background: linear-gradient(to left, var(--text-color), var(--button-color));
-    transition: opacity 0.3s ease-in-out;
-}
-ul.meniu > li a:hover::before{
-    opacity: 1;
-}
-
-
-ul.meniu a, ul.meniu div{
-    color: var(--text-color);
-    display: block;
-    height: 100%;
-    
-}
-ul.meniu{
-    display: flex;
-}
-
-ul.meniu ul{
+/* HAMBURGER MENU */
+#ch-menu{
     display: none;
-    position:relative;
-    z-index: 100;
 }
-
-ul.meniu li > div{
-    transition: background-color 0.3s ease-in-out;
-}
-
-ul.meniu li > div:hover{
-    background-color: var(--active-button-color);
-}
-
 /* ////////// ANIMATIE DROPDOWN SUBMENIU //////////*/
 
 ul.meniu > li:hover ul{
@@ -93,3 +68,5 @@ ul.meniu > li:hover ul{
         transform: rotateY(0);
     }
 }
+
+

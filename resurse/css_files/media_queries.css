@@ -1,0 +1,89 @@
+
+/* TABEL */
+
+@media screen and (max-width: 768px) {
+    #tabel{
+        overflow-x: auto;
+    }
+}
+
+/* MENIU */
+
+@media screen and (max-width: 1000px) and (min-width: 700px) {
+    
+    #acasa, #store-menu, #welcome-menu, #news-menu, #support-menu, #about-menu{
+        display: none;
+    }
+    #acasa-meniu, #store-mediu, #welcome-mediu, #news-mediu, #support-mediu, #about-mediu{
+        display: inline-block;
+    }
+
+}
+
+
+/* //////////////////////// index_styles //////////////////////// */
+
+@media screen and (max-width: 768) {
+    html{
+        animation: none;
+    }
+}
+
+@media screen and (min-width: 360px) {
+    html{
+       font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    html{
+       font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    html{
+       font-size: 18px;
+    }
+}
+
+/* STAGE3.css */
+
+@media screen and (max-width: 480px) {
+    html{
+        --margin-spacing: 0px;
+        --grid-gap: 10px;
+        --main-sections-spacing: 15px
+    }
+    body{
+        margin-left: var(--margin-spacing);
+        margin-right: var(--margin-spacing);
+    }
+    #grid-pagina{
+        gap: var(--grid-gap);
+    }
+    header, body{
+        margin-bottom: var(--main-sections-spacing);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html{
+        --margin-spacing: 20px;
+        --grid-gap: 15px;
+        --main-sections-spacing: 20px;
+    }
+
+    body{
+        margin-left: var(--margin-spacing);
+        margin-right: var(--margin-spacing);
+    }
+
+    #grid-pagina{
+        gap: var(--grid-gap);
+    }
+    
+    header, body{
+        margin-bottom: var(--main-sections-spacing);
+    }
+}

@@ -56,9 +56,3 @@ html{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: box-shadow 0.5s ease-in-out;
 }
-
-@media screen and (max-width: 768px) {
-    #tabel{
-        overflow-x: auto;
-    }
-}

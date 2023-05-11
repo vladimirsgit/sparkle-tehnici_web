@@ -1,0 +1,42 @@
+@media screen and (max-width: 700px) {
+    
+    .hamburger-menu{
+        display: block;
+        cursor: pointer;
+        height: var(--intaltime-buton);
+        transition: opacity 0.3s ease-in-out;
+    }
+    
+    
+    .line{
+        width: 29px;
+        height: 3px;
+        background-color: var(--text-color);
+        margin: 5px;
+        border: 1px solid var(--text-color);
+        border-radius: 3px;
+    }
+    
+    #ch-menu:checked + ul.meniu{
+        display: block;
+        animation: dropdown 0.3s ease-in-out forwards;
+    }
+    
+    ul.meniu{
+        display: none;
+    }
+    
+    body{
+        --latime-buton: 100%;
+    }
+    
+    ul.meniu a, ul.meniu div{
+        color: var(--text-color);
+    }
+    ul.meniu li:hover{
+        background-color: var(--active-button-color);
+        
+    }
+
+
+}
