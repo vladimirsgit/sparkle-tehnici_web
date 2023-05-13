@@ -1,10 +1,11 @@
 @media screen and (max-width: 700px) {
     
     .hamburger-menu{
-        display: block;
         cursor: pointer;
         height: var(--intaltime-buton);
         transition: opacity 0.3s ease-in-out;
+        position: relative;
+        display: block;
     }
     
     
@@ -12,9 +13,24 @@
         width: 29px;
         height: 3px;
         background-color: var(--text-color);
-        margin: 5px;
         border: 1px solid var(--text-color);
         border-radius: 3px;
+        position: absolute;
+        left: 5px;
+        transform: translate(0, -30%);
+    }
+    .line:nth-child(1){
+        top: 5px;
+        
+    }
+    
+    .line:nth-child(2){
+        top: 15px;
+    
+    }
+    
+    .line:nth-child(3){
+        top: 25px;
     }
     
     #ch-menu:checked + ul.meniu{
