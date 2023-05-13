@@ -1,0 +1,81 @@
+
+#watermark{
+    display: none;
+}
+
+@media print{
+    #banner{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        border: 3px double black;
+        padding: 10px;
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    #link-top{
+        display: none;
+    }
+    img, video, iframe, figcaption, picture{
+        display: none;
+    }
+    #grid-pagina{
+        display: block;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    h1{
+        text-align: center;
+        
+    
+    }
+    ul.meniu li{
+        display: inline-block;
+        position: relative;
+       
+    }
+    nav{
+        display: inline-block;
+        margin-top: 50%;
+        text-align: center;
+        position: absolute;
+    }
+    .login-input, #download{
+        display: none;
+    }
+
+    header{
+        page-break-after: always;
+    }
+    footer{
+        page-break-before: always;
+    }
+
+    #watermark{
+        display: block;
+        position: fixed;
+        color: rgba(0, 0, 0, 0.3);
+        width: 60%;
+        height: 10%;
+        top: 50%;
+        left: 45%;
+    }
+    
+}
+
+@page:left{
+    margin-left: 2cm;
+    margin-right: 1cm;
+}
+
+@page:right{
+    margin-left: 1cm;
+    margin-right: 2cm;
+}
