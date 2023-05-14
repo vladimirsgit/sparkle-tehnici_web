@@ -1,0 +1,49 @@
+@media screen and (max-width: 700px) {
+    body{
+        --latime-buton: 100%;
+    }
+
+    .hamburger-menu{
+        cursor: pointer;
+        height: var(--intaltime-buton);
+        transition: opacity 0.3s ease-in-out;
+        position: relative;
+        display: block;
+    }
+
+    .line{
+        width: 29px;
+        height: 3px;
+        background-color: var(--text-color);
+        border: 1px solid var(--text-color);
+        border-radius: 3px;
+        position: absolute;
+        left: 5px;
+        transform: translate(0, -30%);
+
+        @for $i from 1 through 3{
+            &:nth-child(#{$i}){
+               top: 5px * $i + ($i - 1) * 5px
+            }
+        }
+    }
+    
+    #ch-menu:checked {
+        + ul.meniu{
+            display: block;
+            animation: dropdown 0.3s ease-in-out forwards;
+        }
+    }
+    
+    ul.meniu{
+        display: none;
+        a, div{
+            color: var(--text-color);
+        }
+        li{
+            &:hover{
+                background-color: var(--active-button-color);
+            }
+        }
+    }
+}
