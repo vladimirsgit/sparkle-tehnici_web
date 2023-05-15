@@ -65,6 +65,9 @@
     header, body{
         margin-bottom: var(--main-sections-spacing);
     }
+    #game-trailers{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -131,4 +134,5 @@
                              "z-announcements"
                              "z-site-stats";
     }
+    
 }

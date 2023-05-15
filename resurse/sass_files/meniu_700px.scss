@@ -41,8 +41,29 @@
             color: var(--text-color);
         }
         li{
+            transition: all 0.3s ease-in-out;
+
             &:hover{
-                background-color: var(--active-button-color);
+                background-color: var(--text-color);
+            }
+        }
+        >li{
+            >ul{
+                >li{
+                    a{
+                        transition: all 0.3s ease-in-out;
+                    }
+                    &:hover{
+                        a{
+                            color: var(--button-color);
+                        }
+                    }
+                }
+            }
+            &:hover{
+                div{
+                    color: var(--button-color);
+                }
             }
         }
     }

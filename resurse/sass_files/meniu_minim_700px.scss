@@ -1,38 +1,48 @@
 @media screen and (min-width: 700px) {
   ul.meniu {
     display: flex;
-  }
-  ul.meniu ul {
-    display: none;
-    position: relative;
-    z-index: 100;
-  }
-  ul.meniu a, ul.meniu div {
-    color: var(--text-color);
-    display: block;
-    height: 100%;
-  }
-  ul.meniu li > div {
-    transition: background-color 0.3s ease-in-out;
-  }
-  ul.meniu > li:not(:first-child):hover {
-    background-color: var(--active-button-color);
-  }
-  ul.meniu > li a:hover::before {
-    opacity: 1;
-  }
-  ul.meniu > li a::before {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 0.3em;
-    content: "";
-    opacity: 0;
-    background: linear-gradient(to left, var(--text-color), var(--button-color));
-    transition: opacity 0.3s ease-in-out;
+      ul{
+        display: none;
+        position: relative;
+        z-index: 100;
+      }
+      a, div{
+          color: var(--text-color);
+          display: block;
+          height: 100%;
+      }
+      li{
+        >div{
+          transition: background-color 0.3 ease-in-out;
+        }
+      }
+      >li{
+        &:not(:first-child){
+          transition: all 0.3s ease-in-out;
+          &:hover{
+            background-color: var(--text-color);
+          } 
+        }
+        a{
+          &:hover{
+            &::before{
+              opacity: 1;
+            }
+          }
+          &::before{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0.3em;
+            content: "";
+            opacity: 0;
+            background: linear-gradient(to left, var(--text-color), var(--button-color));
+            transition: opacity 0.3s ease-in-out;
+          }
+        }
+      }
   }
 }
-
 
 /*# sourceMappingURL=meniu_minim_700px.scss.map */

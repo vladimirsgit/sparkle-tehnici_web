@@ -36,14 +36,20 @@
         
     
     }
+
     ul.meniu li{
-        display: inline-block;
+        display: block;
         position: relative;
+        height: auto !important;
+    }
+    
+    ul.meniu > li > ul li{
+        padding-left: 80px;
        
     }
     nav{
         display: inline-block;
-        margin-top: 50%;
+        margin-top: 20%;
         text-align: center;
         position: absolute;
     }
