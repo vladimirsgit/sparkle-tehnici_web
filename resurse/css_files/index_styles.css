@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:wght@300&display=swap');
 html{
-    --bg-color: #1a1a1af1;
-    --button-color: #4dd0e1;
-    --header-color: #4b4d52;
-    --grid-color: #323546;
-    --footer-color: #4a4857;
+    --bg-color: #120519;
+    --button-color: #522996;
+    --header-color: #14337b;
+    --grid-color: #1b0826;
+    --footer-color: #14337b;
     --highlight: #f15a24;
-    --text-color: #efefef;
+    --text-color: #ffffff;
     --links-color: #719dfd;
-    --border-color: #a6a6a6;
+    --border-color: #133495;
 }
 
 *{
@@ -23,8 +23,13 @@ html{
     font-family: 'Exo 2', sans-serif;
 }
 header.myheader{
-  margin-top: 45px
+  margin-top: 3.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
+
 main{
     width: 100%;
     height: 100%;
@@ -39,8 +44,10 @@ h1, h2, h3{
 
 }
 h1{
-    font-size: 2.5em;
+    font-size: 3em;
     letter-spacing: 0.3em;
+    margin-left:  0.2em;
+    
 }
 h2{
     font-size: 2em;
@@ -54,7 +61,13 @@ body{
 #welcome{
     text-align: center;
 }
+#download{
+    text-align: right;
+}
 
+#download a{
+    margin: 5em;
+}
 /* //////////////////////// IMAGES //////////////////////// */
 
 #welcome-img-container{
@@ -153,10 +166,10 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1.7em;
-    height: 1.8em;
+    width: 2em;
+    height: 2.1em;
     border-radius: 50% 50% 0 0;
-    border: 2px solid #fff;
+    border: 2px solid var(--text-color);
     text-align: center;
     font-size: 24px;
     color: var(--text-color);
@@ -168,7 +181,6 @@ body{
 }
  
  #link-top:hover {
-    color: #333;
     opacity: 1;
  }
 #link-top > span{
@@ -181,13 +193,13 @@ body{
  #link-top::after {
     content: "TOP OF PAGE";
     position: absolute;
-    top: -50px;
+    top: -70px;
     left: 50%;
     transform: translateX(-50%);
     padding: 5px;
     background-color: #333;
     color: var(--text-color);
-    font-size: 12px;
+    font-size: 14px;
     border-radius: 5px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
