@@ -1,6 +1,6 @@
     body{
         --latime-buton: 7em;
-        --intaltime-buton: 2em;
+        --intaltime-buton: 3em;
 
     }
 
@@ -63,7 +63,7 @@
     @keyframes dropdown{
         from{
             opacity: 0;
-            transform: translateY(-10px);
+            transform: translateY(-30px);
         }
         to{
             opacity: 1;

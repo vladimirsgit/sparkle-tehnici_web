@@ -223,14 +223,12 @@ body{
     position: relative;
 }
 
-.taburi-iframe a{
+.taburi-iframe span{
     font-weight: bold;
-    display: inline-block;
     border: 1px solid var(--border-color);
     color: var(--text-color);
     margin-bottom: 0.1em;
     background-image: linear-gradient(to right, var(--text-color), var(--button-color)6%);
-    
     width: 10em;
     height: 3em;
     text-align: center;
@@ -238,13 +236,22 @@ body{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     transition: all 0.3s ease-in-out;
-    
-   
+     
 }
 
-/* AICI NU AM REUSIT SA FAC TRANZITIE LA GRADIENT */
+
+.taburi-iframe a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: transparent;
+    color: var(--text-color);
+    transition: all 0.3s ease-in-out;
+}
+
 .taburi-iframe a:hover{
-    background-image: linear-gradient(to right, var(--text-color), var(--text-color)); 
+    background-color: var(--text-color);
     color: var(--button-color);
 }
 

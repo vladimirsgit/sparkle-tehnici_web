@@ -1,11 +1,10 @@
-/resurse/sass_files/meniu_700px.css
-/resurse/sass_files/meniu.css
-/resurse/sass_files/meniu_minim_700px.css
-/resurse/sass_files/meniu_700px.css.map
-/resurse/sass_files/meniu.css.map
-/resurse/sass_files/meniu_minim_700px.css.map
+/resurse/sass_files/meniu-mare.css
+/resurse/sass_files/meniu-mediu.css
+/resurse/sass_files/meniu-mic.css
+/resurse/sass_files/meniu-mare.map
+/resurse/sass_files/meniu-mediu.map
+/resurse/sass_files/meniu-mic.map
 curs.txt
 intrebari.txt
 resurse/videouri/news-video.mov
 node_modules
-index.html

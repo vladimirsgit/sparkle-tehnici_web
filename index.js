@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 
 obGlobal = {
-    erori: []
+    erori: {}
 }
 
 app = express(); //construim practic app prin express(), de acolo ne luam metodele din express.js
@@ -29,14 +29,27 @@ app.get("/test", function(req, res){ //ii spunem ca daca este accesata pagina /t
 function initErori(){ //functie pt initializarea erori.json
     let continut = fs.readFileSync(path.join(__dirname, "resurse", "json_files", "erori.json")).toString("utf8"); //Sync face citirea pe loc, cand pornim serverul,  transformam in string in formatul utf8
     // console.log(continut); //printam continutul
-    let obJson = JSON.parse(continut);
+    let obJson = JSON.parse(continut); // //////   cum??   //////convertim string ul din JSON intr un obiect
     for(let eroare of obJson.info_erori){// folosim of pt avea referinta la fiecare obiect the tip eroare din array ul cu info_erori din erori.json
         eroare.imagine = obJson.cale_baza+"/"+eroare.imagine;
     }
-    obGlobal.erori = obJson;
+    obGlobal.erori = obJson; // aici nu inteleg ce se intampla
 }
 
 initErori();
+
+// function afisEroare(res, _identificator = -1,_titlu, _text, _imagine = "default"){
+//     let vErori = obGlobal.erori.info_erori;
+//     let eroare = vErori.find(function(element){
+//         return element.identificator == _identificator
+//     })
+//     if(eroare){
+
+//     }
+// }
+
+// afisEroare(res, 10, {_titlu: "a", _text:"b"})
+
 
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res
     //care se afla in metoda get() din app; pe urma definim functia function(req, res) si spunem ce vrem sa facem cu obiectele req si res
@@ -51,7 +64,7 @@ app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care
             }
             else{ //daca nu este index sau home, verificam daca incepe cu string ul acela
                 if(err.message.startsWith("Failed to lookup view")){
-                    res.send("EROARE!!!!!!!!!!");
+                    res.status(404).send("EROARE!!!!");
                 }
             }  
         }

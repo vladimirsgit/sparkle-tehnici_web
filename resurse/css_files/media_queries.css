@@ -1,60 +1,16 @@
 
-/* TABEL */
-
-@media screen and (max-width: 768px) {
-    #tabel{
-        overflow-x: auto;
-    }
-}
-
-/* MENIU */
-
-@media screen and (max-width: 1000px) and (min-width: 700px) {
-    
-    #acasa, #store-menu, #welcome-menu, #news-menu, #support-menu, #about-menu{
-        display: none;
-    }
-    #acasa-meniu, #store-mediu, #welcome-mediu, #news-mediu, #support-mediu, #about-mediu{
-        display: inline-block;
-    }
-
-}
+/* //////////////////// ECRAN TELEFON //////////////////// */
 
 
-/* //////////////////////// index_styles //////////////////////// */
-
-@media screen and (max-width: 768) {
-    html{
-        animation: none;
-    }
-}
-
-@media screen and (min-width: 360px) {
-    html{
-       font-size: 14px;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    html{
-       font-size: 16px;
-    }
-}
-
-@media screen and (min-width: 1366px) {
-    html{
-       font-size: 18px;
-    }
-}
-
-/* STAGE3.css */
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px){
     html{
         --margin-spacing: 0px;
         --grid-gap: 10px;
-        --main-sections-spacing: 15px
+        --main-sections-spacing: 15px;
+        animation: none;
+        font-size: 10px;
     }
+    
     body{
         margin-left: var(--margin-spacing);
         margin-right: var(--margin-spacing);
@@ -68,60 +24,6 @@
     #game-trailers{
         display: none;
     }
-}
-
-@media screen and (max-width: 768px) {
-    html{
-        --margin-spacing: 20px;
-        --grid-gap: 15px;
-        --main-sections-spacing: 20px;
-    }
-
-    body{
-        margin-left: var(--margin-spacing);
-        margin-right: var(--margin-spacing);
-    }
-
-    #grid-pagina{
-        gap: var(--grid-gap);
-    }
-    
-    header, body{
-        margin-bottom: var(--main-sections-spacing);
-    }
-}
-
-/* GRID */
-
-
-@media screen and (min-width:1001px) {
-    #grid-pagina{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-areas: "z-welcome z-welcome z-welcome"
-                             "z-tabel z-tabel z-news"
-                             "z-event-calendar z-user-stats z-news"
-                             "z-online-users z-user-stats z-news"
-                             "z-online-users z-announcements z-site-stats";
-    }
-    
-}
-
-@media screen and (max-width: 1000px) {
-    #grid-pagina{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-areas: "z-welcome z-welcome"
-                             "z-tabel z-tabel"
-                             "z-news z-event-calendar"
-                             "z-news z-user-stats"
-                             "z-online-users z-site-stats"
-                             "z-announcements z-announcements";
-    }
-    
-}
-
-@media screen and (max-width: 768px) {
     #grid-pagina{
         display: grid;
         grid-template-columns: repeat(1, 1fr);
@@ -134,5 +36,64 @@
                              "z-announcements"
                              "z-site-stats";
     }
+}
+
+/* //////////////////// ECRAN TABLETA //////////////////// */
+
+@media screen and (min-width: 481px) and (max-width: 1023px){
+    html{
+        font-size: 16px;
+        --margin-spacing: 20px;
+        --grid-gap: 15px;
+        --main-sections-spacing: 20px;
+     }
+     body{
+        margin-left: var(--margin-spacing);
+        margin-right: var(--margin-spacing);
+    }
+
+    #download{
+        display: none;
+    }
+
+    #grid-pagina{
+        gap: var(--grid-gap);
+    }
     
+    header, body{
+        margin-bottom: var(--main-sections-spacing);
+    }
+    #grid-pagina{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: "z-welcome z-welcome"
+                             "z-tabel z-tabel"
+                             "z-news z-event-calendar"
+                             "z-news z-user-stats"
+                             "z-online-users z-site-stats"
+                             "z-announcements z-announcements";
+    }
+    #acasa, #store-menu, #welcome-menu, #news-menu, #support-menu, #about-menu{
+        display: none;
+    }
+    #acasa-meniu, #store-mediu, #welcome-mediu, #news-mediu, #support-mediu, #about-mediu{
+        display: inline-block;
+    }
+}
+
+/* //////////////////// ECRAN DESKTOP/LAPTOP //////////////////// */
+
+@media screen and (min-width: 1024px){
+    html{
+        font-size: 18px;
+    }
+    #grid-pagina{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas: "z-welcome z-welcome z-welcome"
+                             "z-tabel z-tabel z-news"
+                             "z-event-calendar z-user-stats z-news"
+                             "z-online-users z-user-stats z-news"
+                             "z-online-users z-announcements z-site-stats";
+    }
 }
