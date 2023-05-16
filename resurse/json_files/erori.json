@@ -1,0 +1,59 @@
+{
+  "cale_baza": "resurse/imagini/erori",
+  "eroare_default": {
+    "titlu": "EROARE!!!",
+    "text": "A survenit o eroare!!",
+    "imagine": "interzis.png"
+  },
+  "info_erori": [
+    {
+      "identificator": 400,
+      "status": true,
+      "titlu": "400 - Bad Request",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    },
+    {
+      "identificator": 401,
+      "status": true,
+      "titlu": "401 - Unauthorized",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    },
+    {
+      "identificator": 403,
+      "status": true,
+      "titlu": "403 - Forbidden",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    },
+    {
+      "identificator": 404,
+      "status": true,
+      "titlu": "404 - Not Found",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    },
+    {
+      "identificator": 500,
+      "status": true,
+      "titlu": "500 - Internal Server Error",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    },
+    {
+      "identificator": 502,
+      "status": true,
+      "titlu": "502 - Bad Gateway",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    },
+    {
+      "identificator": 503,
+      "status": true,
+      "titlu": "503 - Service Unavailable",
+      "text": "Look somewhere else :)",
+      "imagine": "lupa.png"
+    }
+  ]
+}

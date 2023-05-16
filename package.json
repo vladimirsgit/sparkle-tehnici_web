@@ -1,0 +1,31 @@
+{
+  "name": "sparkle",
+  "version": "1.0.0",
+  "description": "Sparkle(SPRKL) is the safest and fastest way of buying games.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sparkle",
+    "sprkl",
+    "gaming",
+    "store",
+    "games",
+    "buy",
+    "games",
+    "online",
+    "gaming",
+    "shop",
+    "cool",
+    "games",
+    "epic",
+    "games"
+  ],
+  "author": "Vladimir Stratulat",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
