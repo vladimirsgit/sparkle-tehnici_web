@@ -1,5 +1,5 @@
 {
-  "cale_baza": "resurse/imagini/erori",
+  "cale_baza": "/resurse/imagini/erori",
   "eroare_default": {
     "titlu": "EROARE!!!",
     "text": "A survenit o eroare!!",

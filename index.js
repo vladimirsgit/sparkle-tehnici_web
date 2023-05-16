@@ -33,23 +33,47 @@ function initErori(){ //functie pt initializarea erori.json
     for(let eroare of obJson.info_erori){// folosim of pt avea referinta la fiecare obiect the tip eroare din array ul cu info_erori din erori.json
         eroare.imagine = obJson.cale_baza+"/"+eroare.imagine;
     }
-    obGlobal.erori = obJson; // aici nu inteleg ce se intampla
+    obGlobal.erori = obJson; // atribuim obiectului erori din obiectul global,  fisierul JSON transformat in obiect
+    obJson.eroare_default.imagine = obJson.cale_baza+"/"+obJson.eroare_default.imagine; 
+    // obJson.eroare_default.imagine = path.join(__dirname, obJson.cale_baza, obJson.eroare_default.imagine);
 }
 
 initErori();
 
-// function afisEroare(res, _identificator = -1,_titlu, _text, _imagine = "default"){
-//     let vErori = obGlobal.erori.info_erori;
-//     let eroare = vErori.find(function(element){
-//         return element.identificator == _identificator
-//     })
-//     if(eroare){
+function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primeste obiectul res, un identificator, titlu, text si imagine
+    let vErori = obGlobal.erori.info_erori; //luam vectorul cu info erori si il bagam in vErori
+    let eroare = vErori.find(function(element){  //functia function(element) returneaza adev sau fals, catre metoda find(). daca elementul curent pe care il itereaza are acelasi 
+        //identificator cu cel pe care l a primit, atunci eroarea va fi atribuita variabilei eroare
+        return element.identificator == _identificator;
+    })
+    if(eroare){ //daca a gasit eroarea in vectorul cu erori
+        let titlu1 = _titlu || eroare.titlu; //atribuim fie _titlu daca a fost dat ca argument, iar daca nu, eroare.titlu, asta daca a vrut programatorul
+                                            // sa schimbe titlul erorii
+        let text1 = _text || eroare.text; //idem
+        let imagine1 = _imagine || eroare.imagine; //idem
+        if(eroare.status){ //daca avem statusul erorii
+            res.status(_identificator).render("pagini/eroare", {titlu: titlu1, text: text1, imagine: imagine1}) //setam in res codul erorii ca fiind identificatorul primit
+            //si randam pagina cu erori, oferind calea si un obiect care poate contine titlu, text si imagine
+        }
+        else{
+            res.render("pagini/eroare", {titlu: titlu1, text: text1, imagine:imagine1}) //altfel doar randam eroarea default in caz ca nu avem status
+        }
+    }
+    else{
+        let errDefault = obGlobal.erori.eroare_default; //repetam ce am facut mai sus doar ca utilizam eroarea default
+        let titlu1 = _titlu || errDefault.titlu;
+        let text1 = _text || errDefault.text;
+        let imagine1 = _imagine || errDefault.imagine;
+        res.render("pagini/eroare", {titlu: titlu1, text: text1, imagine: imagine1})
+    }
+}
 
-//     }
-// }
 
-// afisEroare(res, 10, {_titlu: "a", _text:"b"})
-
+const correctHomePaths = ["/", "/index", "/home"];
+app.get(correctHomePaths, function(req, res){
+    res.render("pagini/index", {ip:req.ip});
+    
+})
 
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res
     //care se afla in metoda get() din app; pe urma definim functia function(req, res) si spunem ce vrem sa facem cu obiectele req si res
@@ -59,14 +83,12 @@ app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care
         const correctHomePaths = ["/index", "/home"];//definesc un vector pt a folosi index si home pt a merge catre prima pagina
         console.log("Eroare", err);
         if(err){
-            if(correctHomePaths.includes(req.url)){ //daca avem o eroare de pagina indexistenta dar cererea este index sau home
-                res.render("pagini/index.ejs"); //afiseaza index.ejs
-            }
-            else{ //daca nu este index sau home, verificam daca incepe cu string ul acela
                 if(err.message.startsWith("Failed to lookup view")){
-                    res.status(404).send("EROARE!!!!");
+                   afisEroare(res, 404);
                 }
-            }  
+                else{
+                    afisEroare(res);
+                }
         }
         else{ //daca nu avem eroare
            res.send(rezultatRandare); //trimitem catre client rezultatul randarii html a fisierului .ejs

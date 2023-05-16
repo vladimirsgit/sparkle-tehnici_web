@@ -15,8 +15,12 @@
     <%- include("../fragmente/header.ejs") %>
     <main>
         <section>
-            <h2>PAGINA A</h2>
+            <h2><%- locals.titlu %></h2>
+            <p><%- locals.text %></p>
         </section>
+        <div id="img-err">
+            <img src="<%- locals.imagine %>">
+        </div>
     </main>
     <br><br>
     <%- include("../fragmente/footer.ejs") %>
