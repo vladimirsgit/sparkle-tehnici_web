@@ -46,7 +46,6 @@ header.myheader {
   justify-content: space-between;
   background-color: var(--header-color);
   transition: all 0.3s ease;
-  padding-left: 20px;
 }
 
 header:hover {
