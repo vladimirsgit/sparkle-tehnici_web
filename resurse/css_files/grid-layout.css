@@ -1,0 +1,98 @@
+
+/* GRID */
+
+#grid-pagina{
+    gap: var(--grid-gap);
+    margin-top: var(--main-sections-spacing);
+}
+
+#grid-pagina > *{
+    transition: box-shadow 0.3s ease;
+    background-color: var(--grid-color);
+}
+
+#grid-pagina > *:hover{
+    box-shadow: 0px 0px 10px 5px rgb(0, 191, 255, 0.6);
+}
+
+
+#grid-pagina > section{
+    padding: 20px;
+}
+#grid-pagina > *{
+    outline: 1px solid var(--border-color);
+    margin: 0;
+}
+
+#welcome{
+    grid-area: z-welcome;
+    text-align: center;
+}
+
+#store{
+    grid-area: z-store;
+}
+
+#wishlist{
+    grid-area: z-wishlist;
+}
+
+#locations{
+    grid-area: z-locations;
+}
+
+#tabel{
+    grid-area: z-tabel;
+}
+
+#event-calendar{
+    grid-area: z-event-calendar;
+}
+
+#online-users{
+    grid-area: z-online-users;
+}
+
+#user-stats{
+    grid-area: z-user-stats;
+}
+
+#announcements{
+    grid-area: z-announcements;
+}
+#site-stats{
+    grid-area: z-site-stats;
+}
+
+#faq{
+    grid-area: z-faq;
+}
+
+#news{
+    grid-area: z-news;
+    padding: 10px;
+}
+#news h3{
+    margin-top: 0.3em;
+}
+
+#game-trailers{
+    grid-area: z-game-trailers;
+}
+
+#support{
+    grid-area: z-support;
+}
+
+#about{
+    grid-area: z-about;
+}
+
+/* FROM THE GRID */
+#download{
+    text-align: right;
+}
+
+#download a{
+    margin: 5em;
+}

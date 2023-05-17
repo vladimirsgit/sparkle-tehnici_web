@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:wght@300&display=swap");
+/* VARIABLES */
+html {
+  --bg-color: #120519;
+  --button-color: #522996;
+  --header-color: #14337b;
+  --grid-color: #1b0826;
+  --footer-color: #14337b;
+  --highlight: #f15a24;
+  --text-color: #ecebeb;
+  --links-color: #719dfd;
+  --visited-color: #00ff4c;
+  --border-color: #133495;
+  --margin-spacing: 40px;
+  --main-sections-spacing: 1em;
+  --grid-gap: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 18px;
+  transition: font-size 0.3s ease;
+  font-family: "Exo 2", sans-serif;
+}
+body {
+  margin-bottom: var(--main-sections-spacing);
+  margin-left: var(--margin-spacing);
+  margin-right: var(--margin-spacing);
+  font-size: 1.1em;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+header.myheader {
+  margin-top: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--header-color);
+  transition: all 0.3s ease;
+  padding-left: 20px;
+}
+
+header:hover {
+  box-shadow: 0px 0px 10px 5px rgb(0, 191, 255, 0.6);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Audiowide", cursive;
+  margin-bottom: 0.2em;
+  letter-spacing: 0.1em;
+  margin-top: 0.2em;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: 0.3em;
+  padding-left: 20px;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.5em;
+}
+
+/* ////////////// LINKS STYLING ////////////// */
+
+a[href^="http"]:not(.taburi-iframe)::before {
+  content: "⮳";
+  font-size: 1.5em;
+  transition: color 0.3s ease-in-out;
+  color: inherit;
+}
+
+a[href^="http"]:hover::before {
+  color: var(--highlight);
+}
+
+main a:not(.taburi-iframe) {
+  background: radial-gradient(
+    ellipse at center,
+    #c76a5d 0%,
+    #c76a5d 40%,
+    transparent 80%,
+    transparent 100%
+  );
+  background-position: center;
+  background-size: 0;
+  background-repeat: no-repeat;
+  transition: background-size 1s ease-in-out;
+}
+
+main a:not(.taburi-iframe):hover {
+  background-size: 100%;
+}
+main a:not(.taburi-iframe):active {
+  border: 1px solid var(--border-color);
+  transform: translate3d(3px, 3px);
+}
+a {
+  color: var(--links-color);
+  text-decoration: none;
+}
+
+.myheader a {
+  color: var(--text-color);
+}
+main a:visited {
+  color: var(--visited-color);
+}
+
+/* //////////////////////// TABURI IFRAME //////////////////////// */
+
+.container-iframe {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.taburi-iframe span {
+  font-weight: bold;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  margin-bottom: 0.1em;
+  background-image: linear-gradient(
+    to right,
+    var(--text-color),
+    var(--button-color) 6%
+  );
+  width: 10em;
+  height: 3em;
+  text-align: center;
+  line-height: 3em;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.taburi-iframe a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  background: transparent;
+  color: var(--text-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.taburi-iframe a:visited {
+  color: var(--text-color);
+}
+
+.taburi-iframe a:hover {
+  background-color: var(--text-color);
+  color: var(--button-color);
+}
+
+.taburi-iframe {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+iframe {
+  border: 4px solid var(--border-color);
+  border-right-color: #c7c7c7;
+}

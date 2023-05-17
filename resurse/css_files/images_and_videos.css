@@ -1,0 +1,35 @@
+#welcome-img-container{
+    display: flex;
+    justify-content: center;
+}
+
+#welcome-img-container img{
+    width: 100%;
+    min-width: 80px;
+}
+
+
+img{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border: 3.5px solid var(--border-color);
+    border-radius: 10%;
+    width: 70%;
+    min-width: 30px;
+    max-width: 350px;
+}
+
+#info-video video{
+    width: 40vw;
+    height: auto;
+    min-width: 350px;
+    max-width: 800px;
+
+}
+
+/* SUBTITLES STYLING */
+::cue{
+    background: transparent;
+    color: var(--text-color);
+    text-shadow: 3px 3px 3px black;
+}
