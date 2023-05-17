@@ -13,6 +13,10 @@ app.set("view engine", "ejs"); //setam view engine ul sa fie EJS
 
 app.use("/resurse", express.static(path.join(__dirname, "resurse"))); //ii aratam de unde sa ia toate resursele necesare pt afisarea site ului
 
+app.get("/favicon.ico", function(req, res){
+    res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
+})
+
 app.listen(8080, function(){ // ii dam portul, dupa definim o functie anonima care sa faca ceva dupa ce incepe ascultarea din app.listen()
     console.log("A pornit aplicatia");
     console.log("FOLDERUL CURENT: ", __dirname);
@@ -24,7 +28,6 @@ app.listen(8080, function(){ // ii dam portul, dupa definim o functie anonima ca
 app.get("/test", function(req, res){ //ii spunem ca daca este accesata pagina /test, sa randeze test.ejs
     res.render("pagini/test.ejs");
 })
-
 
 function initErori(){ //functie pt initializarea erori.json
     let continut = fs.readFileSync(path.join(__dirname, "resurse", "json_files", "erori.json")).toString("utf8"); //Sync face citirea pe loc, cand pornim serverul,  transformam in string in formatul utf8
@@ -74,6 +77,19 @@ app.get(correctHomePaths, function(req, res){
     res.render("pagini/index", {ip:req.ip});
     
 })
+
+const foldersForCreation = ["temp"];
+for(let folder of foldersForCreation){
+    let cale = path.join(__dirname, folder);
+    if(!fs.existsSync(cale)){
+        fs.mkdirSync(cale);
+    }
+}
+
+app.get("/*.ejs", function(req, res){
+    afisEroare(res, 400);
+})
+
 
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res
     //care se afla in metoda get() din app; pe urma definim functia function(req, res) si spunem ce vrem sa facem cu obiectele req si res
