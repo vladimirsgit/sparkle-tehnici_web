@@ -8,6 +8,7 @@ html{
     --highlight: #f15a24;
     --text-color: #ecebeb;
     --links-color: #719dfd;
+    --visited-color: #00ff4c;
     --border-color: #133495;
 }
 
@@ -30,12 +31,81 @@ header.myheader{
 
 }
 
+::cue{
+    background: transparent;
+    color: var(--text-color);
+    text-shadow: 3px 3px 3px black;
+}
+
 main{
     width: 100%;
     height: 100%;
 }
+#info-video video{
+    width: 40vw;
+    height: auto;
+    min-width: 350px;
+    max-width: 800px;
+
+}
+
+a[href^="http"]:not(.taburi-iframe)::before{
+    content: "⮳";
+    font-size: 1.5em;
+    transition: color 0.3s ease-in-out;
+    color: inherit;
+}
+
+a[href^="http"]:hover::before{
+    color: var(--highlight);
+}
+
+main a:not(.taburi-iframe){
+   background: radial-gradient(ellipse at center, #c76a5d 0%, #c76a5d 40%, transparent 80%, transparent 100%);
+   background-position: center;
+   background-size: 0;
+   background-repeat: no-repeat;
+   transition: background-size 1s ease-in-out;
+
+}
+
+main a:not(.taburi-iframe):hover{
+    background-size: 100%;
+ }
+main a:not(.taburi-iframe):active{
+    border: 1px solid var(--border-color);
+    transform: translate3d(3px, 3px);
+}
+a{
+    color: var(--links-color);
+    text-decoration: none;
+}
+
+.myheader a{
+    color: var(--text-color);
+}
+main a:visited{
+    color: var(--visited-color);
+}
 
 
+footer > *{
+    padding-left: 20px;
+}
+
+#store > * {
+    padding-left: 20px;
+}
+#about > *{
+    padding-left: 20px;
+}
+
+#wishlist > *{
+    padding-left: 20px;
+}
+#support > *{
+    padding-left: 20px;
+}
 h1, h2, h3{
     font-family: 'Audiowide', cursive;
     margin-bottom: 0.2em;
@@ -43,10 +113,11 @@ h1, h2, h3{
     margin-top: 0.2em;
 
 }
+
 h1{
     font-size: 3em;
     letter-spacing: 0.3em;
-    margin-left:  0.2em;
+    padding-left: 20px;
     
 }
 h2{
@@ -178,6 +249,7 @@ body{
     opacity: 0.5;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
     background-color: var(--button-color);
+    padding-left: 0;
 }
  
  #link-top:hover {
@@ -248,6 +320,10 @@ body{
     background: transparent;
     color: var(--text-color);
     transition: all 0.3s ease-in-out;
+}
+
+.taburi-iframe a:visited{
+    color: var(--text-color);
 }
 
 .taburi-iframe a:hover{

@@ -15,7 +15,15 @@
     <%- include("../fragmente/header.ejs") %>
     <main>
         <section id="about">
-            <h2>About</h2>
+                <h2>About</h2>
+                <section id="info-video">
+                    <video controls poster="/resurse/imagini/video-poster.png" preload="none">
+                        <source src="/resurse/videouri/dna-video.mp4" type="video/mp4">
+                        <source src="/resurse/videouri/dna-video.mov" type="video/mov">
+                        <track default src="/resurse/videouri/tracks/english_sub.vtt" kind="captions" srclang="en" label="english"/>
+                        <track src="/resurse/videouri/tracks/romanian_sub.vtt" kind="captions" srclang="ro" label="română"/>
+                    </video>
+                </section>
                 <div class="about-list">
                     <details id="about-us">
                         <summary><strong>About us</strong></summary>
