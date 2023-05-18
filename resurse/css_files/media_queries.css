@@ -40,6 +40,9 @@
                              "z-site-stats";
     }
     
+    #site-stats p{
+        column-count: 1;
+    }
 }
 
 /* //////////////////// ECRAN TABLETA //////////////////// */
@@ -82,6 +85,10 @@
     }
     #acasa-meniu, #store-mediu, #welcome-mediu, #news-mediu, #support-mediu, #about-mediu{
         display: inline-block;
+    }
+    
+    #site-stats p{
+        column-count: 1;
     }
 }
 

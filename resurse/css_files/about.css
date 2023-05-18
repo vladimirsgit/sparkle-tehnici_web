@@ -82,9 +82,9 @@
     transition: all 2s ease-in-out;
 }
 
+
 #text-original:hover + #reflexie, #reflexie:hover{
     transform-origin: top;
-    transform: scaleZ()
 }
 
 /* /////////////////////////////////// */

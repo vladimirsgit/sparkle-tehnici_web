@@ -96,3 +96,9 @@
 #download a{
     margin: 5em;
 }
+
+
+#site-stats p{
+    column-count: 2;
+    column-rule: solid var(--border-color);
+}

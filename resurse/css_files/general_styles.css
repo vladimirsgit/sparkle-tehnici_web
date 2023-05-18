@@ -8,6 +8,7 @@ html {
   --footer-color: #14337b;
   --highlight: #f15a24;
   --text-color: #ecebeb;
+  --selected-text-color: #6291f5;
   --links-color: #719dfd;
   --visited-color: #00ff4c;
   --border-color: #133495;
@@ -15,7 +16,14 @@ html {
   --main-sections-spacing: 1em;
   --grid-gap: 20px;
 }
+/* p::selection, a::selection, h1::selection, h2::selection, h3::selection, h4::selection, h5::selection, div::selection, strong::selection{
+  background-color: black;
+} */
 
+*::selection{
+  background-color: var(--selected-text-color);
+  color: rgb(2, 20, 77);
+}
 * {
   box-sizing: border-box;
 }
