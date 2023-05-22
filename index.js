@@ -3,9 +3,11 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const sharp = require("sharp");
 
 obGlobal = {
-    erori: {}
+    erori: {},
+    obImagini: {}
 }
 
 app = express(); //construim practic app prin express(), de acolo ne luam metodele din express.js
@@ -43,6 +45,37 @@ function initErori(){ //functie pt initializarea erori.json
 
 initErori();
 
+function initImagini(){
+    var continut = fs.readFileSync(__dirname + "/resurse/json_files/galerie_statica.json").toString("utf-8"); //citim fisierul JSON, si il transformam cu toString in format citibil
+
+    obGlobal.obImagini = JSON.parse(continut); //transformam intr un obiect fisierul Json, si il bagam in obImagini
+    let vImagini = obGlobal.obImagini.imagini; //vectorul cu imagini este creat, cu ajutorul vectorului imagini din JSON
+
+    let caleAbs = path.join(__dirname, obGlobal.obImagini.cale_galerie); //aflam calea absoluta a galeriei
+    console.log("CALE ABSOLUTA: " + caleAbs);
+    let caleAbsMediu = path.join(__dirname, obGlobal.obImagini.cale_galerie, "mediu");
+    
+    if(!fs.existsSync(caleAbsMediu))
+        fs.mkdirSync(caleAbsMediu);
+    
+
+    for(let imag of vImagini){ //iteram prin fiecare imagine a vectorului cu imagini
+        [numeFis, ext] = path.basename(imag.cale_fisier).split("."); //scoatem extensia pt a avea numele fisierului
+
+        let caleFisAbs = path.join(caleAbs, imag.cale_fisier); //facem rost de calea imaginilor mari
+    
+        let caleFisMediuAbs = path.join(caleAbsMediu, numeFis+".webp"); //facem rost de calea imaginilor medii
+
+
+        sharp(caleFisAbs).resize(350).toFile(caleFisMediuAbs); //facem resize cu width the 350px si il transformam in fisierul rezultat din caleFisMediuAbs
+        imag.cale_fisier_mediu = path.join("/", obGlobal.obImagini.cale_galerie, "mediu", numeFis + ".webp"); //cream calea relativa a imaginii
+        imag.cale_fisier = path.join("/", obGlobal.obImagini.cale_galerie, imag.cale_fisier); //cale 
+    }
+
+}
+
+initImagini();
+
 function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primeste obiectul res, un identificator, titlu, text si imagine
     let vErori = obGlobal.erori.info_erori; //luam vectorul cu info erori si il bagam in vErori
     let eroare = vErori.find(function(element){  //functia function(element) returneaza adev sau fals, catre metoda find(). daca elementul curent pe care il itereaza are acelasi 
@@ -74,13 +107,13 @@ function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primes
 
 const correctHomePaths = ["/", "/index", "/home"];
 app.get(correctHomePaths, function(req, res){
-    res.render("pagini/index", {ip:req.ip});
+    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
     
 })
 
 const foldersForCreation = ["temp"];
 for(let folder of foldersForCreation){
-    let cale = path.join(__dirname, folder);
+    let cale = path.join(__dirname, "resurse", folder);
     if(!fs.existsSync(cale)){
         fs.mkdirSync(cale);
     }

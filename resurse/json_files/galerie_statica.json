@@ -1,0 +1,317 @@
+{
+  "cale_galerie": "resurse/imagini/galerie_statica",
+  "imagini": [
+    {
+      "cale_fisier": "iarna/iarna1.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna2.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna3.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna4.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna5.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna6.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna7.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna8.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna9.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna10.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna11.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna12.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "iarna/iarna13.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine iarna",
+      "anotimp": "iarna"
+    },
+    {
+      "cale_fisier": "primavara/primavara1.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara2.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara3.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara4.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara5.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara6.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara7.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara8.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara9.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara10.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara11.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara12.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "primavara/primavara13.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine primavara",
+      "anotimp": "primavara"
+    },
+    {
+      "cale_fisier": "vara/vara1.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara2.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara3.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara4.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara5.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara6.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara7.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara8.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara9.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara10.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara11.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara12.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "vara/vara13.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine vara",
+      "anotimp": "vara"
+    },
+    {
+      "cale_fisier": "toamna/toamna1.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna2.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna3.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna4.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna5.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna6.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna7.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna8.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna9.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna10.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna11.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna12.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "toamna/toamna13.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine toamna",
+      "anotimp": "toamna"
+    }
+  ]
+}
