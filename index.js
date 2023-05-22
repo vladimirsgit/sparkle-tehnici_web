@@ -86,7 +86,7 @@ for(let folder of foldersForCreation){
     }
 }
 
-app.get("/*.ejs", function(req, res){
+app.get("/*.ejs", function(req, res){ //in caz ca se incearca a accesa un EJS, da i eroare
     afisEroare(res, 400);
 })
 
