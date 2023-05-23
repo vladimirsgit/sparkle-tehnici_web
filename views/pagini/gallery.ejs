@@ -8,19 +8,12 @@
     <meta name="description" content="Sparkle(SPRKL) is the safest and fastest way of buying games.">
     <meta name="author" content="Vladimir Stratulat">
     <title>SPARKLE</title>
-    
     <%- include("../fragmente/head.ejs") %>
 </head>
 <body>
     <%- include("../fragmente/header.ejs") %>
     <main>
-        <section id="info-err">
-            <h2><%- locals.titlu %></h2>
-            <p><%- locals.text %></p>
-        </section>
-        <div id="img-err">
-            <img src="<%- locals.imagine %>">
-        </div>
+        <%- include("../fragmente/gallery.ejs") %>
     </main>
     <br><br>
     <%- include("../fragmente/footer.ejs") %>

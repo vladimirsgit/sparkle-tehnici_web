@@ -1,0 +1,30 @@
+<section id="galerie-statica">
+    <h2>Galerie</h2>
+    <div id="grid-galerie">
+        <% //afisam in functie de luna, cream un obiect date, bagam luna in month, si verificam ce luna e  
+        let date = new Date();
+            let month = date.getMonth(); 
+            let season;
+            let i = 0;
+            if(month > 10 && month < 2)
+                season = "iarna"; 
+            else if(month > 1 && month < 5)
+                season = "primavara";
+            else if(month > 4 && month < 8)
+                season = "vara";
+            else season = "toamna";
+            for(let imag of locals.imagini) { //accesam obiectul trimis din index.js la randare, imagini, prin locals.imagini, si daca anotimpu egal cu season, afiseaza imaginea
+                if(imag.anotimp == season){ 
+                    i++;
+                %>  
+                <figure>
+                    <picture>
+                        <source srcset="<%-imag.cale_fisier_mediu %>" media="max-width: 1023px"/>
+                        <source srcset="<%- imag.cale_fisier_mic %>" media="max-width: 480px"/>
+                        <img src="<%-imag.cale_fisier %>" alt="jocuri">
+                    </picture>
+                    <figcaption><%-imag.text_descriere %> <%= i%>  </figcaption>
+                </figure>
+            <% }} %>
+    </div>
+</section>

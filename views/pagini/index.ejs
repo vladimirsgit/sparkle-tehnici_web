@@ -216,35 +216,8 @@
                     
                     Vestibulum in nisi vitae ante tincidunt malesuada maximus nec erat. Etiam dolor lectus, finibus dictum purus sit amet, molestie dapibus dolor. Etiam consectetur blandit eleifend. Quisque suscipit ipsum vel ipsum cursus laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque dapibus nibh sed fermentum convallis. Donec urna leo, porta sit amet volutpat ut, imperdiet et velit. Integer volutpat efficitur magna, non auctor enim egestas sed. Donec eleifend bibendum vehicula. </p>
             </section>
+            <%- include("../fragmente/gallery.ejs") %>
         </div>
-        <section id="galerie-statica">
-            <h2>Galerie</h2>
-            <div id="grid-galerie">
-                <% //afisam in functie de luna, cream un obiect date, bagam luna in month, si verificam ce luna e  
-                let date = new Date();
-                    let month = date.getMonth(); 
-                    let season;
-                    if(month > 10 && month < 2)
-                        season = "iarna"; 
-                    else if(month > 1 && month < 5)
-                        season = "primavara";
-                    else if(month > 4 && month < 8)
-                        season = "vara";
-                    else season = "toamna";
-                    for(let imag of locals.imagini) { //accesam obiectul trimis din index.js la randare, imagini, prin locals.imagini, si daca anotimpu egal cu season, afiseaza imaginea
-                        if(imag.anotimp == season){ 
-                        
-                        %>  
-                        <figure>
-                            <picture>
-                                <source srcset="<%-imag.cale_fisier_mediu %>" media="max-width: 1023px"/>
-                                <img src="<%-imag.cale_fisier %>" alt="jocuri">
-                            </picture>
-                            <figcaption>GAMING</figcaption>
-                        </figure>
-                    <% }} %>
-            </div>
-        </section>
             <section id="game-trailers">
                 <h2>Popular video game trailers</h2>
                 <p>Watch these videos to get a sense of what you might experience:</p>

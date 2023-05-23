@@ -37,7 +37,8 @@
                              "z-online-users"
                              "z-user-stats"
                              "z-announcements"
-                             "z-site-stats";
+                             "z-site-stats"
+                             "z-galerie";
     }
     
     #site-stats p{
@@ -78,14 +79,27 @@
                              "z-news z-event-calendar"
                              "z-news z-user-stats"
                              "z-online-users z-site-stats"
-                             "z-announcements z-announcements";
+                             "z-announcements z-announcements"
+                             "z-galerie z-galerie";
     }
-    #acasa, #store-menu, #welcome-menu, #news-menu, #support-menu, #about-menu{
+    /* #acasa, #store-menu, #welcome-menu, #news-menu, #support-menu, #about-menu{
+        display: none;
+    } */
+    #acasa{
         display: none;
     }
-    #acasa-meniu, #store-mediu, #welcome-mediu, #news-mediu, #support-mediu, #about-mediu{
+    #acasa-mediu{
         display: inline-block;
     }
+    ul.meniu > li > div:not(:first-child){
+        display: none;
+    }
+    ul.meniu > li > div{
+        display: inline-block;
+    }
+    /* #acasa-mediu, #store-mediu, #welcome-mediu, #news-mediu, #support-mediu, #about-mediu{
+        display: inline-block;
+    } */
     
     #site-stats p{
         column-count: 1;
@@ -105,6 +119,7 @@
                              "z-tabel z-tabel z-news"
                              "z-event-calendar z-user-stats z-news"
                              "z-online-users z-user-stats z-news"
-                             "z-online-users z-announcements z-site-stats";
+                             "z-online-users z-announcements z-site-stats"
+                             "z-galerie z-galerie z-galerie";
     }
 }

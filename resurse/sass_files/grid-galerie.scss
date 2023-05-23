@@ -1,0 +1,77 @@
+#galerie-statica{
+    figcaption{
+        text-align: center;
+     
+     }
+
+    img{
+        width: 100%;
+    }
+     
+}
+
+#grid-galerie{
+  counter-reset: nrimag 0;
+  figcaption{
+    counter-increment: nrimag 1;
+    &::before{
+      content: counter(nrimag, lower-roman)") ";
+    }
+  }
+}
+
+
+@media screen and (max-width: 480px){
+    #grid-galerie{
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      text-align: center;
+      gap: 1em;
+    }
+
+}
+
+@media screen and (min-width: 481px) and (max-width: 1023px){
+  #grid-galerie{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+    gap: 1em;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #grid-galerie{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    gap: 1em;
+   
+    img{
+      transition: all 0.25s ease-in-out;
+      &:hover{
+        position: relative;
+        // am folosit un scale mai mic, asa imi placea mai mult
+        transform: scale(1.1);
+        transform-origin: top center;
+        opacity: 0.5;
+        border-radius: 15px;
+      }
+    }
+} 
+
+
+
+
+  $grid-areas: (#{2}/#{3}/#{3}/#{4}, #{3}/#{1}/#{4}/#{2}, #{3}/#{2}/#{4}/#{3}, #{3}/#{3}/#{4}/#{4}, #{4}/#{1}/#{5}/#{2}, #{4}/#{3}/#{5}/#{4}, #{5}/#{1}/#{6}/#{2}, #{5}/#{2}/#{6}/#{3}, #{5}/#{3}/#{6}/#{4});
+
+  @for $i from 1 through length($grid-areas) {
+    #grid-galerie {
+      & > figure:nth-child(#{$i + 4}) {
+        grid-area: nth($grid-areas, $i);
+      }
+    }
+}
+
+  
+}

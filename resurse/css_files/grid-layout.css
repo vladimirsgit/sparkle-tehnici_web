@@ -88,6 +88,10 @@
     grid-area: z-about;
 }
 
+#galerie-statica{
+    grid-area: z-galerie;
+}
+
 /* FROM THE GRID */
 #download{
     text-align: right;

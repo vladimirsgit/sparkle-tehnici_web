@@ -52,24 +52,27 @@ function initImagini(){
     let vImagini = obGlobal.obImagini.imagini; //vectorul cu imagini este creat, cu ajutorul vectorului imagini din JSON
 
     let caleAbs = path.join(__dirname, obGlobal.obImagini.cale_galerie); //aflam calea absoluta a galeriei
-    console.log("CALE ABSOLUTA: " + caleAbs);
-    let caleAbsMediu = path.join(__dirname, obGlobal.obImagini.cale_galerie, "mediu");
+    let caleAbsMediu = path.join(__dirname, obGlobal.obImagini.cale_galerie, "mediu"); //calea absoluta a pozelor pt ecran mediu
+    let caleAbsMic = path.join(__dirname, obGlobal.obImagini.cale_galerie, "mic"); //idem mic
     
     if(!fs.existsSync(caleAbsMediu))
         fs.mkdirSync(caleAbsMediu);
-    
+    if(!fs.existsSync(caleAbsMic))
+        fs.mkdirSync(caleAbsMic);
 
     for(let imag of vImagini){ //iteram prin fiecare imagine a vectorului cu imagini
         [numeFis, ext] = path.basename(imag.cale_fisier).split("."); //scoatem extensia pt a avea numele fisierului
 
         let caleFisAbs = path.join(caleAbs, imag.cale_fisier); //facem rost de calea imaginilor mari
-    
         let caleFisMediuAbs = path.join(caleAbsMediu, numeFis+".webp"); //facem rost de calea imaginilor medii
-
-
+        let caleFisMicAbs = path.join(caleAbsMic, numeFis + ".webp");
+        //astea de mai sus le am creat pt sharp
         sharp(caleFisAbs).resize(350).toFile(caleFisMediuAbs); //facem resize cu width the 350px si il transformam in fisierul rezultat din caleFisMediuAbs
-        imag.cale_fisier_mediu = path.join("/", obGlobal.obImagini.cale_galerie, "mediu", numeFis + ".webp"); //cream calea relativa a imaginii
-        imag.cale_fisier = path.join("/", obGlobal.obImagini.cale_galerie, imag.cale_fisier); //cale 
+        sharp(caleFisAbs).resize(250).toFile(caleFisMicAbs);
+
+        imag.cale_fisier_mic = path.join("/", obGlobal.obImagini.cale_galerie, "mic", numeFis + "webp");
+        imag.cale_fisier_mediu = path.join("/", obGlobal.obImagini.cale_galerie, "mediu", numeFis + ".webp"); //cream calea relativa a imaginii medii
+        imag.cale_fisier = path.join("/", obGlobal.obImagini.cale_galerie, imag.cale_fisier); //cale relativa a imaginii normale
     }
 
 }
@@ -111,6 +114,10 @@ app.get(correctHomePaths, function(req, res){
     
 })
 
+app.get("/gallery", function(req, res){
+    res.render("pagini/gallery", {imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa
+    
+})
 const foldersForCreation = ["temp"];
 for(let folder of foldersForCreation){
     let cale = path.join(__dirname, "resurse", folder);
@@ -129,7 +136,6 @@ app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care
     //pe care le primeste ca argumente
     res.render("pagini" + req.url, function(err, rezultatRandare){ //res.render primeste 2 argumente, folderul din views + numele paginii cerute
         //si o functie callback, care este chemata la finalul metodei render(), si primeste un obiect eroare si rezultat randare
-        const correctHomePaths = ["/index", "/home"];//definesc un vector pt a folosi index si home pt a merge catre prima pagina
         console.log("Eroare", err);
         if(err){
                 if(err.message.startsWith("Failed to lookup view")){
