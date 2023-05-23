@@ -4,10 +4,15 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
+const sass = require("sass");
 
 obGlobal = {
     erori: {},
-    obImagini: {}
+    obImagini: {},
+    folderScss: path.join(__dirname, "resurse/scss_files"),
+    folderCss: path.join(__dirname, "resurse/css_files"),
+    folderBackup: path.join(__dirname, "backup"),
+    optiuniMeniu: []
 }
 
 app = express(); //construim practic app prin express(), de acolo ne luam metodele din express.js
@@ -79,6 +84,80 @@ function initImagini(){
 
 initImagini();
 
+const foldersForCreation = ["temp"];
+for(let folder of foldersForCreation){
+    let cale = path.join(__dirname, "resurse", folder);
+    if(!fs.existsSync(cale)){
+        fs.mkdirSync(cale);
+    }
+}
+let caleBackup = path.join(obGlobal.folderBackup, "resurse/css_files"); //facem un folder de backup cu fostele variante ale fisierelor css
+if(!fs.existsSync(caleBackup)) {        
+    fs.mkdirSync(caleBackup, {recursive: true});
+}
+
+function compileazaScss(caleScss, caleCss){ //functie pt compilare automata scss files
+    if(!caleCss){
+        let numeFisExt = path.basename(caleScss); //luam numele fisierului din cale
+        let numeFis = numeFisExt.split(".")[0]; //facem rost de numele fisierului fara extensie
+        caleCss = numeFis+".css"; //facem rost de calea catre fisierului care va fi .css, ii adaugam extensia
+    }
+
+    if(!path.isAbsolute(caleScss)) //daca nu e cale absoluta, atunci ii dam calea unde stim ca avem scss_files
+        caleScss = path.join(obGlobal.folderScss, caleScss);
+    
+    if(!path.isAbsolute(caleCss)) //idem pt css
+        caleCss = path.join(obGlobal.folderCss, caleCss);    
+    
+    let vFisiereBackup = fs.readdirSync(caleBackup);
+
+    if(vFisiereBackup.length < vFisiere.length){ //daca nr de fisiere e mai mic la start decat numarul de fisiere scss, atunci creeaza, altfel nu (pt ca vreau sa faca backup doar in fs.watch();
+        createBackupCss(caleScss);
+    }
+
+    let rez = sass.compile(caleScss, {"sourceMap": true}); //compilam 
+    fs.writeFileSync(caleCss, rez.css) //punem fisierul in folderul cu css
+}
+
+function createBackupCss(caleScss){ //functie pt a face backup
+    let numeFisExt = path.basename(caleScss);
+    let numeFis = numeFisExt.split(".")[0];
+    let caleCss = numeFis + ".css";
+    caleCss = path.join(obGlobal.folderCss, caleCss);
+    let numeFisCss = path.basename(caleCss).split(".")[0]; //luam calea fisierului css
+    console.log(caleCss);
+    if(fs.existsSync(caleCss)){
+        let currentTime = new Date().getTime();
+        numeFisCss+= "_" + currentTime + ".css"; //cream cu timestamp
+        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css_files", numeFisCss)) //punem fosta varianta a css ului in folderul de backup
+    }
+}
+
+vFisiere = fs.readdirSync(obGlobal.folderScss);
+for(let numeFis of vFisiere){
+    if(path.extname(numeFis) == ".scss"){
+        compileazaScss(numeFis); 
+    }
+}
+
+fs.watch(obGlobal.folderScss, function(eveniment, numeFis){//ne uitam continuu si cautam modificari a fisierelor scss, pt a fi recompilate
+    console.log("EVENIMENT: ", eveniment);
+    console.log("NUME FIS: ", numeFis);
+    if(eveniment == "change" || eveniment == "rename"){
+        let caleCompleta = path.join(obGlobal.folderScss, numeFis);
+        console.log(caleCompleta);
+        if(fs.existsSync(caleCompleta)){
+            try{
+                createBackupCss(caleCompleta); // in caz ca incearca sa faca backup sau sa compileze cand inca nu am terminat fisierul de editat si e serverul pornit, vreau sa prinda eroarea la compilare
+                compileazaScss(caleCompleta);
+            }
+            catch(e){
+                console.log("AM PRINS EROARE LA COMPILAREA SASS!");
+            }
+           
+        }
+    }
+});
 function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primeste obiectul res, un identificator, titlu, text si imagine
     let vErori = obGlobal.erori.info_erori; //luam vectorul cu info erori si il bagam in vErori
     let eroare = vErori.find(function(element){  //functia function(element) returneaza adev sau fals, catre metoda find(). daca elementul curent pe care il itereaza are acelasi 
@@ -119,13 +198,6 @@ app.get("/gallery", function(req, res){
     
 })
 
-const foldersForCreation = ["temp"];
-for(let folder of foldersForCreation){
-    let cale = path.join(__dirname, "resurse", folder);
-    if(!fs.existsSync(cale)){
-        fs.mkdirSync(cale);
-    }
-}
 
 app.get("/*.ejs", function(req, res){ //in caz ca se incearca a accesa un EJS, da i eroare
     afisEroare(res, 400);
