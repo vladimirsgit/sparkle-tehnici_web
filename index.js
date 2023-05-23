@@ -118,6 +118,7 @@ app.get("/gallery", function(req, res){
     res.render("pagini/gallery", {imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa
     
 })
+
 const foldersForCreation = ["temp"];
 for(let folder of foldersForCreation){
     let cale = path.join(__dirname, "resurse", folder);
@@ -134,19 +135,33 @@ app.get("/*.ejs", function(req, res){ //in caz ca se incearca a accesa un EJS, d
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res
     //care se afla in metoda get() din app; pe urma definim functia function(req, res) si spunem ce vrem sa facem cu obiectele req si res
     //pe care le primeste ca argumente
-    res.render("pagini" + req.url, function(err, rezultatRandare){ //res.render primeste 2 argumente, folderul din views + numele paginii cerute
-        //si o functie callback, care este chemata la finalul metodei render(), si primeste un obiect eroare si rezultat randare
-        console.log("Eroare", err);
-        if(err){
-                if(err.message.startsWith("Failed to lookup view")){
-                   afisEroare(res, 404);
+
+    if(req.url.match(/^\/resurse(\/[a-zA-Z0-9]*)*\/?/g)){
+        afisEroare(res, 403);
+    }
+
+    try{
+            res.render("pagini" + req.url, function(err, rezultatRandare){ //res.render primeste 2 argumente, folderul din views + numele paginii cerute
+            //si o functie callback, care este chemata la finalul metodei render(), si primeste un obiect eroare si rezultat randare
+            console.log("Eroare", err);
+            if(err){
+                    if(err.message.startsWith("Failed to lookup view")){
+                    afisEroare(res, 404);
+                    }
+                    else{
+                        afisEroare(res);
+                    }
+            }
+            else{ //daca nu avem eroare
+            res.send(rezultatRandare); //trimitem catre client rezultatul randarii html a fisierului .ejs
+            }
+        });
+    } catch(e){
+                if(e.message.startsWith("Cannot find module")){
+                    afisEroare(res, 404);
                 }
                 else{
                     afisEroare(res);
                 }
-        }
-        else{ //daca nu avem eroare
-           res.send(rezultatRandare); //trimitem catre client rezultatul randarii html a fisierului .ejs
-        }
-    });
+    }
 })
