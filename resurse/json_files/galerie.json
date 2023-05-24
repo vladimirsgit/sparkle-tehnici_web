@@ -312,6 +312,68 @@
       "titlu": "Nume imagine",
       "text_descriere": "imagine toamna",
       "anotimp": "toamna"
+    },
+    {
+      "cale_fisier": "../galerie_animata/imagine1.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine2.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine3.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine4.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine5.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine6.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine7.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine8.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
+    }
+    ,
+    {
+      "cale_fisier": "../galerie_animata/imagine9.png",
+      "titlu": "Nume imagine",
+      "text_descriere": "imagine animata",
+      "galerie_animata": true
     }
   ]
 }

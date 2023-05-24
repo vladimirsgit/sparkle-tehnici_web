@@ -1,0 +1,13 @@
+<div id="animated-gallery">
+    <div id="derulant">
+        <% //afisam in functie de luna, cream un obiect date, bagam luna in month, si verificam ce luna e  
+        for(let imag of locals.imagini) { //accesam obiectul trimis din index.js la randare, imagini, prin locals.imagini, si daca anotimpu egal cu season, afiseaza imaginea
+            if(imag.galerie_animata){ 
+            %>  
+            <figure>
+                    <img src="<%-imag.cale_fisier %>" alt="animatie">
+                <figcaption><%-imag.text_descriere %></figcaption>
+            </figure>
+        <% }} %>
+    </div>
+</div>

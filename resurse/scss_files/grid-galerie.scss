@@ -1,14 +1,11 @@
 #galerie-statica{
-    figcaption{
-        text-align: center;
-     
-     }
+    text-align: center;
 
     img{
         width: 100%;
     
     }
-     
+    
 }
 
 #grid-galerie{
@@ -19,6 +16,7 @@
       content: counter(nrimag, lower-roman)") ";
     }
   }
+  
 }
 
 

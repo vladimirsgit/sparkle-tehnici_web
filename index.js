@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
 const sass = require("sass");
+const { log } = require("console");
 
 obGlobal = {
     erori: {},
@@ -19,6 +20,8 @@ app = express(); //construim practic app prin express(), de acolo ne luam metode
 app.set("view engine", "ejs"); //setam view engine ul sa fie EJS
 
 app.use("/resurse", express.static(path.join(__dirname, "resurse"))); //ii aratam de unde sa ia toate resursele necesare pt afisarea site ului
+app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
+
 
 app.get("/favicon.ico", function(req, res){
     res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
@@ -51,7 +54,7 @@ function initErori(){ //functie pt initializarea erori.json
 initErori();
 
 function initImagini(){
-    var continut = fs.readFileSync(__dirname + "/resurse/json_files/galerie_statica.json").toString("utf-8"); //citim fisierul JSON, si il transformam cu toString in format citibil
+    var continut = fs.readFileSync(__dirname + "/resurse/json_files/galerie.json").toString("utf-8"); //citim fisierul JSON, si il transformam cu toString in format citibil
 
     obGlobal.obImagini = JSON.parse(continut); //transformam intr un obiect fisierul Json, si il bagam in obImagini
     let vImagini = obGlobal.obImagini.imagini; //vectorul cu imagini este creat, cu ajutorul vectorului imagini din JSON
@@ -72,8 +75,12 @@ function initImagini(){
         let caleFisMediuAbs = path.join(caleAbsMediu, numeFis+".webp"); //facem rost de calea imaginilor medii
         let caleFisMicAbs = path.join(caleAbsMic, numeFis + ".webp");
         //astea de mai sus le am creat pt sharp
-        sharp(caleFisAbs).resize(350).toFile(caleFisMediuAbs); //facem resize cu width the 350px si il transformam in fisierul rezultat din caleFisMediuAbs
-        sharp(caleFisAbs).resize(250).toFile(caleFisMicAbs);
+        if(!/^imagine/.test(path.basename(caleFisAbs))){ //verificam sa nu bage si imaginile pt galeria animata
+            console.log(path.basename(caleFisAbs));
+            sharp(caleFisAbs).resize(350).toFile(caleFisMediuAbs); //facem resize cu width the 350px si il transformam in fisierul rezultat din caleFisMediuAbs
+            sharp(caleFisAbs).resize(250).toFile(caleFisMicAbs);
+        }
+       
 
         imag.cale_fisier_mic = path.join("/", obGlobal.obImagini.cale_galerie, "mic", numeFis + "webp");
         imag.cale_fisier_mediu = path.join("/", obGlobal.obImagini.cale_galerie, "mediu", numeFis + ".webp"); //cream calea relativa a imaginii medii
