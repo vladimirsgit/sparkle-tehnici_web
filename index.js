@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
 const sass = require("sass");
-const { log } = require("console");
+const {Client} = require('pg');
 
 obGlobal = {
     erori: {},
@@ -15,6 +15,14 @@ obGlobal = {
     folderBackup: path.join(__dirname, "backup"),
     optiuniMeniu: []
 }
+
+var client = new Client({database:"SPARKLE",
+    user: "vladimir_sparkle",
+    password: "superpass",
+    host: "localhost",
+    port: 5432});
+
+    client.connect();
 
 app = express(); //construim practic app prin express(), de acolo ne luam metodele din express.js
 app.set("view engine", "ejs"); //setam view engine ul sa fie EJS
@@ -199,6 +207,26 @@ app.get(correctHomePaths, function(req, res){
     res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
     
 })
+
+
+
+
+// *********************PRODUSE********************* //
+
+app.get("/store", function(req, res){
+    client.query("select * from products", function(err, rez){
+         res.render("pagini/store", {products: rez.rows});
+    })
+})
+
+app.get("/product/:id", function(req, res){
+    console.log(req.params);
+    client.query(`select * from products where product_id = ${req.params.id}`, function(err, rez){
+        console.log("REZ: ", rez);
+        res.render("pagini/product", {product: rez.rows[0]});
+    })
+})
+
 
 app.get("/gallery", function(req, res){
     res.render("pagini/gallery", {imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa

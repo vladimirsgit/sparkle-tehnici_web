@@ -14,67 +14,24 @@
 <body>
     <%- include("../fragmente/header.ejs") %>
     <main>
-        <section id="store">
-            <h2><i class="fa-solid fa-shop fa-bounce"></i>STORE</h2>
-            <p></p>
-                <section id="featured-games">
-                    <h3>Featured & Recommended</h3>
-                    <ul>
-                        <li>
-                            <a href="#game1buy"><strong>Game1</strong></a>
-                            <br><br>
-                            <a href="#game1buy"><img src = "/resurse/imagini/alien-game-300x300.png" alt="game1" class="store-img">
-                                <p>$19.99</p>
-                            </a>
-                            <a href="https://www.ign.com/reviews" target="_blank"><q>Game of the year, a must play</q></a> <!--10.h.-->
-                        </li>
-                        <li>
-                            <a href="#game2buy"><strong>Game2</strong></a>
-                            <br><br>
-                            <a href="#game2buy"><img src = "/resurse/imagini/fantasy-game-300x300.png" alt="game2" class="store-img">
-                                <p>$19.99</p>
-                            </a>
-                            <a href="https://www.ign.com/reviews" target="_blank"><q>Game of the year, a must play</q></a>
-                        </li>
-                        <li>
-                            <a href="#game3buy"><strong>Game3</strong></a>
-                            <br><br>
-                            <a href="#game3buy"><img src = "/resurse/imagini/hacking-game-300x300.png" alt="game3" class="store-img">
-                                <p>$19.99</p>
-                            </a>
-                            <a href="https://www.ign.com/reviews" target="_blank"><q>Game of the year, a must play</q></a>
-                        </li>
-                    </ul>
-                </section>
-                <section id="discounted-games">
-                    <h3>Discounts</h3>
-                    <ul>
-                        <li>
-                            <a href="#game4buy"><strong>Game4</strong></a>
-                            <br><br>
-                            <img src = "/resurse/imagini/horror-game-300x300.png" alt="game4" class="store-img">
-                            <a href="#game4buy"><p><s>$19.99</s><ins> $13.99</ins></p></a><!--10.e.-->
-                        </li>
-                        <li>
-                            <a href="#game5buy"><strong>Game5</strong></a>
-                            <br><br>
-                            <img src = "/resurse/imagini/medieval-game-300x300.png" alt="game5" class="store-img">
-                            <a href="#game5buy"><p><s>$19.99</s><ins> $13.99</ins></p></a>
-                        </li>
-                        <li>
-                            <a href="#game6buy"><strong>Game6</strong></a>
-                            <br><br>
-                            <img src = "/resurse/imagini/puzzle-game-300x300.png" alt="game6" class="store-img">
-                            <a href="#game6buy"><p><s>$19.99</s><ins> $13.99</ins></p></a>
-                        </li>
-                    </ul>
-                </section>
-        </section>
-        <section id="wishlist">
-            <h2>Wishlist</h2>
-            <p>Here, you can see your wishes! :)</p>
-            <p>Who knows, maybe someday, some of them will be fulfilled.</p>
-        </section>
+      <section id="store">
+        <h2>Store</h2>
+        <div class="grid-store">
+            <% for(let prod of locals.products){ 
+                    if(prod.product_type_id == "GME") { %>
+            <article class="product">
+                <a href="/product/<%- prod.product_id %>"><span class="name"><%- prod.name%></span></a>
+                <div class="info-produse">
+                    <p class="price">Price: <span class="val-price"><%- prod.price %></span></p>
+                    <p class="category">Category: <span class="val-category"><%- prod.product_type_id %></span></p>
+                    <p class="genres">Genres: <span class="val-genres"><%- prod.genres %></span></p>
+                </div>
+                <figure>
+                    <a href="/product/<%- prod.product_id %>"> <img src="/resurse/imagini/products_pics/<%- prod.image %>" alt="product-image"></a>
+                </figure>
+            </article> <% }} %>
+        </div>
+      </section>
     </main>
     <br><br>
     <%- include("../fragmente/footer.ejs") %>
