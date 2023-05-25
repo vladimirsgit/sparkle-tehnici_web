@@ -27,7 +27,8 @@ app.get("/favicon.ico", function(req, res){
     res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
 })
 
-app.listen(8080, function(){ // ii dam portul, dupa definim o functie anonima care sa faca ceva dupa ce incepe ascultarea din app.listen()
+const port = process.env.PORT || 8080;
+app.listen(port, function(){ // ii dam portul, dupa definim o functie anonima care sa faca ceva dupa ce incepe ascultarea din app.listen()
     console.log("A pornit aplicatia");
     console.log("FOLDERUL CURENT: ", __dirname);
     console.log("FISIERUL CURENT: ", __filename);
@@ -76,7 +77,6 @@ function initImagini(){
         let caleFisMicAbs = path.join(caleAbsMic, numeFis + ".webp");
         //astea de mai sus le am creat pt sharp
         if(!/^imagine/.test(path.basename(caleFisAbs))){ //verificam sa nu bage si imaginile pt galeria animata
-            console.log(path.basename(caleFisAbs));
             sharp(caleFisAbs).resize(350).toFile(caleFisMediuAbs); //facem resize cu width the 350px si il transformam in fisierul rezultat din caleFisMediuAbs
             sharp(caleFisAbs).resize(250).toFile(caleFisMicAbs);
         }
