@@ -17,8 +17,8 @@ obGlobal = {
 }
 
 var client = new Client({database:"SPARKLE",
-    user: "vladimir_sparkle",
-    password: "superpass",
+    user: "vladimir",
+    password: "vladimir",
     host: "localhost",
     port: 5432});
 
