@@ -48,6 +48,7 @@
     animation-timing-function:linear;
     animation-iteration-count:infinite;
     animation-duration:50s;	
+    transform-origin: center;
 }
 
 #derulant:hover{
@@ -61,81 +62,97 @@
 
 @keyframes rotireGalerie{
     0%{
+        transform-origin: center;
         top:0px;
         left:0;
         transform: rotate(0);
         
       }
     12.5%{
+        transform-origin: center;
       top:-500px;
       left:0;
       transform: rotate(0);
     }
     13.5%{
+        transform-origin: center;
         top:-500px;
         transform: rotate(360deg);
     }
     25%{
+        transform-origin: center;
         transform: rotate(360deg);
         left: -1000px;
         top: -500px;
     }
     
     26%{
+        transform-origin: center;
         transform: rotate(0);
     }
     37.5%{
+        transform-origin: center;
         transform: rotate(0);
         left: -500px;
         top: -500px;
     }
     38.5%{
+        transform-origin: center;
         transform: rotate(360deg);
         left: -500px;
         top: -500px;
     }
 
     50%{
+        transform-origin: center;
         transform: rotate(360deg);
         top: 0;
         left: -500px;
     }
     51%{
+        transform-origin: center;
         transform: rotate(0);
         top:0;
         left: -500px;
     }
     62.5%{
+        transform-origin: center;
         transform: rotate(0);
         top: 0;
         left: -1000px;
     }
     63.5%{
+        transform-origin: center;
         transform: rotate(360deg);
         top: 0;
         left: -1000px;
     }
     75%{
+        transform-origin: center;
         transform: rotate(360deg);
         top: -1000px;
         left: -1000px;
     }
     76%{
+        transform-origin: center;
         transform: rotate(0);
         top: -1000px;
         left: -1000px;
     }
     87.5%{
+        transform-origin: center;
         transform: rotate(0);
         top: -1000px;
         left: 0;
     }
     88.5%{
+        transform-origin: center;
         transform: rotate(360deg);
         top: -1000px;
         left: 0;
     }
     100%{
+        transform-origin: center;
         transform: rotate(360deg);
         top: -1000px;
         left: -500px;

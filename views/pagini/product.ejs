@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="sparkle, sprkl, gaming store, games, buy games, online gaming shop, cool games, epic games">
+    <meta name="description" content="Sparkle(SPRKL) is the safest and fastest way of buying games.">
+    <meta name="author" content="Vladimir Stratulat">
+    <title>SPARKLE</title>
+    
+    <%- include("../fragmente/head.ejs") %>
+</head>
+<body>
+    <%- include("../fragmente/header.ejs") %>
+    <main>
+        <article class="product">
+            <a href="/product/<%- product.product_id %>"><span class="name"><%- product.name%></span></a>
+            <div class="info-produse">
+                <p class="price">Price: <span class="val-price"><%- product.price %></span></p>
+                <p class="category">Category: <span class="val-category"><%- product.product_type_id %></span></p>
+                <p class="genres">Genres: <span class="val-genres"><%- product.genres %></span></p>
+            </div>
+            <figure>
+                <a href="/product/<%- product.product_id %>"> <img src="/resurse/imagini/products_pics/<%- product.image %>" alt="product-image"></a>
+            </figure>
+        </article>
+    </main>
+    <br><br>
+    <%- include("../fragmente/footer.ejs") %>
+</body>
+</html>

@@ -15,7 +15,6 @@ obGlobal = {
     folderBackup: path.join(__dirname, "backup"),
     optiuniMeniu: []
 }
-
 var client = new Client({database:"SPARKLE",
     user: "vladimir",
     password: "vladimir",
