@@ -214,6 +214,7 @@ app.get(correctHomePaths, function(req, res){
 
 app.get("/store", function(req, res){
     client.query("select * from products", function(err, rez){
+        console.log(rez.rows);
          res.render("pagini/store", {products: rez.rows});
     })
 })

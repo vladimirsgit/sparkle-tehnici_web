@@ -14,11 +14,14 @@
 <body>
     <%- include("../fragmente/header.ejs") %>
     <main>
-        <article class="product">
-            <a href="/product/<%- product.product_id %>"><span class="name"><%- product.name%></span></a>
-            <div class="info-produse">
+        <article class="product product-productpage">
+            <div class="info-produse info-produse-productpage">
+                <a href="/product/<%- product.product_id %>"><span class="name"><%- product.name%></span></a>
                 <p class="price">Price: <span class="val-price"><%- product.price %></span></p>
-                <p class="category">Category: <span class="val-category"><%- product.product_type_id %></span></p>
+                <p class="category">Category: <span class="val-category"><%- product.category %></span></p>
+                <p class="description">Description: <span class="val-description"><%- product.description %></span></p>
+                <p class="age-restriction">PEGI: <span class="val-age-restriction"><%- product.age_restriction %></span></p>
+                <p class="copies">Physical Copies: <span class="val-copies"><% if(product.physical_copies) { %> Available <% } else { %> Not Available <%}%></span></p>
                 <p class="genres">Genres: <span class="val-genres"><%- product.genres %></span></p>
             </div>
             <figure>

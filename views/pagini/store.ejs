@@ -18,12 +18,12 @@
         <h2>Store</h2>
         <div class="grid-store">
             <% for(let prod of locals.products){ 
-                    if(prod.product_type_id == "GME") { %>
+                    if(prod.category == "GAME") {  %>
             <article class="product">
-                <a href="/product/<%- prod.product_id %>"><span class="name"><%- prod.name%></span></a>
                 <div class="info-produse">
+                    <a href="/product/<%- prod.product_id %>"><span class="name"><%- prod.name%></span></a>
                     <p class="price">Price: <span class="val-price"><%- prod.price %></span></p>
-                    <p class="category">Category: <span class="val-category"><%- prod.product_type_id %></span></p>
+                    <p class="category">Category: <span class="val-category"><%- prod.category %></span></p>
                     <p class="genres">Genres: <span class="val-genres"><%- prod.genres %></span></p>
                 </div>
                 <figure>
