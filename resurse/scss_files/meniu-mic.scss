@@ -35,7 +35,7 @@
         &:checked {
             ~ ul.meniu{
                 display: block;
-                animation: dropdown 0.3s ease-in-out forwards;
+                animation: cerinta 0.3s ease-in-out forwards;
             }
             + label.hamburger-menu{
                 > span.line{
@@ -100,6 +100,16 @@
                 }
             }
         }
+    }
+    @keyframes cerinta {
+      from {
+        transform-origin: top left;
+        transform: rotate(-90deg);
+      }
+      to{
+        transform-origin: top left;
+        transform: rotate(0);
+      }
     }
     @keyframes crossFirstLine {
         0%{

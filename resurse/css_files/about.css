@@ -84,7 +84,8 @@
 
 
 #text-original:hover + #reflexie, #reflexie:hover{
-    transform-origin: top;
+    transform-origin: 0 0;
+    transform: rotateX(180deg) skew(-45deg) scaleY(1) translate(0.2em, -0.4em) translateY(-25%);
 }
 
 /* /////////////////////////////////// */
