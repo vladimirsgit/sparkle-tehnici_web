@@ -18,7 +18,7 @@
         <h2>Store</h2>
         <div class="grid-store">
             <% for(let prod of locals.products){ 
-                    if(prod.category == "GAME") {  %>
+                      %>
             <article class="product">
                 <div class="info-produse">
                     <a href="/product/<%- prod.product_id %>"><span class="name"><%- prod.name%></span></a>
@@ -26,10 +26,17 @@
                     <p class="category">Category: <span class="val-category"><%- prod.category %></span></p>
                     <p class="genres">Genres: <span class="val-genres"><%- prod.genres %></span></p>
                 </div>
-                <figure>
-                    <a href="/product/<%- prod.product_id %>"> <img src="/resurse/imagini/products_pics/<%- prod.image %>" alt="product-image"></a>
+                <figure> 
+                    <a href="/product/<%- prod.product_id %>"> 
+                       <% if(prod.image === null) {
+                        let imgName = "imageNull.png"; %>
+                        <img src="/resurse/imagini/products_pics/imageNull.png" alt="product-image">
+                        <% } else { %>
+                        <img src="/resurse/imagini/products_pics/<%- prod.image %>" alt="product-image">
+                        <% } %>
+                        </a>
                 </figure>
-            </article> <% }} %>
+            </article> <% } %>
         </div>
       </section>
     </main>

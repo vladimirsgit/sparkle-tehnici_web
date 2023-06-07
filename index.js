@@ -214,15 +214,12 @@ app.get(correctHomePaths, function(req, res){
 
 app.get("/store", function(req, res){
     client.query("select * from products", function(err, rez){
-        console.log(rez.rows);
-         res.render("pagini/store", {products: rez.rows});
+        res.render("pagini/store", {products: rez.rows});
     })
 })
 
 app.get("/product/:id", function(req, res){
-    console.log(req.params);
     client.query(`select * from products where product_id = ${req.params.id}`, function(err, rez){
-        console.log("REZ: ", rez);
         res.render("pagini/product", {product: rez.rows[0]});
     })
 })
