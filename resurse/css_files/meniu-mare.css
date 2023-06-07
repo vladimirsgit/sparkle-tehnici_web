@@ -1,0 +1,62 @@
+body {
+  --latime-buton: 7em;
+  --intaltime-buton: 3em;
+}
+
+nav {
+  height: var(--intaltime-buton);
+  background-color: var(--button-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in-out;
+}
+nav:hover {
+  opacity: 1;
+}
+
+span.fa-solid {
+  margin-right: 0.2em;
+}
+
+ul.meniu li {
+  width: var(--latime-buton);
+  height: var(--intaltime-buton);
+  background-color: var(--button-color);
+  text-align: center;
+  line-height: var(--intaltime-buton);
+  position: relative;
+}
+ul.meniu > li div {
+  display: inline-block;
+}
+ul.meniu > li:hover ul {
+  display: block;
+  position: relative;
+  z-index: 100;
+  animation: dropdown 0.3s ease-in-out forwards;
+}
+ul.meniu > li:not(:first-child):hover div {
+  color: var(--button-color);
+}
+
+#ch-menu {
+  display: none;
+}
+
+@keyframes dropdown {
+  from {
+    transform-origin: center;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    transform-origin: center;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
