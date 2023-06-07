@@ -9,11 +9,10 @@
         <li><a href="/index#"><div id="acasa-mediu"><span class="fa-solid fa-house"></span></div><div id="acasa">Home</div></a></li>
         <li><div id="store-mediu"><span class="fa-solid fa-store"></span></div><div id="store-menu">Store</div>
             <ul>
-        
-
-                <li><a href="/store#featured-games">Featured</a></li>
-                <li><a href="/store#discounted-games">Discounts</a></li>
-                <li><a href="/store#wishlist">Wishlist</a></li>
+                <li><a href="/store">ALL</a></li>
+                <% for(let optiune of locals.optiuniMeniu){ %>
+                <li><a href="/store?category=<%-optiune.unnest%>"><%-optiune.unnest%></a></li> <% } %>
+    
             </ul>
         </li>
         <li><div id="welcome-mediu"><span class="fa-solid fa-door-open"></span></div><div id="welcome-menu">Welcome</div>

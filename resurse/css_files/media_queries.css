@@ -44,6 +44,11 @@
     #site-stats p{
         column-count: 1;
     }
+    .grid-store{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: var(--grid-gap);
+    }
 }
 
 /* //////////////////// ECRAN TABLETA //////////////////// */
@@ -104,6 +109,11 @@
     #site-stats p{
         column-count: 1;
     }
+    .grid-store{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--grid-gap);
+    }
 }
 
 /* //////////////////// ECRAN DESKTOP/LAPTOP //////////////////// */
@@ -120,5 +130,10 @@
                              "z-event-calendar z-user-stats z-news"
                              "z-online-users z-announcements z-site-stats"
                              "z-galerie z-galerie z-galerie";
+    }
+    .grid-store{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--grid-gap);
     }
 }

@@ -8,11 +8,7 @@
 
 
 
-.grid-store{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--grid-gap);
-}
+
 
 .product {
     display: flex;
@@ -25,12 +21,14 @@
    border-radius: 5%;
 }
 
-.info-produse > *{
-    margin: 2px;
-}
-
-
-
 .product:hover{
     box-shadow: 0px 0px 5px 2px rgba(241, 90, 36, 0.8);
+}
+
+h2.header-store{
+    padding-left: 20px;
+}
+
+h3.name {
+    margin: 0;
 }

@@ -95,7 +95,7 @@ a[href^="http"]:hover::before {
   color: var(--highlight);
 }
 
-main a:not(.taburi-iframe) {
+/* main a:not(.taburi-iframe) {
   background: radial-gradient(
     ellipse at center,
     #c76a5d 0%,
@@ -115,7 +115,7 @@ main a:not(.taburi-iframe):hover {
 main a:not(.taburi-iframe):active {
   border: 1px solid var(--border-color);
   transform: translate3d(3px, 3px);
-}
+} */
 a {
   color: var(--links-color);
   text-decoration: none;

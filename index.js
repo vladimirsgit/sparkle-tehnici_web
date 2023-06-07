@@ -15,26 +15,11 @@ obGlobal = {
     folderBackup: path.join(__dirname, "backup"),
     optiuniMeniu: []
 }
-var client = new Client({database:"SPARKLE",
-    user: "vladimir",
-    password: "vladimir",
-    host: "localhost",
-    port: 5432});
-
-    client.connect();
 
 app = express(); //construim practic app prin express(), de acolo ne luam metodele din express.js
 app.set("view engine", "ejs"); //setam view engine ul sa fie EJS
-
-app.use("/resurse", express.static(path.join(__dirname, "resurse"))); //ii aratam de unde sa ia toate resursele necesare pt afisarea site ului
-app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
-
-
-app.get("/favicon.ico", function(req, res){
-    res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
-})
-
 const port = process.env.PORT || 8080;
+
 app.listen(port, function(){ // ii dam portul, dupa definim o functie anonima care sa faca ceva dupa ce incepe ascultarea din app.listen()
     console.log("A pornit aplicatia");
     console.log("FOLDERUL CURENT: ", __dirname);
@@ -43,10 +28,27 @@ app.listen(port, function(){ // ii dam portul, dupa definim o functie anonima ca
     console.log("Aplicatia asculta pe portul:", this.address().port);
 })
 
-app.get("/test", function(req, res){ //ii spunem ca daca este accesata pagina /test, sa randeze test.ejs
-    res.render("pagini/test.ejs");
-})
+app.use("/resurse", express.static(path.join(__dirname, "resurse"))); //ii aratam de unde sa ia toate resursele necesare pt afisarea site ului
+app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
 
+
+var client = new Client({database:"SPARKLE",
+    user: "vladimir",
+    password: "vladimir",
+    host: "localhost",
+    port: 5432});
+
+    client.connect();
+
+    client.query("select * from unnest(enum_range(null::categ_produs))", function(err, rezCategorie){
+        if (err){
+            console.log(err);
+        }
+        else{
+            obGlobal.optiuniMeniu=rezCategorie.rows;
+        }
+    });
+    
 function initErori(){ //functie pt initializarea erori.json
     let continut = fs.readFileSync(path.join(__dirname, "resurse", "json_files", "erori.json")).toString("utf8"); //Sync face citirea pe loc, cand pornim serverul,  transformam in string in formatul utf8
     // console.log(continut); //printam continutul
@@ -139,7 +141,6 @@ function createBackupCss(caleScss){ //functie pt a face backup
     let caleCss = numeFis + ".css";
     caleCss = path.join(obGlobal.folderCss, caleCss);
     let numeFisCss = path.basename(caleCss).split(".")[0]; //luam calea fisierului css
-    console.log(caleCss);
     if(fs.existsSync(caleCss)){
         let currentTime = new Date().getTime();
         numeFisCss+= "_" + currentTime + ".css"; //cream cu timestamp
@@ -201,21 +202,33 @@ function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primes
 }
 
 
-const correctHomePaths = ["/", "/index", "/home"];
-app.get(correctHomePaths, function(req, res){
-    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
-    
+
+app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate, s
+    res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
+    next();
 })
-
-
-
 
 // *********************PRODUSE********************* //
 
-app.get("/store", function(req, res){
-    client.query("select * from products", function(err, rez){
-        res.render("pagini/store", {products: rez.rows});
-    })
+app.get("/store", function(req, res){    
+        client.query("select * from unnest(enum_range(null::categ_produs))", function(err, rezCategorie){
+            if(err){
+                console.log(err);
+            } else {
+                let restComanda = "where 1 = 1";
+                if(req.query.category){
+                    restComanda += ` and category = '${req.query.category}'`
+                }
+                client.query(`select * from products ${restComanda}`, function(err, rez){
+                    if(err){
+                        afisEroare(res);
+                    }
+                    else {
+                        res.render("pagini/store", {products: rez.rows, optiuniMeniu: rezCategorie.rows});
+                    }
+                })
+                }
+        })
 })
 
 app.get("/product/:id", function(req, res){
@@ -224,6 +237,23 @@ app.get("/product/:id", function(req, res){
     })
 })
 
+
+app.get("/favicon.ico", function(req, res){
+    res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
+})
+
+
+const correctHomePaths = ["/", "/index", "/home"];
+app.get(correctHomePaths, function(req, res){
+    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
+    
+})
+
+
+
+app.get("/test", function(req, res){ //ii spunem ca daca este accesata pagina /test, sa randeze test.ejs
+    res.render("pagini/test.ejs");
+})
 
 app.get("/gallery", function(req, res){
     res.render("pagini/gallery", {imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa

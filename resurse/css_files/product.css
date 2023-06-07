@@ -3,6 +3,11 @@ main > .product{
 }
 
 .product-productpage{
-    width: 50%;
+    width: 70%;
    
+}
+
+article.product-productpage{
+    margin-top: var(--main-sections-spacing);
+    border-radius: 0;
 }
