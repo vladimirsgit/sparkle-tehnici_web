@@ -1,3 +1,20 @@
+<header class="myheader">
+    <a href="/index#"><h1><span>SPARKLE</span></h1></a>
+    <div class="menu-and-login">
+        
+        <!-- <form class="login-input">
+            <input type="text" name="Username" placeholder="Username">
+            <br>
+            <input type="password" name="Password" placeholder="Password">
+            <br>
+            <button>Login</button>
+        </form> -->
+    </div>
+    <br>
+    <div id="download">
+        <a href="" download=""><p>Install Client</p></a>
+    </div>
+</header>
 <nav id="menu-nav-bar">
     <input type="checkbox" id="ch-menu">
     <label class="hamburger-menu" for="ch-menu">
@@ -51,20 +68,23 @@
         </li>
     </ul>
 </nav> 
-<header class="myheader">
-    <a href="/index#"><h1><span>SPARKLE</span></h1></a>
-    <div class="menu-and-login">
-        
-        <!-- <form class="login-input">
-            <input type="text" name="Username" placeholder="Username">
-            <br>
-            <input type="password" name="Password" placeholder="Password">
-            <br>
-            <button>Login</button>
-        </form> -->
-    </div>
-    <br>
-    <div id="download">
-        <a href="" download=""><p>Install Client</p></a>
-    </div>
-</header>
+<div id="navbar-placeholder"></div>
+
+
+<script>
+    window.addEventListener('scroll', function() {
+    var header = document.querySelector('.myheader');
+    var navbar = document.querySelector('#menu-nav-bar');
+    var headerRect = header.getBoundingClientRect();
+    var placeholder = document.querySelector('#navbar-placeholder');
+
+    if(headerRect.bottom <= 0) {
+        navbar.classList.add('nav-fixed');
+        placeholder.style.height = '3em';
+    } else {
+        navbar.classList.remove('nav-fixed');
+        placeholder.style.height = '0px';
+    }
+});
+
+</script>

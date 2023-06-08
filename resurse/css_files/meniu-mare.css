@@ -5,17 +5,24 @@ body {
 
 nav {
   height: var(--intaltime-buton);
-  background-color: var(--button-color);
-  position: fixed;
-  top: 0;
+  background-color: var(--bg-color);
   left: 0;
   width: 100%;
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  opacity: 0.5;
-  transition: opacity 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 nav:hover {
+  opacity: 1;
+}
+nav.nav-fixed {
+  position: fixed;
+  top: 0;
+  opacity: 0.6;
+  z-index: 100; /* Make sure your navbar appears on top */
+  transition: all 0.3s ease-in-out;
+}
+nav.nav-fixed:hover {
   opacity: 1;
 }
 
@@ -26,7 +33,7 @@ span.fa-solid {
 ul.meniu li {
   width: var(--latime-buton);
   height: var(--intaltime-buton);
-  background-color: var(--button-color);
+  background-color: var(--bg-color);
   text-align: center;
   line-height: var(--intaltime-buton);
   position: relative;

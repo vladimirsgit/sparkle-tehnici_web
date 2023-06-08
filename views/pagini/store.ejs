@@ -15,7 +15,71 @@
     <%- include("../fragmente/header.ejs") %>
     <main>
       <section id="store">
-        <h2 class="header-store">Store</h2>
+        <!-- <h2 class="header-store">Store</h2> -->
+
+        <section id="filters">
+            <h3>Filters:</h3>
+            <label> Search product:
+                <input id="i_text" type="text" placeholder="Product's name">
+            </label>
+            <label for="i_range"> Max price:
+                <input id="i_range" type="range" min="0" max="1000" step="1" value="10">
+            </label>
+            <label>Datalist:
+                <input list="id_lista" id="i_datalist">
+                <datalist id="id_lista">
+                    <option value="data1">Datalist 1</option>
+                    <option value="data2">Datalist 2</option>
+                    <option value="data3">Datalist 3</option>
+                    <option value="abc1">Abc 1</option>
+                    <option value="abc2">Abc 2</option>
+                </datalist>
+            </label>
+            <div>
+                <label>Rad1
+                    <input id="i_rad1" checked name="gr_rad" value="1" type="radio"/>
+                </label>
+                <label>Rad2
+                    <input id="i_rad2" name="gr_rad" value="2" type="radio"/>
+                </label>
+                <label>Rad3
+                    <input id="i_rad3" name="gr_rad" value="3" type="radio"/>
+                </label>
+            </div>
+            <label>Checkbox1 (Initial bifat)
+                <input id="i_check1" name="gr_chck" checked value="10" type="checkbox"/>
+            </label>
+            
+            <label>Checkbox2 (Initial nebifat)
+                <input id="i_check2" name="gr_chck" value="20" type="checkbox"/>
+            </label>
+        
+            <label>Checkbox3 (Initial bifat)
+                <input id="i_check3" name="gr_chck" checked value="30" type="checkbox"/>
+            </label>
+            <label>Textarea:
+                <textarea id="i_textarea">ceva in textarea</textarea>
+            </label>
+            <label>Select simplu:
+                <select id="i_sel_simplu">
+                    <option value="1">opt1</option>
+                    <option value="2" selected>opt2</option>
+                    <option value="3" >opt3</option>
+                    <option value="4">opt4</option>
+                    <option value="5">opt5</option>
+                </select>
+            </label>
+            <label>Select multiplu:
+                <select id="i_sel_multiplu" multiple size="4">
+                    <option value="zahar">zahar</option>
+                    <option value="2" selected>opt2</option>
+                    <option value="3">opt3</option>
+                    <option value="4" selected>opt4</option>
+                    <option value="5">opt5</option>
+                </select>
+            </label>
+        </section>
+
         <div class="grid-store">
             <% for(let prod of locals.products){ 
                       %>
