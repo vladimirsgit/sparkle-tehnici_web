@@ -11,16 +11,24 @@
 
 #filters  label {
     margin-top: var(--main-sections-spacing);
-    display: block;
 }
 
+#filters > :nth-child(n+3){
+    display: none;
+}
+
+#showhidefilters{
+    cursor: pointer;
+}
 #store{
     margin-top: var(--main-sections-spacing);
 }
 /* GRID STORE */
 
 
-
+/* #platforms label{
+    display: block;
+} */
 
 
 .product {
@@ -45,3 +53,4 @@ h2.header-store{
 h3.name {
     margin: 0;
 }
+

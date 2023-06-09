@@ -16,75 +16,65 @@
     <main>
       <section id="store">
         <!-- <h2 class="header-store">Store</h2> -->
-
         <section id="filters">
-            <h3>Filters:</h3>
-            <label> Search product:
+            <h3>Filters:</h3> 
+            <button id="showhidefilters" onclick="toggleFilters()">Show/Hide Filters</button>
+            <label> Search:
                 <input id="i_text" type="text" placeholder="Product's name">
             </label>
-            <label for="i_range"> Max price:
-                <input id="i_range" type="range" min="0" max="1000" step="1" value="10">
-            </label>
-            <label>Datalist:
+            <label for="i_range"> Max price: <%-locals.optiuniFiltre.pretMinim%>
+                <input id="i_range" type="range" min="<%-locals.optiuniFiltre.pretMinim%>" max="<%-locals.optiuniFiltre.pretMaxim+1 %>" step="1" value="0">
+                <%-locals.optiuniFiltre.pretMaxim+1%><span id="infoRange"> (0)</span></label>
+            <label>Publishers:
                 <input list="id_lista" id="i_datalist">
                 <datalist id="id_lista">
-                    <option value="data1">Datalist 1</option>
-                    <option value="data2">Datalist 2</option>
-                    <option value="data3">Datalist 3</option>
-                    <option value="abc1">Abc 1</option>
-                    <option value="abc2">Abc 2</option>
+                    <% for(let publisher of locals.optiuniFiltre["publishers"]) {  %>
+                        <option value="<%-publisher.publisher%>"><%-publisher.publisher%></option>
+                        <% } %>
                 </datalist>
             </label>
-            <div>
-                <label>Rad1
-                    <input id="i_rad1" checked name="gr_rad" value="1" type="radio"/>
+            <div id="copies"> Physical copies:
+                <% for(let valabil of locals.optiuniFiltre["fizic"]) { %>
+                <label><% if(valabil.valabil){ %> Available <%} else { %> Not Available <% } %>
+                    <input id="i_rad1" checked name="gr_rad" value="<%-valabil.valabil%>" type="radio"/>
                 </label>
-                <label>Rad2
-                    <input id="i_rad2" name="gr_rad" value="2" type="radio"/>
-                </label>
-                <label>Rad3
-                    <input id="i_rad3" name="gr_rad" value="3" type="radio"/>
-                </label>
+                <% } %>
             </div>
-            <label>Checkbox1 (Initial bifat)
-                <input id="i_check1" name="gr_chck" checked value="10" type="checkbox"/>
+           <div id="platforms">Platforms:
+            <label>All
+                <input id="allplatforms" name="gr_chck_platforms" value="all" type="checkbox" onclick="uncheckPlatforms()" checked>
             </label>
-            
-            <label>Checkbox2 (Initial nebifat)
-                <input id="i_check2" name="gr_chck" value="20" type="checkbox"/>
+            <% let i = 0; for(let platform of locals.optiuniFiltre["platforms"]) {%>
+                <label><%- platform.platform %>
+                    <input id="platform<%- i %>" name="gr_chck_platforms" value="<%-platform.platform%>" type="checkbox"/>
+                </label>
+                <% i++;} %>
+           </div>
+            <label>Description:
+                <textarea id="i_textarea" style="width: 581px; height: 32px;" placeholder="Enter keywords separated by comma, like this: shooter, time-travel, warfare"></textarea>
             </label>
-        
-            <label>Checkbox3 (Initial bifat)
-                <input id="i_check3" name="gr_chck" checked value="30" type="checkbox"/>
-            </label>
-            <label>Textarea:
-                <textarea id="i_textarea">ceva in textarea</textarea>
-            </label>
-            <label>Select simplu:
+            <label>Age restriction:
                 <select id="i_sel_simplu">
-                    <option value="1">opt1</option>
-                    <option value="2" selected>opt2</option>
-                    <option value="3" >opt3</option>
-                    <option value="4">opt4</option>
-                    <option value="5">opt5</option>
+                    <option value="0">All</option>
+                    <% i = 0; for(let restrictie of locals.optiuniFiltre["restrictions"]) { %>
+                    <option value="<%-restrictie.restrictie%>"><%-restrictie.restrictie%></option> <% i++;} %>
                 </select>
             </label>
-            <label>Select multiplu:
-                <select id="i_sel_multiplu" multiple size="4">
-                    <option value="zahar">zahar</option>
-                    <option value="2" selected>opt2</option>
-                    <option value="3">opt3</option>
-                    <option value="4" selected>opt4</option>
-                    <option value="5">opt5</option>
+            <label>Genres:
+                <select id="i_sel_multiplu" multiple size="8">
+                    <option value="all">Anything</option>
+                    <% i = 0; for(let genre of locals.optiuniFiltre["genres"]) { %>
+                        <option value="<%-genre.genre%>"><%-genre.genre%></option> <% i++;} %>
                 </select>
             </label>
+            <button id="buton-filtrare">Show products</button>
         </section>
-
+        <script src="../../resurse/js/store.js"></script>
         <div class="grid-store">
             <% for(let prod of locals.products){ 
                       %>
             <article class="product">
-                <a href="/product/<%- prod.product_id %>"><span class="name"><%- prod.name%></span></a>
+                <a href="/product/<%- prod.product_id %>"><span class="val-name"><%- prod.name%></span></a>
                 <div class="info-produse">
                     <p class="price">Price: <span class="val-price">
                         <% if (prod.price != 0) {%>
@@ -93,7 +83,12 @@
                             FREE <% } %>
                         </span></p>
                     <p class="category">Category: <span class="val-category"><%- prod.category %></span></p>
+                    <p class="publisher" style="display: none">Publisher: <span class="val-publisher"><%- prod.publisher %></span></p>
+                    <p class="copies" style="display: none">Copies: <span class="val-copies"><%- prod.physical_copies %></span></p>
+                    <p class="platforms" style="display: none">Platforms: <span class="val-platforms"><%- prod.platform %></span></p>
                     <p class="genres">Genres: <span class="val-genres"><%- prod.genres %></span></p>
+                    <p class="age-restriction" style="display: none">PEGI: <span class="val-age-restriction"><%- prod.age_restriction %></span></p>
+                    <p class="description" style="display: none">Description: <span class="val-description"><%- prod.description %></span></p>
                 </div>
                 <figure> 
                     <a href="/product/<%- prod.product_id %>"> 

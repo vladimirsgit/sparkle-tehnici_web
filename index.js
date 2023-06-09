@@ -13,7 +13,8 @@ obGlobal = {
     folderScss: path.join(__dirname, "resurse/scss_files"),
     folderCss: path.join(__dirname, "resurse/css_files"),
     folderBackup: path.join(__dirname, "backup"),
-    optiuniMeniu: []
+    optiuniMeniu: [],
+    optiuniFiltre: []
 }
 
 app = express(); //construim practic app prin express(), de acolo ne luam metodele din express.js
@@ -203,12 +204,55 @@ function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primes
 
 
 
-app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate, s
+app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate app.get
     res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
     next();
 })
 
 // *********************PRODUSE********************* //
+
+function creeazaOptiuniFiltre(){
+
+    client.query("select MIN(price) from products", function(err, rezPretMin){
+        if(err){
+            console.log(err);
+        } else {
+            obGlobal.optiuniFiltre.pretMinim = rezPretMin.rows[0].min;
+        }
+    })
+    client.query("select MAX(price) from products", function(err, rezPretMax){
+        if(err){
+            console.log(err);
+        } else {
+            obGlobal.optiuniFiltre.pretMaxim = parseInt(rezPretMax.rows[0].max);
+        }
+    })
+    client.query("select distinct publisher from products", function(err, rezPublisher){
+        createOptiuniFiltre(err, rezPublisher, "publishers")
+    })
+    client.query("select distinct unnest(platform) AS platform from products", function(err, rezPlatform){
+        createOptiuniFiltre(err, rezPlatform, "platforms")
+    })
+    client.query("select * from unnest(enum_range(null::age_restriction)) as restrictie", function(err, rezRestrictie){
+        createOptiuniFiltre(err, rezRestrictie, "restrictions")
+    })
+    client.query("select distinct unnest(genres) AS genre from products", function(err, rezGenuri){
+        createOptiuniFiltre(err, rezGenuri, "genres")
+    })
+    client.query("select distinct physical_copies as valabil from products", function(err, rezFizice){
+        createOptiuniFiltre(err, rezFizice, "fizic")
+    })
+}
+
+creeazaOptiuniFiltre();
+
+function createOptiuniFiltre(err, rezQuery, type){
+    if(err){
+        console.log(err);
+    } else {
+        obGlobal.optiuniFiltre[type] = rezQuery.rows;
+    }
+}
 
 app.get("/store", function(req, res){    
         client.query("select * from unnest(enum_range(null::categ_produs))", function(err, rezCategorie){
@@ -224,7 +268,7 @@ app.get("/store", function(req, res){
                         afisEroare(res);
                     }
                     else {
-                        res.render("pagini/store", {products: rez.rows, optiuniMeniu: rezCategorie.rows});
+                        res.render("pagini/store", {products: rez.rows, optiuniMeniu: rezCategorie.rows, optiuniFiltre: obGlobal.optiuniFiltre});
                     }
                 })
                 }
