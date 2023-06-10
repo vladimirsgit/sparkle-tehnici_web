@@ -54,3 +54,16 @@ h3.name {
     margin: 0;
 }
 
+#pagini{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2em;
+   
+}
+
+#pagini > p{
+    margin: 1em;
+    cursor: pointer;
+    
+}

@@ -61,7 +61,12 @@ window.onload = function(){
         
 
         var products = document.getElementsByClassName("product"); //selectam toate produsele din pagina
+        let produseAfisate = 0, produseMaxPePagina = 15, pagini = 0;
+        if(document.getElementById("pagini")){ //daca avem pagini deja, sterge le afisarea
+            document.getElementById("pagini").innerHTML = "";
+        }
         for(let prod of products){ //iteram prin fiecare
+           
             prod.style.display="none"; //facem sa nu fie afisate niciunul initial
 
             let numeProdus = prod.getElementsByClassName("val-name")[0].innerHTML.toLowerCase(); //luam numele produsului
@@ -85,8 +90,7 @@ window.onload = function(){
                     cond4 = true;
                 }
             }
-           
-        
+
             let platformsProdus = prod.getElementsByClassName("val-platforms")[0].innerHTML;
             let cond5 = false || platformeSelectate.length == 0 || platformeSelectate[0] == "all";
             if(!cond5){
@@ -119,13 +123,20 @@ window.onload = function(){
                         break;
                     }
                 }
-    
             }
+            
             if(cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8){
+                produseAfisate++;
                 prod.style.display = "block";
             }
             
         }
+        let displayedProducts = Array.from(products).filter(element => {
+            let style = window.getComputedStyle(element);
+            return style.display === "block";
+        })
+        makePages(produseAfisate, displayedProducts);
+        
         if(document.getElementById("info-suma")){
             let suma = 0;
             for(let prod of products){
@@ -214,6 +225,38 @@ window.onload = function(){
             }, 5000)
         }
     }
+    function makePages(produseAfisateDupaFiltrare, displayedProducts){
+        
+        var products = displayedProducts || document.getElementsByClassName("product");
+        console.log(products);
+        let produseAfisate = produseAfisateDupaFiltrare || products.length;
+
+        let produseMaxPePagina = 15;
+
+        pagini = Math.ceil(produseAfisate / produseMaxPePagina);
+
+        for(let i = 0;  i < pagini; i++){
+            let divPagini = document.getElementById("pagini");
+            let pageNumber = document.createElement("p");
+
+            pageNumber.innerHTML = i+1;
+            pageNumber.onclick = () => {
+                let clickedPage = parseInt(pageNumber.innerHTML);
+                let calculationVar = (clickedPage-1) * produseMaxPePagina;
+                let productsLength = products.length;
+                for(let j = 0; j < productsLength; j++){
+                    if(j < calculationVar || j > (clickedPage * produseMaxPePagina) - 1){
+                        products[j].style.display = "none";
+                    } else {
+                        products[j].style.display = "block";
+                    }
+                }
+            }
+            divPagini.appendChild(pageNumber);
+        }
+    }
+     makePages();
+     
 }
 
 
