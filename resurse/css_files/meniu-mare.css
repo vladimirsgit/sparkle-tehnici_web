@@ -37,6 +37,7 @@ ul.meniu li {
   text-align: center;
   line-height: var(--intaltime-buton);
   position: relative;
+  transition: all 0.3s ease-in-out;
 }
 ul.meniu > li div {
   display: inline-block;

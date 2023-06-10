@@ -5,7 +5,7 @@
 #filters{
     padding-left: 20px;
     margin-bottom: var(--main-sections-spacing);
-   
+   transition: all 0.3s ease-in-out;
     background-color: var(--grid-color);
 }
 

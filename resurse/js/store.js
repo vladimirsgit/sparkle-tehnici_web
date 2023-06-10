@@ -1,5 +1,6 @@
 window.onload = function(){
-    document.getElementById("buton-filtrare").onclick = function(){ //cand apasam pe butonul de filtrare
+    document.getElementById("filters").addEventListener('input', function(){ //cand intervine o schimbare. 
+        //daca vreau sa fie dupa buton, pot sa schimb id ul elementului si sa fac onclick 
         
         let val_nume = document.getElementById("i_text").value.toLowerCase(); //vedem ce se afla in casuta input text
         
@@ -10,13 +11,13 @@ window.onload = function(){
         //preluam datele din radio button uri
 
         let radioButtons = document.getElementsByName("gr_rad");
-        let val_copies = "";
-        for(let rad of radioButtons){
-            if(rad.checked){
-                val_copies = rad.value;
-                break;
-            }
+        let physical_copies;
+        if(radioButtons[0].checked){
+            physical_copies = false;
+        } else {
+            physical_copies = true;
         }
+        
         
         //preluam datele din checkboxuri
 
@@ -73,8 +74,19 @@ window.onload = function(){
             let cond3 = (publisherProdus == val_publisher) || val_publisher == "";
     
             let physical_copies_produs = prod.getElementsByClassName("val-copies")[0].innerHTML.toLowerCase();
-            let cond4 = physical_copies_produs == val_copies;
-
+            if(physical_copies_produs == "false"){
+                physical_copies_produs = false;
+            } else physical_copies_produs = true;
+            let cond4 = false;
+            if(!physical_copies){
+                cond4 = true;
+            } else {
+                if(physical_copies_produs){
+                    cond4 = true;
+                }
+            }
+           
+        
             let platformsProdus = prod.getElementsByClassName("val-platforms")[0].innerHTML;
             let cond5 = false || platformeSelectate.length == 0 || platformeSelectate[0] == "all";
             if(!cond5){
@@ -112,31 +124,98 @@ window.onload = function(){
             if(cond1 && cond2 && cond3 && cond4 && cond5 && cond6 && cond7 && cond8){
                 prod.style.display = "block";
             }
-
-           
             
+        }
+        if(document.getElementById("info-suma")){
+            let suma = 0;
+            for(let prod of products){
+                console.log("PRODUSE");
+                if(prod.style.display != "none"){
+                    let pret = parseFloat(prod.getElementsByClassName("val-price")[0].innerHTML);
+                    console.log(pret);
+                    suma+=pret;
+                }
+            }
+            suma = suma.toFixed(2);
+            document.getElementById("info-suma").innerHTML = "<b>Pret total produse afisate:</b>" + suma;
+        }
+
+    })
+
+    document.getElementById("buton-resetare").onclick = () => resetFilters();
+    document.addEventListener('beforeunload', resetFilters());
+
+    function resetFilters(){
+        document.getElementById("i_text").value = "";
+        document.getElementById("i_range").innerHTML = " (0)";
+        document.getElementById("i_rad0").checked = true;
+        document.getElementById("allplatforms").checked = true;
+        uncheckPlatforms();
+        document.getElementById("i_textarea").value = "";
+        document.getElementById("i_sel_simplu").value = 0;
+        document.getElementById("i_sel_multiplu").value = "all";
+
+        let products = document.getElementsByClassName("product");
+        for(let prod of products){
+            prod.style.display = "block";
         }
     }
 
-    // var input = document.getElementById("i_text");
-    // input.addEventListener('input', function(){
-    //     let val_nume = document.getElementById("i_text").value.toLowerCase(); //vedem ce se afla in casuta input text
-        
-    //     var products = document.getElementsByClassName("product"); //selectam toate produsele din pagina
-    //     for(let prod of products){ //iteram prin fiecare
-    //         prod.style.display="none"; //facem sa nu fie afisate niciunul initial
+    function sortare(semn){
+        var products = document.getElementsByClassName("product");
+        var v_products = Array.from(products);
 
-    //         let numeProdus = prod.getElementsByClassName("val-name")[0].innerHTML.toLowerCase(); //luam numele produsului
+        v_products.sort(function (a, b){
+            let price_a = parseFloat(a.getElementsByClassName("val-price")[0].innerHTML);
+            let price_b = parseFloat(b.getElementsByClassName("val-price")[0].innerHTML);
+            if(price_a == price_b){
+                let name_a = a.getElementsByClassName("val-name")[0].innerHTML;
+                let name_b = b.getElementsByClassName("val-name")[0].innerHTML;
+                return semn * name_a.localeCompare(name_b);
+            }
+            return (price_a-price_b) * semn;
+        })
 
-    //         let cond1 = (numeProdus.includes(val_nume));
+        for(let product of v_products){
+            product.parentNode.appendChild(product); // luam parentNode care este gridul, si adaugam in el articolul la final. 
+            //daca v_products sortat crescator, atunci primul va fi pus la final, al doilea la final, si tot asa
+        }
+    }
+    document.getElementById("buton-sortare-crescator").onclick = () => sortare(1);
+    document.getElementById("buton-sortare-descrescator").onclick = () => sortare(-1);
 
-    //        if(cond1){
-    //         prod.style.display="block";
-    //        }
-            
-    //     }
-    // })
+    window.onkeydown = function(e){
+        if(e.key == "c" && e.altKey){
+           
+            if(document.getElementById("info-suma"))
+                return;
+            var products = document.getElementsByClassName("product");
+            let suma = 0;
+            for(let prod of products){
+                if(prod.style.display != "none"){
+                    let pret = parseFloat(prod.getElementsByClassName("val-price")[0].innerHTML);
+                    suma+=pret;
+                }
+            }
+
+            suma = suma.toFixed(2);
+            let p = document.createElement("p");
+            p.innerHTML = "<b>Pret total produse afisate:</b>" + suma;
+            p.id = "info-suma";
+            p.style.display = "block";
+            ps = document.getElementById("p-suma");
+            container = ps.parentNode;
+            frate = ps.nextElementSibling;
+            container.insertBefore(p, frate);
+            setTimeout(function(){
+                let info = document.getElementById("info-suma");
+                if(info)
+                    info.remove();
+            }, 5000)
+        }
+    }
 }
+
 
 
 document.getElementById("i_range").onchange=function(){
@@ -150,12 +229,15 @@ document.getElementById("i_range").addEventListener('mousedown', function(){
 })
 
 function toggleFilters(){
+   
     var filters = document.querySelectorAll('#filters > :nth-child(n+3)');
     filters.forEach(function(filter){
         var display = window.getComputedStyle(filter).display;
         if(display === "none"){
+            
             filter.style.display = "block";
         } else {
+           
             filter.style.display = "none";
         }
     })
@@ -165,12 +247,10 @@ function uncheckPlatforms(){
     let checkbox = document.getElementById("allplatforms");
     
     if(checkbox.checked){
-        console.log(checkbox.checked);
         let checkboxes = document.querySelectorAll("#platforms input");
 
         for(let checkboxToChange of checkboxes){
-        //    checkboxToChange.checked = false;
-            console.log(checkboxToChange);
+        //    checkboxToChange.checked = false
             if(checkboxToChange.id != "allplatforms"){
                 checkboxToChange.checked = false;
             }

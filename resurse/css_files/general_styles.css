@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Audiowide&family=Exo+2:wght@300&display=swap");
 /* VARIABLES */
-html {
+body {
   --bg-color: #120519;
   --button-color: #522996;
   --header-color: #14337b;
@@ -15,6 +15,22 @@ html {
   --margin-spacing: 40px;
   --main-sections-spacing: 1em;
   --grid-gap: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+body.light{
+  --bg-color: #ffffff;
+  --button-color: #74d4c8;
+  --header-color: #75fcc8;
+  --grid-color: #eac7ff;
+  --footer-color: #75fcc8;
+  --highlight: #f15a24;
+  --text-color: #0e0c0c;
+  --selected-text-color: #6291f5;
+  --links-color: #1612dd;
+  --visited-color: #8b4646;
+  --border-color: #4568d1;
+  transition: all 0.3s ease-in-out;
 }
 /* p::selection, a::selection, h1::selection, h2::selection, h3::selection, h4::selection, h5::selection, div::selection, strong::selection{
   background-color: black;
@@ -38,14 +54,14 @@ body {
 }
 body {
   margin-bottom: var(--main-sections-spacing);
- 
+  transition: all 0.3s ease-in-out;
   font-size: 1.1em;
 }
 
 
 main{
   margin-left: var(--margin-spacing);
-  margin-right: var(--margin-spacing)
+  margin-right: var(--margin-spacing);
 }
 
 header.myheader {
@@ -53,11 +69,29 @@ header.myheader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--header-color);
   transition: all 0.3s ease;
   width: 100%;
 }
 
+#tema {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3em;
+        width: 9em;
+        background-color: var(--bg-color); /* green */
+        border: none;
+        color: var(--text-color);
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        transition-duration: 0.4s; /* transition effect */
+        cursor: pointer;
+        border-radius: 12px;
+        margin-right: 2em;
+}
 
 h1,
 h2,

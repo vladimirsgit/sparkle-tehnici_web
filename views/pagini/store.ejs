@@ -34,17 +34,17 @@
                 </datalist>
             </label>
             <div id="copies"> Physical copies:
-                <% for(let valabil of locals.optiuniFiltre["fizic"]) { %>
-                <label><% if(valabil.valabil){ %> Available <%} else { %> Not Available <% } %>
-                    <input id="i_rad1" checked name="gr_rad" value="<%-valabil.valabil%>" type="radio"/>
+                <%let i = 0; for(let valabil of locals.optiuniFiltre["fizic"]) { %>
+                <label><% if(valabil.valabil){ %> Available <%} else { %> Only digital <% } %>
+                    <input id="i_rad<%-i %>" checked name="gr_rad" value="<%-valabil.valabil%>" type="radio"/>
                 </label>
-                <% } %>
+                <% i++;} %>
             </div>
-           <div id="platforms">Platforms:
+           <div id="platforms" >Platforms:
             <label>All
-                <input id="allplatforms" name="gr_chck_platforms" value="all" type="checkbox" onclick="uncheckPlatforms()" checked>
+                <input id="allplatforms" name="gr_chck_platforms" value="all" type="checkbox" onchange="uncheckPlatforms()" checked>
             </label>
-            <% let i = 0; for(let platform of locals.optiuniFiltre["platforms"]) {%>
+            <%  i = 0; for(let platform of locals.optiuniFiltre["platforms"]) {%>
                 <label><%- platform.platform %>
                     <input id="platform<%- i %>" name="gr_chck_platforms" value="<%-platform.platform%>" type="checkbox"/>
                 </label>
@@ -67,7 +67,13 @@
                         <option value="<%-genre.genre%>"><%-genre.genre%></option> <% i++;} %>
                 </select>
             </label>
+           <div id="butoate-filtre">
             <button id="buton-filtrare">Show products</button>
+            <button id="buton-resetare">Reset filters</button>
+            <button id="buton-sortare-crescator">Sort ascending by price and name</button>
+            <button id="buton-sortare-descrescator">Sort descending by price and name</button>
+           </div>
+           <p id="p-suma">Apasati Alt+"c" pentru suma preturilor produselor afisate</p>
         </section>
         <script src="../../resurse/js/store.js"></script>
         <div class="grid-store">
@@ -77,10 +83,7 @@
                 <a href="/product/<%- prod.product_id %>"><span class="val-name"><%- prod.name%></span></a>
                 <div class="info-produse">
                     <p class="price">Price: <span class="val-price">
-                        <% if (prod.price != 0) {%>
                         <%- prod.price %>
-                        <% } else { %>
-                            FREE <% } %>
                         </span></p>
                     <p class="category">Category: <span class="val-category"><%- prod.category %></span></p>
                     <p class="publisher" style="display: none">Publisher: <span class="val-publisher"><%- prod.publisher %></span></p>
