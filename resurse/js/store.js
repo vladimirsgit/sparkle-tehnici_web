@@ -131,6 +131,20 @@ window.onload = function(){
             }
             
         }
+        if(produseAfisate == 0){
+            if(document.getElementById("produse-zero")){
+                document.getElementById("produse-zero").remove();
+            }
+            let element = document.createElement("p");
+            element.id = "produse-zero"
+            element.innerHTML = "No found products, maybe change the filters a bit!"
+            let parentNode = document.getElementsByClassName("grid-store");
+            parentNode[0].appendChild(element)
+        } else {
+            if(document.getElementById("produse-zero")){
+                document.getElementById("produse-zero").remove();
+            }
+        }
         let displayedProducts = Array.from(products).filter(element => {
             let style = window.getComputedStyle(element);
             return style.display === "block";
