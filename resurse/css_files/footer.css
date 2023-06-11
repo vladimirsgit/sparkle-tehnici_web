@@ -59,3 +59,40 @@ footer{
     background-color: var(--footer-color);
 }
 
+#cookies-banner{
+    position: fixed;
+    z-index: 1000000;
+    background-color: var(--footer-color);
+    color: var(--text-color); /* White text color */
+    width: 100vw; /* Full width */
+    height: 20vh; /* Example height */
+    bottom: 0; /* Position at the bottom of the page */
+    display: flex; /* Align inner items */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    padding: 3em;
+    animation: cookie-banner-animation 3s linear;
+}
+
+#ok-cookies{
+    width: 10vw;
+    height: 10vh;
+    font-size: large;
+    background-color: var(--highlight);
+    border-radius: 10%;
+}
+
+@keyframes cookie-banner-animation {
+   0%{
+    transform: translateY(20vh);
+   }
+   
+   50%{
+    transform: translateY(-5vh);
+   }
+
+   100%{
+    transform: translateY(0);
+   }
+   
+}

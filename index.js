@@ -31,7 +31,10 @@ app.listen(port, function(){ // ii dam portul, dupa definim o functie anonima ca
 
 app.use("/resurse", express.static(path.join(__dirname, "resurse"))); //ii aratam de unde sa ia toate resursele necesare pt afisarea site ului
 app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
-
+app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate app.get
+    res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
+    next();
+})
 
 var client = new Client({database:"SPARKLE",
     user: "vladimir",
@@ -204,10 +207,7 @@ function afisEroare(res, _identificator = -1, _titlu, _text, _imagine){ //primes
 
 
 
-app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate app.get
-    res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
-    next();
-})
+
 
 // *********************PRODUSE********************* //
 
@@ -275,16 +275,17 @@ app.get("/store", function(req, res){
         })
 })
 
+
+app.get("/favicon.ico", function(req, res){
+    res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
+})
+
 app.get("/product/:id", function(req, res){
     client.query(`select * from products where product_id = ${req.params.id}`, function(err, rez){
         res.render("pagini/product", {product: rez.rows[0]});
     })
 })
 
-
-app.get("/favicon.ico", function(req, res){
-    res.sendFile(path.join(__dirname, "resurse/ico/favicon.ico"));
-})
 
 
 const correctHomePaths = ["/", "/index", "/home"];

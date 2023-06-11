@@ -6,7 +6,7 @@ body {
   --header-color: #14337b;
   --grid-color: #370c50;
   --footer-color: #14337b;
-  --highlight: #f15a24;
+  --highlight: #f1e324;
   --text-color: #ecebeb;
   --selected-text-color: #6291f5;
   --links-color: #719dfd;
@@ -24,7 +24,7 @@ body.light{
   --header-color: #75fcc8;
   --grid-color: #eac7ff;
   --footer-color: #75fcc8;
-  --highlight: #f15a24;
+  --highlight: #f12424;
   --text-color: #0e0c0c;
   --selected-text-color: #6291f5;
   --links-color: #1612dd;

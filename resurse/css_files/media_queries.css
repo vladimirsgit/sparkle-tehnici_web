@@ -49,6 +49,9 @@
         grid-template-columns: repeat(1, 1fr);
         gap: var(--grid-gap);
     }
+    #cookies-banner{
+        animation: none;
+    }
 }
 
 /* //////////////////// ECRAN TABLETA //////////////////// */
@@ -113,6 +116,9 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: var(--grid-gap);
+    }
+    #cookies-banner{
+        animation: none
     }
 }
 

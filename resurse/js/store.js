@@ -154,10 +154,8 @@ window.onload = function(){
         if(document.getElementById("info-suma")){
             let suma = 0;
             for(let prod of products){
-                console.log("PRODUSE");
                 if(prod.style.display != "none"){
                     let pret = parseFloat(prod.getElementsByClassName("val-price")[0].innerHTML);
-                    console.log(pret);
                     suma+=pret;
                 }
             }
@@ -242,7 +240,7 @@ window.onload = function(){
     function makePages(produseAfisateDupaFiltrare, displayedProducts){
         
         var products = displayedProducts || document.getElementsByClassName("product");
-        console.log(products);
+
         let produseAfisate = produseAfisateDupaFiltrare || products.length;
 
         let produseMaxPePagina = 15;
