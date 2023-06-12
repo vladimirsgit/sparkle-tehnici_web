@@ -14,7 +14,7 @@ const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
 //     {
 //         tabel: "products",
 //         campuri: ["name", "price"],
-//         conditiiAnd: ["price > 50"]},
+//         conditii: [["price > 50", "price < 70"], ["price < 30"]]},
 //         function(err, rez){
 //             console.log(err);
 //             console.log(rez);

@@ -48,16 +48,30 @@ class AccessBD{
         return this.#instanta;
     }
 
-    select({tabel = "", campuri = [], conditiiAnd = []} = {}, callback, parametriQuery = []){ //metoda select primeste tabelul, coloanele, conditiile, functie in caz de eroare
-        let conditieWhere = "";
+    // select({tabel = "", campuri = [], conditiiAnd = []} = {}, callback, parametriQuery = []){ //metoda select primeste tabelul, coloanele, conditiile, functie in caz de eroare
+    //     let conditieWhere = "";
 
-        if(conditiiAnd.length > 0){
-            conditieWhere = `where ${conditiiAnd.join(" and ")}`; //daca avem mai multe conditii and, facem join intre ele cu and si cream conditia principala WHERE
+    //     if(conditiiAnd.length > 0){
+    //         conditieWhere = `where ${conditiiAnd.join(" and ")}`; //daca avem mai multe conditii and, facem join intre ele cu and si cream conditia principala WHERE
+    //     }
+
+    //     let comanda = `select ${campuri.join(",")} from ${tabel} ${conditieWhere}`;
+    //     console.error(comanda);
+        
+    //     this.client.query(comanda, parametriQuery, callback);
+    // }
+
+    select({tabel = "", campuri = [], conditii = [[]]} = {}, callback, parametriQuery = []){ //select folosind cu posibilitatea de a folosi OR
+        let conditieWhere = "";
+        if(conditii.length > 0 && conditii[0].length > 0){
+            for(let i = 0; i < conditii.length; i++){
+                conditii[i] = "(" + conditii[i].join(" and ") + ")";
+            }
+            conditieWhere = `where ${conditii.join(" or ")}`;
         }
 
         let comanda = `select ${campuri.join(",")} from ${tabel} ${conditieWhere}`;
-        console.error(comanda);
-        
+        console.log(comanda);
         this.client.query(comanda, parametriQuery, callback);
     }
 
@@ -81,7 +95,26 @@ class AccessBD{
         this.client.query(comanda, callback);
     }
     
-    update({tabel = "", campuri = {}, conditiiAnd=[]} = {}, callback, parametriQuery){
+    // update({tabel = "", campuri = {}, conditiiAnd=[]} = {}, callback, parametriQuery){
+    //     let coloanePentruActualizare = [];
+
+    //     for(let column in campuri){
+    //         coloanePentruActualizare.push(`${column} ='${campuri[column]}'`);
+    //     }
+
+    //     let conditieWhere = "";
+    //     if(conditiiAnd.length > 0){
+    //         conditieWhere = `where ${conditiiAnd.join(" and ")}`;
+    //     }
+
+    //     let comanda = `update ${tabel} set ${coloanePentruActualizare.join(",")} ${conditieWhere}`;
+    //     //comanda finala va fi: update products set name = 'savarina', pret = '10', calorii = '500' where conditie1 and conditie2
+    //     console.log(comanda);
+
+    //     this.client.query(comanda, callback);
+    // }
+
+    update({tabel = "", campuri = {}, conditii=[[]]} = {}, callback, parametriQuery){ //update utilizand si OR
         let coloanePentruActualizare = [];
 
         for(let column in campuri){
@@ -89,8 +122,11 @@ class AccessBD{
         }
 
         let conditieWhere = "";
-        if(conditiiAnd.length > 0){
-            conditieWhere = `where ${conditiiAnd.join(" and ")}`;
+        if(conditii.length > 0 && conditii[0].length > 0){
+            for(let i = 0; i < conditii.length; i++){
+                conditii[i] = "(" + conditii[i].join(" and ") + ")";
+            }
+            conditieWhere = `where ${conditii.join(" or ")}`;
         }
 
         let comanda = `update ${tabel} set ${coloanePentruActualizare.join(",")} ${conditieWhere}`;
@@ -100,16 +136,31 @@ class AccessBD{
         this.client.query(comanda, callback);
     }
 
-    delete({tabel = "", conditiiAnd = []} = {}, callback){
-        let conditieWhere = "";
-        if(conditiiAnd.length > 0){
-            conditieWhere = `where ${conditiiAnd.join(" and ")}`;
-        }
-        let comanda = `delete from ${tabel} ${conditieWhere}`;
-        console.log(comanda);
+    // delete({tabel = "", conditiiAnd = []} = {}, callback){
+    //     let conditieWhere = "";
+    //     if(conditiiAnd.length > 0){
+    //         conditieWhere = `where ${conditiiAnd.join(" and ")}`;
+    //     }
+    //     let comanda = `delete from ${tabel} ${conditieWhere}`;
+    //     console.log(comanda);
 
-        this.client.query(comanda, callback);
-    }
+    //     this.client.query(comanda, callback);
+    // }
+
+        delete({tabel = "", conditii = [[]]} = {}, callback){ //delete cu OR
+            let conditieWhere = "";
+            if(conditii.length > 0 && conditii[0].length > 0){
+                for(let i = 0; i < conditii.length; i++){
+                    conditii[i] = "(" + conditii[i].join(" and ") + ")";
+                }
+                conditieWhere = `where ${conditii.join(" or ")}`;
+            }
+            let comanda = `delete from ${tabel} ${conditieWhere}`;
+            console.log(comanda);
+
+            this.client.query(comanda, callback);
+        }
+
 
     query(comanda, callback){ //pt comenzi mai complexe pt care nu am definit vreo functie
         this.client.query(comanda, callback);
