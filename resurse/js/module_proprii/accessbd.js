@@ -30,6 +30,18 @@ class AccessBD{
         return this.client;
     }
 
+    /**
+     * @typedef {object} ObiectConexiune - obiect primit de functiile care realizeaza un query
+     * @property {string} init - tipul de conexiune ("init", "render" etc.)
+     * 
+     * /
+
+    /**
+     * Returneaza instanta unica a clasei
+     *
+     * @param {ObiectConexiune} init - un obiect cu datele pentru query
+     * @returns {AccessBD}
+     */
 
     static getInstance({init = "local"}={}){
         console.log(this);
@@ -61,6 +73,25 @@ class AccessBD{
     //     this.client.query(comanda, parametriQuery, callback);
     // }
 
+    /**
+     * @typedef {object}  ObiectQuerySelect - obiectul folosit pt functiile de query
+     * @property {string} tabel - numele tabelului
+     * @property {string []} campuri - lista de stringuri cu numele coloanelor afectate de query
+     * @property {string [[]]} conditii - vector 2D; elementele din listele interioare vor fi unite cu AND, iar listele din lista principala vor fi unite cu OR 
+     */
+
+    /**
+     * callback pentru queryuri
+     * @callback QueryCallBack
+     * @param {Error} err Eventuala eroare
+     * @param {Object} rez Rezultatul query-ului
+     *
+     */
+
+    /**
+     * @param {ObiectQuerySelect} obj - obiect care va contine datele necesare query ului
+     * @param {function} callback - functie callback cu 2 parametri: eroare si rezultatul query ului
+     */
     select({tabel = "", campuri = [], conditii = [[]]} = {}, callback, parametriQuery = []){ //select folosind cu posibilitatea de a folosi OR
         let conditieWhere = "";
         if(conditii.length > 0 && conditii[0].length > 0){
@@ -74,7 +105,7 @@ class AccessBD{
         console.log(comanda);
         this.client.query(comanda, parametriQuery, callback);
     }
-
+    
     insert({tabel = "", campuri = {}} = {}, callback){
         /*
         campuri={
