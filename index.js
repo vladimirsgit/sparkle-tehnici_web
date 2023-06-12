@@ -7,6 +7,20 @@ const sharp = require("sharp");
 const sass = require("sass");
 const {Client} = require('pg');
 
+
+const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
+
+// AccessBD.getInstance().select(
+//     {
+//         tabel: "products",
+//         campuri: ["name", "price"],
+//         conditiiAnd: ["price > 50"]},
+//         function(err, rez){
+//             console.log(err);
+//             console.log(rez);
+//         }
+// )
+
 obGlobal = {
     erori: {},
     obImagini: {},
