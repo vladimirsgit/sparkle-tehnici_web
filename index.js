@@ -6,9 +6,24 @@ const fs = require("fs");
 const sharp = require("sharp");
 const sass = require("sass");
 const {Client} = require('pg');
-
+const {Utilizator} = require('./resurse/js/module_proprii/utilizator.js');
 
 const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
+
+
+// myUser = new Utilizator({
+//     username: "euur12",
+//     lastname: "stratulat",
+//     firstname: "vladimir",
+//     password: "parolamea",
+//     rol: "common",
+//     email: "vladimir_stratulat99@yahoo.com",
+//     chat_color: "black",
+//     picture: "nopic.png",
+//     phone: "02255445"
+// })
+Utilizator.modificaUtilizator("dadada", {chat_color: "red",
+            firstname: "schimbatde10ori"});
 
 // AccessBD.getInstance().select(
 //     {

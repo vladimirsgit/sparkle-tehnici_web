@@ -35,8 +35,7 @@ class RolModerator extends Rol{ //aici moderatorul are dreptul de a vizualiza ut
     }
     static get drepturi(){
         return [Drepturi.vizualizareUtilizatori,
-        Drepturi.stergereUtilizatori,
-        Drepturi.cumparareProduse]
+        Drepturi.stergereUtilizatori]
     }
     constructor(){
         super();
@@ -66,6 +65,6 @@ class RolFactory{
 }
 
 module.exports={
-    RolFactory: RolFactory,
-    RolAdmin: RolAdmin
+    RolFactory:RolFactory,
+    RolAdmin:RolAdmin
 }

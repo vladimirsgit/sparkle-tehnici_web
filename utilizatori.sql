@@ -8,9 +8,10 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(500) NOT NULL,
     role roles NOT NULL DEFAULT 'common',
     email VARCHAR(100) NOT NULL,
-    chat_color VARCHAR(50) NOT NULL,
+    chat_color VARCHAR(50) DEFAULT 'black',
     add_date TIMESTAMP DEFAULT current_timestamp,
     code VARCHAR(200),
     confirmed_email boolean DEFAULT false,
+    phone VARCHAR(100),
     picture VARCHAR(200)
 );
