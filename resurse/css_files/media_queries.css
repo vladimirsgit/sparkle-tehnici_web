@@ -50,7 +50,7 @@
         gap: var(--grid-gap);
     }
     #cookies-banner{
-        animation: none;
+        animation: none !important;
     }
 }
 
@@ -118,7 +118,7 @@
         gap: var(--grid-gap);
     }
     #cookies-banner{
-        animation: none
+        animation: none !important;
     }
 }
 

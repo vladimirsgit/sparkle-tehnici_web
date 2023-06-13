@@ -1,4 +1,6 @@
 window.onload = function(){
+   
+    // afisareProduseCorecte(document.getElementsByClassName("product"), 0, 14);
     document.getElementById("filters").addEventListener('input', function(){ //cand intervine o schimbare. 
         //daca vreau sa fie dupa buton, pot sa schimb id ul elementului si sa fac onclick 
         
@@ -145,11 +147,12 @@ window.onload = function(){
                 document.getElementById("produse-zero").remove();
             }
         }
-        let displayedProducts = Array.from(products).filter(element => {
+        let displayedProductsArray = Array.from(products).filter(element => {
             let style = window.getComputedStyle(element);
             return style.display === "block";
         })
-        makePages(produseAfisate, displayedProducts);
+        afisareProduseCorecte(displayedProductsArray, 0, 14);
+        makePages(produseAfisate, displayedProductsArray);
         
         if(document.getElementById("info-suma")){
             let suma = 0;
@@ -254,24 +257,31 @@ window.onload = function(){
             pageNumber.innerHTML = i+1;
             pageNumber.onclick = () => {
                 let clickedPage = parseInt(pageNumber.innerHTML);
-                let calculationVar = (clickedPage-1) * produseMaxPePagina;
-                let productsLength = products.length;
-                for(let j = 0; j < productsLength; j++){
-                    if(j < calculationVar || j > (clickedPage * produseMaxPePagina) - 1){
-                        products[j].style.display = "none";
-                    } else {
-                        products[j].style.display = "block";
-                    }
-                }
+                let lowerLimit = (clickedPage-1) * produseMaxPePagina;
+                let upperLimit = (clickedPage * produseMaxPePagina) - 1;
+
+                afisareProduseCorecte(products, lowerLimit, upperLimit);
             }
             divPagini.appendChild(pageNumber);
         }
     }
      makePages();
-     
+     document.onload = afisareProduseCorecte(document.getElementsByClassName("product"), 0, 14);
 }
 
+function afisareProduseCorecte(products, lowerLimit, upperLimit){
+    
+    let productsLength = products.length;
+    for(let j = 0; j < productsLength; j++){
+        if(j < lowerLimit || j > upperLimit){
+            products[j].style.display = "none";
+        } else {
+          
+            products[j].style.display = "block";
+        }
+    }
 
+}
 
 document.getElementById("i_range").onchange=function(){
     document.getElementById("infoRange").innerHTML = ` (${this.value})`;
@@ -297,7 +307,6 @@ function toggleFilters(){
         }
     })
 }
-
 function uncheckPlatforms(){
     let checkbox = document.getElementById("allplatforms");
     

@@ -81,7 +81,7 @@
         <div class="grid-store">
             <% for(let prod of locals.products){ 
                       %>
-            <article class="product">
+            <article id = "product<%- prod.product_id %>" class="product">
                 <a href="/product/<%- prod.product_id %>"><span class="val-name"><%- prod.name%></span></a>
                 <div class="info-produse">
                     <p class="price">Price: <span class="val-price">

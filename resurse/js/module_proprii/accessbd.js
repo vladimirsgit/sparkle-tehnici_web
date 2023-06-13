@@ -146,9 +146,9 @@ class AccessBD{
     // }
 
     update({tabel = "", campuri = {}, conditii=[[]]} = {}, callback, parametriQuery){ //update utilizand si OR
-        let coloanePentruActualizare = [];
-
-        for(let column in campuri){
+        let coloanePentruActualizare = []; //cream vectorul cu coloanele pe care vrem sa le actualizam
+        //campuri va arata key value pair: username: 'schimbat', firstname: 'simaicshimbat'
+        for(let column in campuri){ //pt fiecare cheie din campuri
             coloanePentruActualizare.push(`${column} ='${campuri[column]}'`);
         }
 

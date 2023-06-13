@@ -96,6 +96,18 @@ class Utilizator{
         })
     }
 
+    static stergeUtilizator(username){
+        AccessBD.getInstance(Utilizator.tipConexiune).delete({tabel: Utilizator.tabel, conditii: [[`username = '${username}'`]]}, function(err, rezDelete){
+            if(err){
+                console.log(err);
+            } else if(rezDelete.rowCount == 0){ 
+                console.log("No account with that username");
+            } else {
+                console.log(rezDelete);
+            }
+        })
+    }
+
     async trimiteMail(subiect, mesajText, mesajHtml, atasamente = []) {
         var transp = nodemailer.createTransport({
             service: "gmail",

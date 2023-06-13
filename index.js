@@ -12,7 +12,7 @@ const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
 
 
 // myUser = new Utilizator({
-//     username: "euur12",
+//     username: "facutieri",
 //     lastname: "stratulat",
 //     firstname: "vladimir",
 //     password: "parolamea",
@@ -22,8 +22,8 @@ const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
 //     picture: "nopic.png",
 //     phone: "02255445"
 // })
-Utilizator.modificaUtilizator("dadada", {chat_color: "red",
-            firstname: "schimbatde10ori"});
+// myUser.salvareUtilizator()
+// Utilizator.stergeUtilizator("facutAcum");
 
 // AccessBD.getInstance().select(
 //     {
