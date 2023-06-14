@@ -6,11 +6,29 @@ const fs = require("fs");
 const sharp = require("sharp");
 const sass = require("sass");
 const {Client} = require('pg');
-const {Utilizator} = require('./resurse/js/module_proprii/utilizator.js');
 
+const {Utilizator} = require('./resurse/js/module_proprii/utilizator.js');
+const Drepturi = require('./resurse/js/module_proprii/drepturi.js');
+const {RolFactory, RolAdmin, RolModerator, RolClient} = require('./resurse/js/module_proprii/roluri.js')
 const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
 
 
+
+Utilizator.cautaAsync({username: "facutieri"}).then(rows => {
+    console.log(rows);
+}).catch(e => {
+    console.error(e)
+})
+
+// async function myFunction(){
+//     try{
+//         let rows = await Utilizator.cautaAsync({username: "lalal"});
+//         console.log(rows);
+//     } catch (e) {
+//         console.error(e);
+//     }
+// }
+// myFunction();
 // myUser = new Utilizator({
 //     username: "facutieri",
 //     lastname: "stratulat",
@@ -22,6 +40,8 @@ const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
 //     picture: "nopic.png",
 //     phone: "02255445"
 // })
+
+
 // myUser.salvareUtilizator()
 // Utilizator.stergeUtilizator("facutAcum");
 

@@ -173,7 +173,7 @@ window.onload = function(){
 
     function resetFilters(){
         document.getElementById("i_text").value = "";
-        document.getElementById("i_range").innerHTML = " (0)";
+        document.getElementById("infoRange").innerHTML = " (0)";
         document.getElementById("i_rad0").checked = true;
         document.getElementById("allplatforms").checked = true;
         uncheckPlatforms();
@@ -182,9 +182,8 @@ window.onload = function(){
         document.getElementById("i_sel_multiplu").value = "all";
 
         let products = document.getElementsByClassName("product");
-        for(let prod of products){
-            prod.style.display = "block";
-        }
+        afisareProduseCorecte(products, 0, 14);
+        makePages();
     }
 
     function sortare(semn){
@@ -241,7 +240,7 @@ window.onload = function(){
         }
     }
     function makePages(produseAfisateDupaFiltrare, displayedProducts){
-        
+        document.getElementById("pagini").innerHTML = "";
         var products = displayedProducts || document.getElementsByClassName("product");
 
         let produseAfisate = produseAfisateDupaFiltrare || products.length;

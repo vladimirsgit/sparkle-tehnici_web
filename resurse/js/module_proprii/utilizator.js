@@ -1,9 +1,11 @@
 
 const {RolFactory} = require('./roluri.js');
+const Drepturi = require('./drepturi.js');
 const crypto = require("crypto");
 const AccessBD = require("./accessbd.js");
 const parole = require("./parole.js");
 const nodemailer = require("nodemailer");
+const Roluri = require('./roluri.js');
 
 class Utilizator{
     static tipConexiune = "local";
@@ -13,8 +15,8 @@ class Utilizator{
     static emailServer = "proiecttehniciwebvladimir@gmail.com";
     static numeDomeniu = "localhost:8080";
     #eroare;
-    constructor({/*user_id,*/username, lastname, firstname, password, role, email, chat_color, picture, phone} = {}) {
-        // this.user_id = user_id;
+    constructor({user_id,username, lastname, firstname, password, role, email, chat_color, picture, phone} = {}) {
+        this.user_id = user_id;
 
         try {
             if(this.checkUsername(username)){
@@ -137,7 +139,7 @@ class Utilizator{
 
         let eroare = null;
 
-        AccessBD.getInstance(Utilizator.tipConexiune).select({tabel: "users", campuri: ['*'], conditii:[[`username = '${username}'`]]}, function(err, rezSelect) {
+        AccessBD.getInstance(Utilizator.tipConexiune).select({tabel: Utilizator.tabel, campuri: ['*'], conditii:[[`username = '${username}'`]]}, function(err, rezSelect) {
             let u = null;
             if(err){
                 console.error("Utilizator: ", err);
@@ -150,6 +152,63 @@ class Utilizator{
             }
         })
     }
+
+    static async getUtilizDupaUsername(username){
+        if(!username) return null;
+        try {
+            let rezSelect = await AccessBD.getInstance(Utilizator.tipConexiune).selectAsync(
+                {tabel: Utilizator.tabel, campuri: ['*'],
+                conditii:[[`username = '${username}'`]]});
+                if(rezSelect.rowCount != 0){
+                    return new Utilizator(rezSelect.rows[0])
+                } else {
+                    console.log("No account found with that username");
+                    return null;
+                }
+        } catch (e) {
+            console.log(e);
+            return null;
+        }
+    }
+    static async cautaAsync(obParam){
+        let coloane = Object.keys(obParam);
+        let coloaneDefinite = coloane.filter((coloana) => obParam[coloana] != undefined)
+        let conditii = coloaneDefinite.map((coloana) => `${coloana} = '${obParam[coloana]}'`);
+        try{
+            let rezCauta = await AccessBD.getInstance(Utilizator.tipConexiune).selectAsync({tabel: Utilizator.tabel, campuri: ['*'], conditii: [conditii]});
+            if(rezCauta.rowCount != 0){
+                return rezCauta.rows;
+            } else {
+                console.log("No accounts found with these details");
+                return null;
+            }
+        } catch (e) {
+            console.log(e);
+            return null;
+        }
+    }
+
+    static cauta(obParam, proceseazaUtiliz){
+        let coloane = Object.keys(obParam);
+        let coloaneDefinite = coloane.filter((coloana) => obParam[coloana] != undefined)
+        let conditii = coloaneDefinite.map((coloana) => `${coloana} = '${obParam[coloana]}'`);
+        AccessBD.getInstance(Utilizator.tipConexiune).select({tabel: Utilizator.tabel, campuri: ['*'], conditii: [conditii]}, function(err, rezCauta){
+            if(err){
+                console.log(err);
+            } else if(rezCauta.rowCount == 0){
+                console.log('No account like this');
+            } else {
+                proceseazaUtiliz(err, rezCauta);
+                return rezCauta.rows[0];
+            }
+        })
+    }
+
+    areDreptul(drept){
+        let v_drepturiAdmin = Roluri.RolAdmin.areDreptul();
+        console.log(v_drepturiAdmin);
+    }
+    
 }
 
 module.exports = {Utilizator: Utilizator};

@@ -106,6 +106,25 @@ class AccessBD{
         this.client.query(comanda, parametriQuery, callback);
     }
     
+    async selectAsync({tabel = "", campuri = [], conditii = [[]]} = {}){
+        let conditieWhere = "";
+        if(conditii.length > 0 && conditii[0].length > 0){
+            for(let i = 0; i < conditii.length; i++){
+                conditii[i] = "(" + conditii[i].join(" and ") + ")";
+            }
+            conditieWhere = `where ${conditii.join(" or ")}`;
+        }
+
+        let comanda = `select ${campuri.join(",")} from ${tabel} ${conditieWhere}`;
+        console.error(comanda);
+        try{
+            let rez = await this.client.query(comanda);
+            return rez;
+        } catch (e){
+            console.log(e);
+            return null;
+        }
+    }
     insert({tabel = "", campuri = {}} = {}, callback){
         /*
         campuri={

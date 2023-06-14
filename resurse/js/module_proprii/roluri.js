@@ -66,5 +66,7 @@ class RolFactory{
 
 module.exports={
     RolFactory:RolFactory,
-    RolAdmin:RolAdmin
+    RolAdmin:RolAdmin,
+    RolModerator: RolModerator,
+    RolClient: RolClient
 }
