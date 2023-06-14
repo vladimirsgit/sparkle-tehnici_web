@@ -6,19 +6,21 @@ const fs = require("fs");
 const sharp = require("sharp");
 const sass = require("sass");
 const {Client} = require('pg');
+const formidable = require("formidable");
 
 const {Utilizator} = require('./resurse/js/module_proprii/utilizator.js');
 const Drepturi = require('./resurse/js/module_proprii/drepturi.js');
 const {RolFactory, RolAdmin, RolModerator, RolClient} = require('./resurse/js/module_proprii/roluri.js')
-const AccessBD = require("./resurse/js/module_proprii/accessbd.js")
+const AccessBD = require("./resurse/js/module_proprii/accessbd.js");
+const utilizator = require("./resurse/js/module_proprii/utilizator.js");
 
 
 
-Utilizator.cautaAsync({username: "facutieri"}).then(rows => {
-    console.log(rows);
-}).catch(e => {
-    console.error(e)
-})
+// Utilizator.cautaAsync({username: "facutieri"}).then(rows => {
+//     console.log(rows);
+// }).catch(e => {
+//     console.error(e)
+// })
 
 // async function myFunction(){
 //     try{
@@ -393,3 +395,64 @@ app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care
                 }
     }
 })
+
+
+// ************* INREGISTRARE *********************//
+
+app.post("/inregistrare", function(req, res){
+    
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, async function(err, campuriText, campuriFisier){
+        let username = campuriText.username;
+        let lastName = campuriText.lastName;
+        let firstName = campuriText.firstName;
+        let password = campuriText.password;
+        let retypedPassword = campuriText.retypedPassword;
+        let email = campuriText.email;
+        let phone = campuriText.tel;
+        let chat_color = campuriText.culoare_chat;
+
+        let regExUsername = /^[A-Za-z0-9#_.]{4,49}$/;
+        let regExName = /^[A-Za-z]{1,100}$/;
+        let regExEmail = /^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$/;
+        let regExPhone = /^[+]?0[0-9]{10,20}$/;
+
+       if(!validateField(regExUsername, username)){
+            res.render("pagini/inregistrare", {raspuns: "Invalid username!"});
+       } else if((!validateField(regExName, lastName)) || (!validateField(regExName, firstName))){
+        res.render("pagini/inregistrare", {raspuns: "Invalid name!"});
+       } else if(password != retypedPassword){
+        res.render("pagini/inregistrare", {raspuns: "Passwords do not match!"});
+       } else if(!validateField(regExEmail, email)){
+        res.render("pagini/inregistrare", {raspuns: "Invalid email address!"});
+       } else if(!validateField(regExPhone, phone)){
+        res.render("pagini/inregistrare", {raspuns: "Invalid phone number!"});
+       } else {
+            utilizNou = new Utilizator({username: username, lastname: lastName, 
+            firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone});
+           if(await checkIfOkToCreateUser(username)){
+            utilizNou.salvareUtilizator();
+            res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
+           } else {
+            res.render("pagini/inregistrare", {raspuns: "Username taken!"});
+           }
+       }
+        
+    })
+    formular.on("field", function(nume, val){
+        // console.log(`NUME CAMP: ${nume}\nVALOARE CAMP: ${val}`);
+    })
+})
+
+function validateField(regEx, fieldData){
+    return regEx.test(fieldData);
+}
+
+async function checkIfOkToCreateUser(username){
+    let user = await Utilizator.getUtilizDupaUsernameAsync(username);
+    
+    if(user == null){
+        console.log("null");
+    } else console.log(user);
+    return user == null;
+}

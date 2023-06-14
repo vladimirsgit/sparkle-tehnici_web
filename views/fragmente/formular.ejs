@@ -1,0 +1,57 @@
+<form id="form_inreg"  method="post" class="date"  action="<%= locals.action %>"  enctype="multipart/form-data" >
+    <p>
+        <label>
+            Username: <input type="text" name="username" id="inp-username" value="" required pattern="[A-Za-z0-9#_.]+">
+        </label>
+    </p>
+    <p>
+        <label>
+            Last name: <input type="text" name="lastName" id="inp-lastName"  value="" required >
+        </label>
+    </p>
+    <p>
+        <label>
+            First name: <input type="text" name="firstName" id="inp-firstName" value=""  required>
+        </label>
+    </p>
+    <p>
+        <label>
+            Password: <input id="parl" type="password" required  name="password" value="" required>
+        </label>
+    </p>
+    <p id="p-reintrod">
+        <label >
+            Retype password: <input id="rparl" required type="password" name="retypedPassword" value="" required>
+        </label>
+    </p>
+    <p>
+        <label>
+            Email: <input type="text" name="email" id="inp-email" required value=""  size="50" required>
+        </label>
+    </p>
+    <p>
+        <label>
+            Phone: <input type="tel" name="tel" id="inp-tel">
+        </label>			
+    </p>
+    <p>
+        <label>
+            Birth date: <input type="date" name="bday" id="inp-bday"  value="" >
+        </label>
+    </p>
+    <p>
+        <label>
+           Chat color: <select name="culoare_chat" id="sel-culoare"><option value="red" selected>rosu</option><option value="green">verde</option><option value="blue">albastru</option></select>
+        </label>
+    </p>
+    <p>
+        <label>
+            Picture: <input type="file" name="poza">
+        </label>			
+    </p>
+
+    <p>		
+        <input type="submit" value="Trimite">
+        <input type="reset" value="Reseteaza">
+    </p>
+</form>

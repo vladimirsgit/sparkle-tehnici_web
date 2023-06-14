@@ -15,22 +15,27 @@ class Utilizator{
     static emailServer = "proiecttehniciwebvladimir@gmail.com";
     static numeDomeniu = "localhost:8080";
     #eroare;
-    constructor({user_id,username, lastname, firstname, password, role, email, chat_color, picture, phone} = {}) {
+    constructor({user_id, username, lastname, firstname, password, role, email, chat_color, picture, phone} = {}) {
         this.user_id = user_id;
 
         try {
             if(this.checkUsername(username)){
                 this.username = username;
-            }
+            } 
+            this.username = username;
         } catch (e) {
             this.#eroare = e.message;
         }
         for(let prop in arguments[0]){
             this[prop] = arguments[0][prop];
+            
         }
-        if(this.rol)
-        this.rol = this.rol.cod ? RolFactory.creeazaRol(this.rol.cod) : RolFactory.creeazaRol(this.rol);
-        console.log(this.rol);
+        if(!this.role){
+            this.role = RolFactory.creeazaRol("common");
+        } else {
+            this.role = this.role.cod ? RolFactory.creeazaRol(this.role.cod) : RolFactory.creeazaRol(this.role);
+        }
+    
 
         this.#eroare = "";
     }
@@ -50,6 +55,9 @@ class Utilizator{
         return username != "" && username.match(new RegExp("^[A-Za-z0-9#_./]+$"));
     }
 
+    checkUsername(username){
+        return username != "" && username.match(new RegExp("^[A-Za-z0-9#_./]+$"));
+    }
     static criptareParola(parola){
         return crypto.scryptSync(parola, Utilizator.parolaCriptare, Utilizator.lungimeCod).toString("hex");
     }
@@ -153,7 +161,7 @@ class Utilizator{
         })
     }
 
-    static async getUtilizDupaUsername(username){
+    static async getUtilizDupaUsernameAsync(username){
         if(!username) return null;
         try {
             let rezSelect = await AccessBD.getInstance(Utilizator.tipConexiune).selectAsync(
@@ -205,8 +213,7 @@ class Utilizator{
     }
 
     areDreptul(drept){
-        let v_drepturiAdmin = Roluri.RolAdmin.areDreptul();
-        console.log(v_drepturiAdmin);
+      return this.role.areDreptul(drept);
     }
     
 }
