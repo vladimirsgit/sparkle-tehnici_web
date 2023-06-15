@@ -433,8 +433,17 @@ app.post("/inregistrare", function(req, res){
             firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone, picture: poza});
            if(await checkIfOkToCreateUser(username)){
             utilizNou.salvareUtilizator();
+          
+            
+            let folderUser = path.join(__dirname, "poze_uploadate", username);
+            if(!fs.existsSync(folderUser)){
+                fs.mkdirSync(folderUser);
+            }
+            fs.renameSync(path.join(__dirname, "temp", poza), path.join(folderUser, poza));
             res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
+           
            } else {
+            fs.unlinkSync(path.join(__dirname, "temp", poza))
             res.render("pagini/inregistrare", {raspuns: "Username taken!"});
            }
        }
@@ -447,12 +456,12 @@ app.post("/inregistrare", function(req, res){
     })
 
     formular.on("fileBegin", function(nume, fisier){
-        let folderUser = path.join(__dirname, "poze_uploadate", username);
+        let tempFolder = path.join(__dirname, "temp");
         
-        if(!fs.existsSync(folderUser)){
-            fs.mkdirSync(folderUser);
+        if(!fs.existsSync(tempFolder)){
+            fs.mkdirSync(tempFolder);
         }
-        fisier.filepath = path.join(folderUser, fisier.originalFilename);
+        fisier.filepath = path.join(tempFolder, fisier.originalFilename);
         poza = fisier.originalFilename;
         console.log(poza);
     })
