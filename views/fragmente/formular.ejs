@@ -6,12 +6,12 @@
     </p>
     <p>
         <label>
-            Last name: <input type="text" name="lastName" id="inp-lastName"  value="" required >
+            Last name: <input type="text" name="lastName" id="inp-lastName"  value="" required pattern="^[A-Za-z]{1,100}$">
         </label>
     </p>
     <p>
         <label>
-            First name: <input type="text" name="firstName" id="inp-firstName" value=""  required>
+            First name: <input type="text" name="firstName" id="inp-firstName" value=""  required pattern="^[A-Za-z]{1,100}$">
         </label>
     </p>
     <p>
@@ -26,12 +26,12 @@
     </p>
     <p>
         <label>
-            Email: <input type="text" name="email" id="inp-email" required value=""  size="50" required>
+            Email: <input type="text" name="email" id="inp-email" required value=""  size="50" required pattern="^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$">
         </label>
     </p>
     <p>
         <label>
-            Phone: <input type="tel" name="tel" id="inp-tel">
+            Phone: <input type="tel" name="tel" id="inp-tel" pattern="^[+]?0[0-9]{10,20}$">
         </label>			
     </p>
     <p>

@@ -156,8 +156,8 @@ class Utilizator{
                 eroare = -1;
             } else {
                 u = new Utilizator(rezSelect.rows[0]);
-                proceseazaUtiliz(u, obparam, eroare);
             }
+            proceseazaUtiliz(u, obparam, eroare);
         })
     }
 

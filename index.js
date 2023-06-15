@@ -400,10 +400,11 @@ app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care
 // ************* INREGISTRARE *********************//
 
 app.post("/inregistrare", function(req, res){
-    
+    var username;
+    var poza;
     var formular = new formidable.IncomingForm();
     formular.parse(req, async function(err, campuriText, campuriFisier){
-        let username = campuriText.username;
+        username = campuriText.username;
         let lastName = campuriText.lastName;
         let firstName = campuriText.firstName;
         let password = campuriText.password;
@@ -429,7 +430,7 @@ app.post("/inregistrare", function(req, res){
         res.render("pagini/inregistrare", {raspuns: "Invalid phone number!"});
        } else {
             utilizNou = new Utilizator({username: username, lastname: lastName, 
-            firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone});
+            firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone, picture: poza});
            if(await checkIfOkToCreateUser(username)){
             utilizNou.salvareUtilizator();
             res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
@@ -441,6 +442,19 @@ app.post("/inregistrare", function(req, res){
     })
     formular.on("field", function(nume, val){
         // console.log(`NUME CAMP: ${nume}\nVALOARE CAMP: ${val}`);
+        if(nume == "username")
+            username = val;
+    })
+
+    formular.on("fileBegin", function(nume, fisier){
+        let folderUser = path.join(__dirname, "poze_uploadate", username);
+        
+        if(!fs.existsSync(folderUser)){
+            fs.mkdirSync(folderUser);
+        }
+        fisier.filepath = path.join(folderUser, fisier.originalFilename);
+        poza = fisier.originalFilename;
+        console.log(poza);
     })
 })
 
