@@ -17,7 +17,7 @@
         }
       }
       >li{
-        &:not(:first-child){
+        &:nth-child(n+3){
           transition: all 0.3s ease-in-out;
           &:hover{
             background-color: var(--text-color);

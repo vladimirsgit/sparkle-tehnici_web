@@ -93,10 +93,10 @@
     /* #acasa, #store-menu, #welcome-menu, #news-menu, #support-menu, #about-menu{
         display: none;
     } */
-    #acasa{
+    #acasa, #register{
         display: none;
     }
-    #acasa-mediu{
+    #acasa-mediu, #register-mediu{
         display: inline-block;
     }
     ul.meniu > li > div:not(:first-child){

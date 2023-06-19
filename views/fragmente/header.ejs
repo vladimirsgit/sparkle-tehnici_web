@@ -1,14 +1,14 @@
 <header class="myheader">
     <a href="/index#"><h1><span>SPARKLE</span></h1></a>
-    <div class="menu-and-login">
+    <div class="login">
         
-        <!-- <form class="login-input">
-            <input type="text" name="Username" placeholder="Username">
+        <form class="login-input" action = "/login" method="post">
+            <input type="text" name="username" placeholder="Username">
             <br>
-            <input type="password" name="Password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password">
             <br>
             <button>Login</button>
-        </form> -->
+        </form>
     </div>
     <br>
 
@@ -26,6 +26,7 @@
     </label>
     <ul class="meniu">
         <li><a href="/index#"><div id="acasa-mediu"><span class="fa-solid fa-house"></span></div><div id="acasa">Home</div></a></li>
+        <li><a href="/inregistrare"><div id="register-mediu"><span class="fa-solid fa-file-invoice"></span></div><div id="register">Register</div></a></li>
         <li><div id="store-mediu"><span class="fa-solid fa-store"></span></div><div id="store-menu">Store</div>
             <ul>
                 <li><a href="/store">ALL</a></li>
@@ -69,6 +70,7 @@
                 <li><a href="/gallery#galerie-animata">Animated</a></li>
             </ul>
         </li>
+        
     </ul>
 </nav> 
 <div id="navbar-placeholder"></div>

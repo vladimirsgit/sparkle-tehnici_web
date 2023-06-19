@@ -5,8 +5,9 @@ const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
 const sass = require("sass");
-const {Client} = require('pg');
+const {Client} = require("pg");
 const formidable = require("formidable");
+const session = require("express-session");
 
 const {Utilizator} = require('./resurse/js/module_proprii/utilizator.js');
 const Drepturi = require('./resurse/js/module_proprii/drepturi.js');
@@ -80,10 +81,19 @@ app.listen(port, function(){ // ii dam portul, dupa definim o functie anonima ca
     console.log("Aplicatia asculta pe portul:", this.address().port);
 })
 
+app.use(session({
+    secret: 'abcdefg',
+    resave: true,
+    saveUninitialized: false
+}))
 app.use("/resurse", express.static(path.join(__dirname, "resurse"))); //ii aratam de unde sa ia toate resursele necesare pt afisarea site ului
 app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
 app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate app.get
     res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
+    res.locals.Drepturi = Drepturi;
+    if(req.session.utilizator){
+        req.utilizator = res.locals.utilizator = new Utilizator(req.session.utilizator);
+    }
     next();
 })
 
@@ -414,11 +424,11 @@ app.post("/inregistrare", function(req, res){
             res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
            
            } else {
-            if(poza){
-                fs.unlinkSync(path.join(__dirname, "temp", poza))
-            }
-           
-            res.render("pagini/inregistrare", {raspuns: "Username taken!"});
+                if(poza){
+                    fs.unlinkSync(path.join(__dirname, "temp", poza))
+                }
+            
+                res.render("pagini/inregistrare", {raspuns: "Username taken!"});
            }
        }
         
@@ -479,6 +489,31 @@ app.get("/cod_mail/:token/:username", function(req, res){
 
 
 
+
+app.post("/login", function(req, res){
+    var username;
+
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        Utilizator.getUtilizDupaUsername(campuriText.username, {
+            req: req,
+            res:res,
+            password: campuriText.password
+        }, function(u, obparam){
+            let parolaCriptata = Utilizator.criptareParola(obparam.password);
+            if(u.password == parolaCriptata && u.confirmed_email){
+                u.picture = u.picutre ? path.join("poze_uploadate", u.username, u.poza) : "";
+                obparam.req.session.utilizator = u;
+                console.log("LOGARE CU SUCCES");
+                obparam.req.session.mesajLogin = "You are logged in! Good job!";
+                obparam.res.redirect("/index");
+            } else {
+                obparam.req.session.mesajLogin = "Oops... try again!";
+                obparam.res.redirect("/index");
+            }
+        })
+    })
+})
 
 // ********************************************************************************************** //
 

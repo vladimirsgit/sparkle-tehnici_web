@@ -48,7 +48,7 @@ ul.meniu > li:hover ul {
   z-index: 100;
   animation: dropdown 0.3s ease-in-out forwards;
 }
-ul.meniu > li:not(:first-child):hover div {
+ul.meniu > li:nth-child(n+3):hover div {
   color: var(--button-color);
 }
 

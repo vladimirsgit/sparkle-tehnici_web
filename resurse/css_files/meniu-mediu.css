@@ -15,10 +15,10 @@
   ul.meniu li > div {
     transition: background-color 0.3 ease-in-out;
   }
-  ul.meniu > li:not(:first-child) {
+  ul.meniu > li:nth-child(n+3) {
     transition: all 0.3s ease-in-out;
   }
-  ul.meniu > li:not(:first-child):hover {
+  ul.meniu > li:nth-child(n+3):hover {
     background-color: var(--text-color);
   }
   ul.meniu > li a:hover::before {
