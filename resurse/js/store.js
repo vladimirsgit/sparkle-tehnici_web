@@ -168,7 +168,10 @@ window.onload = function(){
 
     })
 
-    document.getElementById("buton-resetare").onclick = () => resetFilters();
+    document.getElementById("buton-resetare").onclick = function(){
+        resetFilters();
+        location.reload();
+    }
     document.addEventListener('beforeunload', resetFilters());
 
     function resetFilters(){
@@ -184,6 +187,7 @@ window.onload = function(){
         let products = document.getElementsByClassName("product");
         afisareProduseCorecte(products, 0, 14);
         makePages();
+       
     }
 
     function sortare(semn){

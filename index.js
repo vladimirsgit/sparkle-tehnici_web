@@ -362,6 +362,126 @@ app.get("/*.ejs", function(req, res){ //in caz ca se incearca a accesa un EJS, d
 })
 
 
+
+// ************* INREGISTRARE *********************//
+
+app.post("/inregistrare", function(req, res){
+    var username;
+    var poza;
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, async function(err, campuriText, campuriFisier){
+        username = campuriText.username;
+        let lastName = campuriText.lastName;
+        let firstName = campuriText.firstName;
+        let password = campuriText.password;
+        let retypedPassword = campuriText.retypedPassword;
+        let email = campuriText.email;
+        let phone = campuriText.tel;
+        let chat_color = campuriText.culoare_chat;
+        let birth_date = campuriText.bday;
+        let regExUsername = /^[A-Za-z0-9#_.]{3,49}$/;
+        let regExName = /^[A-Za-z]{1,100}$/;
+        let regExEmail = /^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$/;
+        let regExPhone = /^[+]?0[0-9]{9,20}$/;
+
+       if(!validateField(regExUsername, username)){
+            res.render("pagini/inregistrare", {raspuns: "Invalid username!"});
+       } else if((!validateField(regExName, lastName)) || (!validateField(regExName, firstName))){
+        res.render("pagini/inregistrare", {raspuns: "Invalid name!"});
+       } else if(password != retypedPassword){
+        res.render("pagini/inregistrare", {raspuns: "Passwords do not match!"});
+       } else if(!validateField(regExEmail, email)){
+        res.render("pagini/inregistrare", {raspuns: "Invalid email address!"});
+       } else if(!validateField(regExPhone, phone)){
+        res.render("pagini/inregistrare", {raspuns: "Invalid phone number!"});
+       } else if(birth_date == null || birth_date == undefined || birth_date == ""){
+            res.render("pagini/inregistrare", {raspuns: "Please fill out the birth date field! Of course we also check on the server-side..."});
+        }
+        else {
+            utilizNou = new Utilizator({username: username, lastname: lastName, 
+            firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone, picture: path.join(__dirname, "poze_uploadate", username, poza), birth_date: birth_date});
+           if(await checkIfOkToCreateUser(username)){
+            utilizNou.salvareUtilizator();
+          
+            
+            let folderUser = path.join(__dirname, "poze_uploadate", username);
+            if(!fs.existsSync(folderUser)){
+                fs.mkdirSync(folderUser);
+            }
+                if(poza){
+                    fs.renameSync(path.join(__dirname, "temp", poza), path.join(folderUser, poza));
+                }
+            res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
+           
+           } else {
+            if(poza){
+                fs.unlinkSync(path.join(__dirname, "temp", poza))
+            }
+           
+            res.render("pagini/inregistrare", {raspuns: "Username taken!"});
+           }
+       }
+        
+    })
+    formular.on("field", function(nume, val){
+        // console.log(`NUME CAMP: ${nume}\nVALOARE CAMP: ${val}`);
+        if(nume == "username")
+            username = val;
+    })
+
+    formular.on("fileBegin", function(nume, fisier){
+        let tempFolder = path.join(__dirname, "temp");
+        
+        if(!fs.existsSync(tempFolder)){
+            fs.mkdirSync(tempFolder);
+        }
+        fisier.filepath = path.join(tempFolder, fisier.originalFilename);
+        poza = fisier.originalFilename;
+        console.log(poza);
+    })
+})
+
+function validateField(regEx, fieldData){
+    return regEx.test(fieldData) && (fieldData != "");
+}
+
+async function checkIfOkToCreateUser(username){
+    let user = await Utilizator.getUtilizDupaUsernameAsync(username);
+    
+    if(user == null){
+        console.log("null");
+    } else console.log(user);
+    return user == null;
+}
+
+
+// ************* CONFIRMARE MAIL *********************//
+
+app.get("/cod_mail/:token/:username", function(req, res){
+    try {
+        Utilizator.getUtilizDupaUsername(req.params.username, {res:res, token: req.params.token}, function(u, obparam){
+            AccessBD.getInstance().update(
+                {tabel: "users", 
+                campuri: {confirmed_email: 'true'},
+                conditii: [[`code = '${obparam.token}'`]]},
+                                            function(err, rezUpdate){
+                                                if(err || rezUpdate.rowCount == 0){
+                                                    afisEroare(res, 404);
+                                                } else {
+                                                    res.render("pagini/confirmare")
+                                                }
+                                            })
+        })
+    } catch (e){
+        afisEroare(res, 404);
+    }
+})
+
+
+
+
+// ********************************************************************************************** //
+
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res
     //care se afla in metoda get() din app; pe urma definim functia function(req, res) si spunem ce vrem sa facem cu obiectele req si res
     //pe care le primeste ca argumente
@@ -396,86 +516,3 @@ app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care
     }
 })
 
-
-// ************* INREGISTRARE *********************//
-
-app.post("/inregistrare", function(req, res){
-    var username;
-    var poza;
-    var formular = new formidable.IncomingForm();
-    formular.parse(req, async function(err, campuriText, campuriFisier){
-        username = campuriText.username;
-        let lastName = campuriText.lastName;
-        let firstName = campuriText.firstName;
-        let password = campuriText.password;
-        let retypedPassword = campuriText.retypedPassword;
-        let email = campuriText.email;
-        let phone = campuriText.tel;
-        let chat_color = campuriText.culoare_chat;
-
-        let regExUsername = /^[A-Za-z0-9#_.]{4,49}$/;
-        let regExName = /^[A-Za-z]{1,100}$/;
-        let regExEmail = /^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$/;
-        let regExPhone = /^[+]?0[0-9]{10,20}$/;
-
-       if(!validateField(regExUsername, username)){
-            res.render("pagini/inregistrare", {raspuns: "Invalid username!"});
-       } else if((!validateField(regExName, lastName)) || (!validateField(regExName, firstName))){
-        res.render("pagini/inregistrare", {raspuns: "Invalid name!"});
-       } else if(password != retypedPassword){
-        res.render("pagini/inregistrare", {raspuns: "Passwords do not match!"});
-       } else if(!validateField(regExEmail, email)){
-        res.render("pagini/inregistrare", {raspuns: "Invalid email address!"});
-       } else if(!validateField(regExPhone, phone)){
-        res.render("pagini/inregistrare", {raspuns: "Invalid phone number!"});
-       } else {
-            utilizNou = new Utilizator({username: username, lastname: lastName, 
-            firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone, picture: poza});
-           if(await checkIfOkToCreateUser(username)){
-            utilizNou.salvareUtilizator();
-          
-            
-            let folderUser = path.join(__dirname, "poze_uploadate", username);
-            if(!fs.existsSync(folderUser)){
-                fs.mkdirSync(folderUser);
-            }
-            fs.renameSync(path.join(__dirname, "temp", poza), path.join(folderUser, poza));
-            res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
-           
-           } else {
-            fs.unlinkSync(path.join(__dirname, "temp", poza))
-            res.render("pagini/inregistrare", {raspuns: "Username taken!"});
-           }
-       }
-        
-    })
-    formular.on("field", function(nume, val){
-        // console.log(`NUME CAMP: ${nume}\nVALOARE CAMP: ${val}`);
-        if(nume == "username")
-            username = val;
-    })
-
-    formular.on("fileBegin", function(nume, fisier){
-        let tempFolder = path.join(__dirname, "temp");
-        
-        if(!fs.existsSync(tempFolder)){
-            fs.mkdirSync(tempFolder);
-        }
-        fisier.filepath = path.join(tempFolder, fisier.originalFilename);
-        poza = fisier.originalFilename;
-        console.log(poza);
-    })
-})
-
-function validateField(regEx, fieldData){
-    return regEx.test(fieldData);
-}
-
-async function checkIfOkToCreateUser(username){
-    let user = await Utilizator.getUtilizDupaUsernameAsync(username);
-    
-    if(user == null){
-        console.log("null");
-    } else console.log(user);
-    return user == null;
-}

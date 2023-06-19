@@ -15,7 +15,7 @@ class Utilizator{
     static emailServer = "proiecttehniciwebvladimir@gmail.com";
     static numeDomeniu = "localhost:8080";
     #eroare;
-    constructor({user_id, username, lastname, firstname, password, role, email, chat_color, picture, phone} = {}) {
+    constructor({user_id, username, lastname, firstname, password, role, email, chat_color, picture, phone, birth_date} = {}) {
         this.user_id = user_id;
 
         try {
@@ -66,6 +66,7 @@ class Utilizator{
         let parolaCriptata = Utilizator.criptareParola(this.password);
         let utiliz = this;
         let token = parole.genereazaToken(100);
+        token+=("-" + new Date().getTime());
 
         AccessBD.getInstance(Utilizator.tipConexiune).insert({tabel: Utilizator.tabel,
         campuri:{
@@ -77,13 +78,14 @@ class Utilizator{
             phone: this.phone,
             chat_color: this.chat_color,
             code: token,
-            picture: this.picture}
+            picture: this.picture,
+            birth_date: this.birth_date}
         },function(err, rez){
             if(err){
                 console.log(err);
             } else {
-                utiliz.trimiteMail("Successful SPARKLE registration!", "Your username is: " + utiliz.username,`<h1>Hi!</h1><p style='color: red'>Your username is: ${utiliz.username}.</p>
-                <p><a href='http://${Utilizator.numeDomeniu}/cod/${utiliz.username}/${token}'>Click here for <b>confirmation</b></a></p>.`)
+                utiliz.trimiteMail("Successful SPARKLE registration!", "Your username is: " + utiliz.username,`<h1>Hello, dear ${utiliz.firstname}!</h1><p>Your username is: ${utiliz.username} on the website <b><i><u>SPARKLE</b></i></u>.</p>
+                <p><a href='http://${Utilizator.numeDomeniu}/cod_mail/${token}/${utiliz.username}'>Click here for <b>confirmation</b></a></p>.`)
             }
         })
     }
