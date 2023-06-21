@@ -69,7 +69,7 @@ function addLastSeenProductCookie(){
 function displayLastSeenProductInUserStats(){
     let divLastSeenProd = document.getElementById("last-seen-product");
    
-    if(divLastSeenProd){
+    if(divLastSeenProd && getCookie("seenProdName")){
         let showingProductData = document.createElement("p");
         showingProductData.innerHTML = "Last seen product: \"" + getCookie("seenProdName") + "\"";
         showingProductData.onclick = () => {

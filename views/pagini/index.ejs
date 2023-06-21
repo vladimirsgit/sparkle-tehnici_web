@@ -16,7 +16,9 @@
     <main>
         <div id="grid-pagina">
             <section id="welcome">
-                <h2>WELCOME</h2>
+                <% if(locals.mesajLogin) { %>
+                <h2>WELCOME <%- locals.mesajLogin %></h2> <% } else { %>
+                    <h2>WELCOME</h2> <% } %>
                 <div id="welcome-text">
                     <p class="intro">Thank you for visiting our site!</p>
                     <p>At Sparkle, we believe that gaming is more than just a hobby - it's a way of life. That's why we are dedicated to bringing gamers together and fostering a sense of community through our products and services. 
@@ -203,8 +205,11 @@
                 <p>Your IP is: <%- locals.ip %></p>
                 <p>PS: I did not steal it from you, its your public IP, nothing secret about it :).</p>
                 <div id="last-seen-product" style="margin-top: 2em;">
-                    
                 </div>
+                <% try{if(locals.utilizator.picture != 'null') {%>
+                    <img src="../../resurse/<%-locals.utilizator.picture%>" alt="Cannot load image"> <% }} catch(e){
+                        
+                    } %>
             </section>
             <section id="site-stats">
                 <h2>site-stats</h2>

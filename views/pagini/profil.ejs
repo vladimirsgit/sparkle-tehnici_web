@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="sparkle, sprkl, gaming store, games, buy games, online gaming shop, cool games, epic games">
+    <meta name="description" content="Sparkle(SPRKL) is the safest and fastest way of buying games.">
+    <meta name="author" content="Vladimir Stratulat">
+    <title>SPARKLE</title>
+    
+    <%- include("../fragmente/head.ejs") %>
+
+    <% if(locals.utilizator) {%>
+
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("inp-username").value = "<%- locals.utilizator.username %>";
+                document.getElementById("inp-username").readOnly = true;
+                document.getElementById("inp-lastname").value = "<%- locals.utilizator.lastname %>";
+                document.getElementById("inp-firstname").value = "<%- locals.utilizator.firstname %>";
+                document.getElementById("inp-email").value = "<%- locals.utilizator.email %>";
+                document.getElementById("inp-tel").value = "<%- locals.utilizator.phone %>";
+                document.getElementById("sel-culoare").value = "<%- locals.utilizator.chat_color %>";
+                document.getElementById("inp-tel").value = "<%- locals.utilizator.phone %>";
+            })
+        </script>     <% } %>
+        </head>
+<body>
+    <%- include("../fragmente/header.ejs") %>
+    <main>
+        <% if(locals.utilizator) { %>
+            <h2>PROFILE</h2>
+            <% if(locals.utilizator.picture != 'null') {%><img src="../../resurse/<%-locals.utilizator.picture%>" <% } else{%>
+                <p>No picture uploaded</p> <% } %>
+        <form id="form_inreg"  method="post" class="date"  action="/profil"  enctype="multipart/form-data" >
+            <p>
+                <label>
+                    Username: <input type="text" name="username" id="inp-username" value="">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Last name: <input type="text" name="lastname" id="inp-lastname"  value="" required pattern="^[A-Za-z]{1,100}$">
+                </label>
+            </p>
+            <p>
+                <label>
+                    First name: <input type="text" name="firstname" id="inp-firstname" value=""  required pattern="^[A-Za-z]{1,100}$">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Password: <input id="parl" type="password" required  name="password" value="">
+                </label>
+            </p>
+            <p>
+                <label>
+                    New password: <input id="nparl" type="password"  name="newpassword" value="">
+                </label>
+            </p>
+
+            <p id="p-reintrod">
+                <label >
+                    Retype new password: <input id="nrparl" type="password" name="retypednewpassword" value="">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Email: <input type="text" name="email" id="inp-email" value=""  size="50" required pattern="^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Phone: <input type="tel" name="tel" id="inp-tel" pattern="^[+]?0[0-9]{10,20}$">
+                </label>			
+            </p>
+            <!-- <p>
+                <label>
+                    Birth date: <input type="date" name="bday" id="inp-bday"  value="">
+                </label>
+            </p> -->
+            <p>
+                <label>
+                   Chat color: <select name="culoare_chat" id="sel-culoare"><option value="red" selected>rosu</option><option value="green">verde</option><option value="blue">albastru</option></select>
+                </label>
+            </p>
+            <p>
+                <label>
+                    Picture: <input type="file" name="picture">
+                </label>			
+            </p>
+        
+            <p>		
+                <input type="submit" value="Trimite">
+            </p>
+        </form>
+        <% } else { %>
+            <p>You are not logged in!</p>
+            <% } %>
+            <p><%- locals.mesaj %></p>
+    </main>
+    <br><br>
+    <%- include("../fragmente/footer.ejs") %>
+</body>
+</html>

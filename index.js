@@ -351,7 +351,9 @@ app.get("/product/:id", function(req, res){
 
 const correctHomePaths = ["/", "/index", "/home"];
 app.get(correctHomePaths, function(req, res){
-    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
+    let sir = req.session.mesajLogin;
+    req.session.mesajLogin = null;
+    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini, mesajLogin: sir}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
     
 })
 
@@ -377,12 +379,12 @@ app.get("/*.ejs", function(req, res){ //in caz ca se incearca a accesa un EJS, d
 
 app.post("/inregistrare", function(req, res){
     var username;
-    var poza;
+    var picture;
     var formular = new formidable.IncomingForm();
     formular.parse(req, async function(err, campuriText, campuriFisier){
         username = campuriText.username;
-        let lastName = campuriText.lastName;
-        let firstName = campuriText.firstName;
+        let lastname = campuriText.lastname;
+        let firstname = campuriText.firstname;
         let password = campuriText.password;
         let retypedPassword = campuriText.retypedPassword;
         let email = campuriText.email;
@@ -396,7 +398,7 @@ app.post("/inregistrare", function(req, res){
 
        if(!validateField(regExUsername, username)){
             res.render("pagini/inregistrare", {raspuns: "Invalid username!"});
-       } else if((!validateField(regExName, lastName)) || (!validateField(regExName, firstName))){
+       } else if((!validateField(regExName, lastname)) || (!validateField(regExName, firstname))){
         res.render("pagini/inregistrare", {raspuns: "Invalid name!"});
        } else if(password != retypedPassword){
         res.render("pagini/inregistrare", {raspuns: "Passwords do not match!"});
@@ -408,24 +410,27 @@ app.post("/inregistrare", function(req, res){
             res.render("pagini/inregistrare", {raspuns: "Please fill out the birth date field! Of course we also check on the server-side..."});
         }
         else {
-            utilizNou = new Utilizator({username: username, lastname: lastName, 
-            firstname: firstName, password: password, email: email, chat_color: chat_color, phone: phone, picture: path.join(__dirname, "poze_uploadate", username, poza), birth_date: birth_date});
+            utilizNou = new Utilizator({username: username, lastname: lastname, 
+            firstname: firstname, password: password, email: email, chat_color: chat_color, phone: phone, picture: path.join("poze_uploadate", username, picture).split(path.sep).join('/'), birth_date: birth_date});
            if(await checkIfOkToCreateUser(username)){
+            if(picture == null || picture == ''){
+                utilizNou.picture = 'null';
+            }
             utilizNou.salvareUtilizator();
           
             
-            let folderUser = path.join(__dirname, "poze_uploadate", username);
+            let folderUser = path.join(__dirname, "resurse", "poze_uploadate", username);
             if(!fs.existsSync(folderUser)){
-                fs.mkdirSync(folderUser);
+                fs.mkdirSync(folderUser, {recursive: true});
             }
-                if(poza){
-                    fs.renameSync(path.join(__dirname, "temp", poza), path.join(folderUser, poza));
+                if(picture){
+                    fs.renameSync(path.join(__dirname, "temp", picture), path.join(folderUser, picture));
                 }
             res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
            
            } else {
-                if(poza){
-                    fs.unlinkSync(path.join(__dirname, "temp", poza))
+                if(picture){
+                    fs.unlinkSync(path.join(__dirname, "temp", picture))
                 }
             
                 res.render("pagini/inregistrare", {raspuns: "Username taken!"});
@@ -446,8 +451,8 @@ app.post("/inregistrare", function(req, res){
             fs.mkdirSync(tempFolder);
         }
         fisier.filepath = path.join(tempFolder, fisier.originalFilename);
-        poza = fisier.originalFilename;
-        console.log(poza);
+        picture = fisier.originalFilename;
+
     })
 })
 
@@ -500,19 +505,87 @@ app.post("/login", function(req, res){
             res:res,
             password: campuriText.password
         }, function(u, obparam){
+            
             let parolaCriptata = Utilizator.criptareParola(obparam.password);
-            if(u.password == parolaCriptata && u.confirmed_email){
-                u.picture = u.picutre ? path.join("poze_uploadate", u.username, u.poza) : "";
+            
+            if(obparam.password && u && u.password == parolaCriptata && u.confirmed_email){
+                u.picture = u.picture ? u.picture : "";
                 obparam.req.session.utilizator = u;
                 console.log("LOGARE CU SUCCES");
-                obparam.req.session.mesajLogin = "You are logged in! Good job!";
+                obparam.req.session.mesajLogin = u.username + ", you are logged in! Good job!";
                 obparam.res.redirect("/index");
             } else {
+                console.log("NU A MERS");
                 obparam.req.session.mesajLogin = "Oops... try again!";
                 obparam.res.redirect("/index");
             }
         })
     })
+})
+
+
+app.post("/profil", function(req, res){
+    if(!req.session.utilizator){
+        console.log("HELLLLLLLLLLLOOOO");
+        afisEroare(res, 403);
+        res.render("pagini/eroare", {text: "You are not logged in!"});
+        return;
+    }
+    var formular = new formidable.IncomingForm();
+    formular.parse(req, function(err, campuriText, campuriFisier){
+        
+        var parolaCriptata = Utilizator.criptareParola(campuriText.password);
+      
+        var picture;
+        if(campuriFisier.picture.originalFilename == ''){
+            picture = req.session.utilizator.picture;
+        } else picture =  path.join("poze_uploadate", campuriText.username, campuriFisier.picture.originalFilename).split(path.sep).join('/');
+        var parolaSchimbata;
+        if(campuriText.newpassword == campuriText.retypednewpassword){
+           
+            if(campuriText.newpassword != '' && campuriText.retypednewpassword != ''){
+                parolaSchimbata = Utilizator.criptareParola(campuriText.newpassword);
+            }
+            else parolaSchimbata = parolaCriptata;
+        } else parolaSchimbata = parolaCriptata;
+          
+            console.log(campuriText);
+        AccessBD.getInstance().update({tabel: "users", campuri: {lastname: campuriText.lastname, firstname: campuriText.firstname, 
+            email: campuriText.email, chat_color: campuriText.culoare_chat, picture: picture, password: parolaSchimbata},
+    conditii: [[`password='${parolaCriptata}'`]]}, function(err, rez){
+        if(err){
+            console.log(err);
+            afisEroare(res, 404);
+            return;
+        } if(rez.rowCount == 0){
+            res.render("pagini/profil", {mesaj: "Please check your password!"});
+            return;
+        } else {
+            req.session.utilizator.lastname = campuriText.lastname;
+            req.session.utilizator.firstname = campuriText.firstname;
+            req.session.utilizator.email = campuriText.email;
+            req.session.utilizator.chat_color = campuriText.chat_color;
+            req.session.utilizator.picture = picture;
+
+            Utilizator.getUtilizDupaUsername(campuriText.username, {}, function(utiliz, {}, err){
+                utiliz.trimiteMail("Successful account details change!", "", `<h1>Hello dear ${utiliz.firstname},</h1>
+                <p>Here are your new account details:</p><p>Username: ${utiliz.username}</p><p>Last name: ${utiliz.lastname}</p><p>First name: ${utiliz.firstname}</p>
+                <p>Email: ${utiliz.email}</p><p>Phone number: ${utiliz.phone}</p><p>Chat color: ${utiliz.chat_color}</p>`, []);
+            });
+
+        }
+
+        res.render("pagini/profil", {mesaj: "Update successful!"})
+    })
+
+    })
+})
+
+app.get("/logout", function(req, res){
+    req.session.destroy();
+    res.locals.utilizator = null;
+    res.render("pagini/logout");
+    console.log("DELOGARE CU SUCCES");
 })
 
 // ********************************************************************************************** //

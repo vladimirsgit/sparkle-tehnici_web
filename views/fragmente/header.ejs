@@ -1,7 +1,7 @@
 <header class="myheader">
     <a href="/index#"><h1><span>SPARKLE</span></h1></a>
+    <% if(!locals.utilizator){ %>
     <div class="login">
-        
         <form class="login-input" action = "/login" method="post">
             <input type="text" name="username" placeholder="Username">
             <br>
@@ -9,7 +9,7 @@
             <br>
             <button>Login</button>
         </form>
-    </div>
+    </div> <% } %>
     <br>
 
     <div id="tema">
@@ -70,7 +70,13 @@
                 <li><a href="/gallery#galerie-animata">Animated</a></li>
             </ul>
         </li>
-        
+        <% if(locals.utilizator){ %>
+            <li><div id="user-mediu"><span class="fa-solid fa-user"></span></div><div id="user-menu">Profile</div>
+                <ul>
+                    <li><a href="/profil">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+                <% } %>
     </ul>
 </nav> 
 <div id="navbar-placeholder"></div>
