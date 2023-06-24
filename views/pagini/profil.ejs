@@ -30,7 +30,7 @@
     <main>
         <% if(locals.utilizator) { %>
             <h2>PROFILE</h2>
-            <% if(locals.utilizator.picture != 'null') {%><img src="../../resurse/<%-locals.utilizator.picture%>"/> <% } else{%>
+            <% if(locals.utilizator.picture != 'null') {%><img src="../../resurse/<%-locals.utilizator.picture%>"> <% } else{%>
                 <p>No picture uploaded</p> <% } %>
 
         <form id="form_inreg"  method="post" class="date"  action="/profil"  enctype="multipart/form-data" >

@@ -541,6 +541,8 @@ app.post("/profil", function(req, res){
         if(campuriFisier.picture.originalFilename == ''){
             picture = req.session.utilizator.picture;
         } else picture =  path.join("poze_uploadate", campuriText.username, campuriFisier.picture.originalFilename).split(path.sep).join('/');
+        console.log("PICTUREEEEEEEEEEEEE:", campuriFisier.picture);
+        fs.rename(campuriFisier.picture.filepath, path.join(__dirname, "resurse", picture), function(err){});
         var parolaSchimbata;
         if(campuriText.newpassword == campuriText.retypednewpassword){
            
