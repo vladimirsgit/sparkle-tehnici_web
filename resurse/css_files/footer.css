@@ -78,8 +78,7 @@ footer{
     width: 10vw;
     height: 10vh;
     font-size: large;
-    background-color: var(--highlight);
-    border-radius: 10%;
+
 }
 
 @keyframes cookie-banner-animation {

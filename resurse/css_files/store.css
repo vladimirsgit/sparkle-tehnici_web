@@ -10,9 +10,21 @@
 }
 
 #filters  label {
-    margin-top: var(--main-sections-spacing);
+    margin-top: 0.6em;
 }
 
+#filters label input{
+    max-width: 20vw;
+    max-height: 1.5em;
+}
+textarea{
+    max-width: 40vw;
+    max-height: 1.5em;
+}
+select{
+    max-width: 20vw;
+    max-height: 5em;
+}
 #filters > :nth-child(n+3){
     display: none;
 }

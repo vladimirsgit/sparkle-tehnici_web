@@ -3,18 +3,17 @@
 
 
 @media screen and (max-width: 480px){
-    html{
+    body{
         --margin-spacing: 0px;
-        --grid-gap: 10px;
-        --main-sections-spacing: 15px;
+        --grid-gap: 0px;
+        --main-sections-spacing: 0px;
         animation: none;
         font-size: 10px;
-    }
-    
-    body{
         margin-left: var(--margin-spacing);
         margin-right: var(--margin-spacing);
     }
+    
+
     #grid-pagina{
         gap: var(--grid-gap);
     }
@@ -52,12 +51,31 @@
     #cookies-banner{
         animation: none !important;
     }
+    header.myheader {
+        flex-direction: column;
+        align-items: center;
+      }
+ 
+      #tema{
+        width: 5em;
+        
+      }
+      .login-input input{
+        width: 10em;
+        height: 5vh;
+      }
+      .login-input button{
+        height: 5vh;
+      }
+      ul.meniu{
+        margin-top: 0;
+    }
 }
 
 /* //////////////////// ECRAN TABLETA //////////////////// */
 
 @media screen and (min-width: 481px) and (max-width: 1023px){
-    html{
+    body{
         font-size: 16px;
         --margin-spacing: 20px;
         --grid-gap: 15px;
@@ -120,12 +138,15 @@
     #cookies-banner{
         animation: none !important;
     }
+   header.myheader h1{
+    font-size: 2em;
+   }
 }
 
 /* //////////////////// ECRAN DESKTOP/LAPTOP //////////////////// */
 
 @media screen and (min-width: 1024px){
-    html{
+    body{
         font-size: 18px;
     }
     #grid-pagina{

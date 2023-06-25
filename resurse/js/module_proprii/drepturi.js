@@ -27,3 +27,5 @@ const Drepturi = {
     stergereProduse: Symbol("stergereProduse"),
     vizualizareGrafice: Symbol("vizualizareGrafice")
 }
+
+module.exports = Drepturi;

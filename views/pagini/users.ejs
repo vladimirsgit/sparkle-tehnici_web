@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="sparkle, sprkl, gaming store, games, buy games, online gaming shop, cool games, epic games">
+    <meta name="description" content="Sparkle(SPRKL) is the safest and fastest way of buying games.">
+    <meta name="author" content="Vladimir Stratulat">
+    <link rel="stylesheet" href="/resurse/css_files/users.css" type="text/css" />
+    <title>SPARKLE</title>
+    
+    <%- include("../fragmente/head.ejs") %>
+</head>
+<body>
+    <%- include("../fragmente/header.ejs") %>
+    <main>
+        <div class="afisaj">
+            <h2>Useri</h2>
+    
+            <table id="useri" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                    <th>Action</th><th>ID</th><th>Username</th><th>Last name</th><th>First name</th><th>Email</th><th>Role</th>
+                  </tr>
+              </thead>
+    
+              <% for (var i = 0; i < users.length; i++) { 
+                    if(users[i].role!="admin"){
+                    %>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary" id="promoteuser">Promote</button>
+                            <button class="btn btn-warning" id="demoteuser">Demote</button>
+                        </td>
+                        <td><%- users[i].user_id %></td>
+                        <td><%- users[i].username %></td>
+                        <td><%- users[i].lastname %></td>
+                        <td><%- users[i].firstname %></td>
+                        <td><%- users[i].email %></td>
+                        <td><%-  users[i].role %></td>
+                    </tr> 
+       
+                    <% } %>			
+              <% } %>
+            </table>
+        </div>
+    </main>
+    <br><br>
+    <%- include("../fragmente/footer.ejs") %>
+</body>
+</html>

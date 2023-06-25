@@ -30,6 +30,9 @@ span.fa-solid {
   margin-right: 0.2em;
 }
 
+ul.meniu {
+  margin-top: -1em;
+}
 ul.meniu li {
   width: var(--latime-buton);
   height: var(--intaltime-buton);

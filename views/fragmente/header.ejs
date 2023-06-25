@@ -1,15 +1,16 @@
 <header class="myheader">
     <a href="/index#"><h1><span>SPARKLE</span></h1></a>
     <% if(!locals.utilizator){ %>
-    <div class="login">
-        <form class="login-input" action = "/login" method="post">
-            <input type="text" name="username" placeholder="Username">
-            <br>
-            <input type="password" name="password" placeholder="Password">
-            <br>
-            <button>Login</button>
-        </form>
-    </div> <% } %>
+        <div class="login">
+            <form class="login-input" action="/login" method="post">
+                <div style="display: flex; align-items: center;">
+                    <input type="text" name="username" placeholder="Username" class="form-control">
+                    <button class="btn btn-primary">Login</button>
+                </div>
+                <input type="password" name="password" placeholder="Password" class="form-control">
+            </form>
+        </div>
+         <% } %>
     <br>
 
     <div id="tema">
@@ -37,7 +38,6 @@
         </li>
         <li><div id="welcome-mediu"><span class="fa-solid fa-door-open"></span></div><div id="welcome-menu">Welcome</div>
             <ul>
-                <li><a href="/inregistrare">Register</a></li>
                 <li><a href="/index#tabel">Schedule</a></li>
                 <li><a href="/index#event-calendar">Calendar</a></li>
             </ul>
@@ -76,6 +76,14 @@
                     <li><a href="/profil">Profile</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
+                <% } %>
+            <% if(locals?.utilizator?.areDreptul?.(Drepturi.vizulizareUtilizatori)) {%>
+                <li><div><span class="fa-solid fa-user-secret"></span></div><div>Admin</div>
+                    <ul>
+                        <li><a href="/users">Users</a></li>
+
+                    </ul>
+                </li>
                 <% } %>
     </ul>
 </nav> 

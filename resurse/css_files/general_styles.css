@@ -75,6 +75,10 @@ header.myheader {
   width: 100%;
 }
 
+.login-input input{
+  width: 10vw;
+}
+
 #tema {
         display: flex;
         justify-content: center;

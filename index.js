@@ -91,6 +91,7 @@ app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
 app.use("/*", function(req, res, next){ //incearca astea cu use sa fie inainte de toate app.get
     res.locals.optiuniMeniu = obGlobal.optiuniMeniu;
     res.locals.Drepturi = Drepturi;
+
     if(req.session.utilizator){
         req.utilizator = res.locals.utilizator = new Utilizator(req.session.utilizator);
     }
@@ -583,6 +584,21 @@ app.post("/profil", function(req, res){
 
     })
 })
+
+
+app.get("/users", function(req, res){
+
+    if(req?.utilizator?.areDreptul?.(Drepturi.vizualizareUtilizatori)){
+        AccessBD.getInstance().select({tabel: "users", campuri: ["*"]}, function(err, rezQuery){
+            console.log(err);
+            console.log(rezQuery.rows);
+            res.render("pagini/users", {users: rezQuery.rows})
+        });
+    } else {
+        afisEroare(res, 403);
+    }
+});
+
 
 app.get("/logout", function(req, res){
     req.session.destroy();

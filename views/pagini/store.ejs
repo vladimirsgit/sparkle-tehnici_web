@@ -18,61 +18,66 @@
         <!-- <h2 class="header-store">Store</h2> -->
         <section id="filters">
             <h3>Filters:</h3> 
-            <button id="showhidefilters" onclick="toggleFilters()">Show/Hide Filters</button>
-            <label> Search:
-                <input id="i_text" type="text" placeholder="Product's name">
+            <button id="showhidefilters" class="btn btn-primary" onclick="toggleFilters()">Show/Hide Filters</button>
+            <label for="i_text"> Search:
+                <input id="i_text" type="text" placeholder="Product's name" class="form-control">
             </label>
             <label for="i_range"> Max price: <%-locals.optiuniFiltre.pretMinim%>
-                <input id="i_range" type="range" min="<%-locals.optiuniFiltre.pretMinim%>" max="<%-locals.optiuniFiltre.pretMaxim+1 %>" step="1" value="0">
+                <input id="i_range" type="range" min="<%-locals.optiuniFiltre.pretMinim%>" max="<%-locals.optiuniFiltre.pretMaxim+1 %>" step="1" value="0" class="form-range">
                 <%-locals.optiuniFiltre.pretMaxim+1%><span id="infoRange"> (0)</span></label>
             <label>Publishers:
-                <input list="id_lista" id="i_datalist">
+                <input list="id_lista" id="i_datalist" class="form-control">
                 <datalist id="id_lista">
                     <% for(let publisher of locals.optiuniFiltre["publishers"]) {  %>
                         <option value="<%-publisher.publisher%>"><%-publisher.publisher%></option>
                         <% } %>
                 </datalist>
             </label>
-            <div id="copies"> Physical copies:
-                <%let i = 0; for(let valabil of locals.optiuniFiltre["fizic"]) { %>
-                <label><% if(valabil.valabil){ %> Available <%} else { %> Only digital <% } %>
-                    <input id="i_rad<%-i %>" checked name="gr_rad" value="<%-valabil.valabil%>" type="radio"/>
-                </label>
+                <label>Physical copies:</label>
+                <% let i = 0; for(let valabil of locals.optiuniFiltre["fizic"]) { %>
+                    <div class="form-check">
+                        <input id="i_rad<%-i %>" checked name="gr_rad" value="<%-valabil.valabil%>" type="radio" class="form-check-input">
+                        <label class="form-check-label" for="i_rad<%-i %>">
+                            <% if(valabil.valabil){ %> Available <%} else { %> Only digital <% } %>
+                        </label>
+                    </div>
                 <% i++;} %>
-            </div>
            <div id="platforms" >Platforms:
             <label>All
                 <input id="allplatforms" name="gr_chck_platforms" value="all" type="checkbox" onchange="uncheckPlatforms()" checked>
             </label>
             <%  i = 0; for(let platform of locals.optiuniFiltre["platforms"]) {%>
                 <label><%- platform.platform %>
-                    <input id="platform<%- i %>" name="gr_chck_platforms" value="<%-platform.platform%>" type="checkbox"/>
+                    <input id="platform<%- i %>" name="gr_chck_platforms" value="<%-platform.platform%>" type="checkbox">
                 </label>
                 <% i++;} %>
            </div>
-            <label>Description:
-                <textarea id="i_textarea" style="width: 581px; height: 32px;" placeholder="Enter keywords separated by comma, like this: shooter, time-travel, warfare"></textarea>
+           
+            <label for="i_textarea">Description:
+                <textarea id="i_textarea" class="form-control" placeholder="Enter keywords separated by comma, like this: shooter, time-travel, warfare"></textarea>
             </label>
-            <label>Age restriction:
-                <select id="i_sel_simplu">
-                    <option value="0">All</option>
-                    <% i = 0; for(let restrictie of locals.optiuniFiltre["restrictions"]) { %>
-                    <option value="<%-restrictie.restrictie%>"><%-restrictie.restrictie%></option> <% i++;} %>
-                </select>
-            </label>
-            <label>Genres:
-                <select id="i_sel_multiplu" multiple size="8">
-                    <option value="all">Anything</option>
-                    <% i = 0; for(let genre of locals.optiuniFiltre["genres"]) { %>
-                        <option value="<%-genre.genre%>"><%-genre.genre%></option> <% i++;} %>
-                </select>
-            </label>
-           <div id="butoate-filtre">
-            <button id="buton-filtrare">Show products</button>
-            <button id="buton-resetare">Reset filters</button>
-            <button id="buton-sortare-crescator">Sort ascending by price and name</button>
-            <button id="buton-sortare-descrescator">Sort descending by price and name</button>
-           </div>
+        
+            <label for="i_sel_simplu">Age restriction:</label>
+            <select id="i_sel_simplu" class="form-select" style="max-width: 10vw;">
+                <option value="0">All</option>
+                <%  i = 0; for (let restrictie of locals.optiuniFiltre["restrictions"]) { %>
+                    <option value="<%- restrictie.restrictie %>"><%- restrictie.restrictie %></option>
+                <% i++; } %>
+            </select>
+            
+                    <label for="i_sel_multiplu">Genres:</label>
+        <select id="i_sel_multiplu" class="form-select" multiple size="8">
+            <option value="all">Anything</option>
+            <%  i = 0; for (let genre of locals.optiuniFiltre["genres"]) { %>
+                <option value="<%- genre.genre %>"><%- genre.genre %></option>
+            <% i++; } %>
+        </select>
+        <div id="butoate-filtre">
+            <button id="buton-resetare" class="btn btn-warning">Reset filters</button>
+            <button id="buton-sortare-crescator" class="btn btn-info">Sort ascending by price and name</button>
+            <button id="buton-sortare-descrescator" class="btn btn-info">Sort descending by price and name</button>
+        </div>
+        
            <p id="p-suma">Apasati Alt+"c" pentru suma preturilor produselor afisate</p>
         </section>
         <script src="../../resurse/js/store.js"></script>
@@ -82,7 +87,7 @@
             <% for(let prod of locals.products){ 
                       %>
             <article id = "product<%- prod.product_id %>" class="product">
-                <a href="/product/<%- prod.product_id %>"><span class="val-name"><%- prod.name%></span></a>
+                <a href="/product/<%- prod.product_id %>"><h4 class="val-name"><%- prod.name%></h4></a>
                 <div class="info-produse">
                     <p class="price">Price: <span class="val-price">
                         <%- prod.price %>

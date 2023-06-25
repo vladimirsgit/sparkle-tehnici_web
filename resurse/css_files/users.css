@@ -1,0 +1,19 @@
+#useri{
+    border-collapse: collapse;
+    background-color: var(--grid-color);
+    color: var(--text-color);
+}
+
+#useri td{
+    border: 1px solid var(--border-color);
+    padding: 5px;
+    color: var(--text-color);
+    text-align: center;
+}
+#useri th{
+    border: 3px solid var(--border-color);
+    padding: 5px;
+    color: var(--text-color);
+    text-align: center;
+    background-color: var(--selected-text-color);
+}
