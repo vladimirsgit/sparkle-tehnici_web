@@ -1,57 +1,57 @@
-<form id="form_inreg"  method="post" class="date"  action="<%= locals.action %>"  enctype="multipart/form-data" >
-    <p>
-        <label>
-            Username: <input type="text" name="username" id="inp-username" value="" required pattern="[A-Za-z0-9#_.]+">
-        </label>
-    </p>
-    <p>
-        <label>
-            Last name: <input type="text" name="lastname" id="inp-lastname"  value="" required pattern="^[A-Za-z]{1,100}$">
-        </label>
-    </p>
-    <p>
-        <label>
-            First name: <input type="text" name="firstname" id="inp-firstname" value=""  required pattern="^[A-Za-z]{1,100}$">
-        </label>
-    </p>
-    <p>
-        <label>
-            Password: <input id="parl" type="password" required  name="password" value="" required>
-        </label>
-    </p>
-    <p id="p-reintrod">
-        <label >
-            Retype password: <input id="rparl" required type="password" name="retypedPassword" value="" required>
-        </label>
-    </p>
-    <p>
-        <label>
-            Email: <input type="text" name="email" id="inp-email" required value=""  size="50" required pattern="^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$">
-        </label>
-    </p>
-    <p>
-        <label>
-            Phone: <input type="tel" name="tel" id="inp-tel" pattern="^[+]?0[0-9]{10,20}$">
-        </label>			
-    </p>
-    <p>
-        <label>
-            Birth date: <input type="date" name="bday" id="inp-bday"  value="" required>
-        </label>
-    </p>
-    <p>
-        <label>
-           Chat color: <select name="culoare_chat" id="sel-culoare"><option value="red" selected>rosu</option><option value="green">verde</option><option value="blue">albastru</option></select>
-        </label>
-    </p>
-    <p>
-        <label>
-            Picture: <input type="file" name="picture">
-        </label>			
-    </p>
-
-    <p>		
-        <input type="submit" value="Trimite">
-        <input type="reset" value="Reseteaza">
-    </p>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <form id="form_inreg"  method="post" class="date"  action="<%= locals.action %>"  enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="inp-username">Username:</label>
+                    <input type="text" name="username" id="inp-username" class="form-control" required pattern="[A-Za-z0-9#_.]+">
+                </div>
+                <div class="form-group">
+                    <label for="inp-lastname">Last name:</label>
+                    <input type="text" name="lastname" id="inp-lastname" class="form-control" required pattern="^[A-Za-z]{1,100}$">
+                </div>
+                <div class="form-group">
+                    <label for="inp-firstname">First name:</label>
+                    <input type="text" name="firstname" id="inp-firstname" class="form-control" required pattern="^[A-Za-z]{1,100}$">
+                </div>
+                <div class="form-group">
+                    <label for="parl">Password:</label>
+                    <input id="parl" type="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="rparl">Retype password:</label>
+                    <input id="rparl" type="password" name="retypedPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="inp-email">Email:</label>
+                    <input type="text" name="email" id="inp-email" class="form-control" size="50" required pattern="^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$">
+                </div>
+                <div class="form-group">
+                    <label for="inp-tel">Phone:</label>
+                    <input type="tel" name="tel" id="inp-tel" class="form-control" pattern="^[+]?0[0-9]{10,20}$">
+                </div>
+                <div class="form-group">
+                    <label for="inp-bday">Birth date:</label>
+                    <input type="date" name="bday" id="inp-bday" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="sel-culoare">Chat color:</label>
+                    <select name="culoare_chat" id="sel-culoare" class="form-control">
+                        <option value="red" selected>rosu</option>
+                        <option value="green">verde</option>
+                        <option value="blue">albastru</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="picture">Picture:</label>
+                    <input type="file" name="picture" class="form-control-file">
+                </div>
+            
+                <div class="form-group">		
+                    <input type="submit" class="btn btn-primary" value="Trimite">
+                    <input type="reset" class="btn btn-secondary" value="Reseteaza">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

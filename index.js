@@ -499,7 +499,6 @@ app.get("/cod_mail/:token/:username", function(req, res){
 
 app.post("/login", function(req, res){
     var username;
-
     var formular = new formidable.IncomingForm();
     formular.parse(req, function(err, campuriText, campuriFisier){
         Utilizator.getUtilizDupaUsername(campuriText.username, {
@@ -652,6 +651,31 @@ app.put("/demoteUser/:userId", function(req, res){
         afisEroare(res, 403);
     }
 })
+
+app.delete("/deleteUser", express.json(), function(req, res){
+    const username = req.session.utilizator.username;
+    console.log(req.body);
+    const password = req.body.password;
+    
+    let cryptedPassword = Utilizator.criptareParola(password);
+    Utilizator.getUtilizDupaUsername(username, {}, function(user, obparam, error){
+        if(error){
+            console.log(error);
+            res.status(500).json({status: 'error', message:'Internal server error'});
+        } else {
+            if(cryptedPassword == user.password){
+                Utilizator.stergeUtilizator(username);
+                res.status(200).json({status: 'success', message: 'Account deleted'});
+                req.session.destroy();
+            } else {
+                res.status(401).json({status: 'failure', message: 'Invalid password'});
+            }
+
+        }
+    })
+})
+
+
 // ********************************************************************************************** //
 
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res

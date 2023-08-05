@@ -29,72 +29,82 @@
     <%- include("../fragmente/header.ejs") %>
     <main>
         <% if(locals.utilizator) { %>
-            <h2>PROFILE</h2>
-            <% if(locals.utilizator.picture != 'null') {%><img src="../../resurse/<%-locals.utilizator.picture%>"> <% } else{%>
-                <p>No picture uploaded</p> <% } %>
-
-        <form id="form_inreg"  method="post" class="date"  action="/profil"  enctype="multipart/form-data" >
-            <p>
-                <label>
-                    Username: <input type="text" name="username" id="inp-username" value="">
-                </label>
-            </p>
-            <p>
-                <label>
-                    Last name: <input type="text" name="lastname" id="inp-lastname"  value="" required pattern="^[A-Za-z]{1,100}$">
-                </label>
-            </p>
-            <p>
-                <label>
-                    First name: <input type="text" name="firstname" id="inp-firstname" value=""  required pattern="^[A-Za-z]{1,100}$">
-                </label>
-            </p>
-            <p>
-                <label>
-                    Password: <input id="parl" type="password" required  name="password" value="">
-                </label>
-            </p>
-            <p>
-                <label>
-                    New password: <input id="nparl" type="password"  name="newpassword" value="">
-                </label>
-            </p>
-
-            <p id="p-reintrod">
-                <label >
-                    Retype new password: <input id="nrparl" type="password" name="retypednewpassword" value="">
-                </label>
-            </p>
-            <p>
-                <label>
-                    Email: <input type="text" name="email" id="inp-email" value=""  size="50" required pattern="^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$">
-                </label>
-            </p>
-            <p>
-                <label>
-                    Phone: <input type="tel" name="tel" id="inp-tel" pattern="^[+]?0[0-9]{10,20}$">
-                </label>			
-            </p>
-            <!-- <p>
-                <label>
-                    Birth date: <input type="date" name="bday" id="inp-bday"  value="">
-                </label>
-            </p> -->
-            <p>
-                <label>
-                   Chat color: <select name="culoare_chat" id="sel-culoare"><option value="red" selected>rosu</option><option value="green">verde</option><option value="blue">albastru</option></select>
-                </label>
-            </p>
-            <p>
-                <label>
-                    Picture: <input type="file" name="picture">
-                </label>			
-            </p>
+            <div class="container mt-4">
+                <h2 class="text-center">PROFILE</h2>
+                <div class="text-center">
+                    <% if(locals.utilizator.picture != 'null') { %>
+                        <img src="../../resurse/<%-locals.utilizator.picture%>" class="img-thumbnail rounded mx-auto d-block">
+                    <% } else { %>
+                        <p class="text-muted">No picture uploaded</p>
+                    <% } %>
+                </div>
         
-            <p>		
-                <input type="submit" value="Trimite">
-            </p>
-        </form>
+                <form id="form_inreg" method="post" class="needs-validation" action="/profil" enctype="multipart/form-data" novalidate>
+                    <div class="mb-3">
+                        <label for="inp-username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="inp-username" name="username">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="inp-lastname" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="inp-lastname" name="lastname" required pattern="^[A-Za-z]{1,100}$">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="inp-firstname" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="inp-firstname" name="firstname" required pattern="^[A-Za-z]{1,100}$">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="parl" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="parl" name="password" required>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="nparl" class="form-label">New password</label>
+                        <input type="password" class="form-control" id="nparl" name="newpassword">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="nrparl" class="form-label">Retype new password</label>
+                        <input type="password" class="form-control" id="nrparl" name="retypednewpassword">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="inp-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="inp-email" name="email" required pattern="^[A-Za-z0-9#_.-]+@[A-Za-z0-9-]+\.com$">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="inp-tel" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="inp-tel" name="tel" pattern="^[+]?0[0-9]{10,20}$">
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="sel-culoare" class="form-label">Chat color</label>
+                        <select class="form-select" id="sel-culoare" name="culoare_chat">
+                            <option value="red" selected>rosu</option>
+                            <option value="green">verde</option>
+                            <option value="blue">albastru</option>
+                        </select>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="picture" class="form-label">Picture</label>
+                        <input class="form-control" type="file" id="picture" name="picture">
+                    </div>
+        
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </form>
+                <div class="mb-3">
+                    <button class="btn btn-danger" id="deleteaccountbutton">Delete account</button>
+                </div>
+            </div>
+            
+    
+        
         <% } else { %>
             <p>You are not logged in!</p>
             <% } %>
@@ -102,5 +112,6 @@
     </main>
     <br><br>
     <%- include("../fragmente/footer.ejs") %>
+    <script src="/resurse/js/deleteaccount.js"></script>
 </body>
 </html>
