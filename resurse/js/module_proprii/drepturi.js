@@ -9,6 +9,7 @@
  @property {Symbol} adaugareProduse Dreptul de a adauga produse in tabel
  @property {Symbol} stergereProduse Dreptul de a sterge din tabelul cu produse
  @property {Symbol} vizualizareGrafice Dreptul de a vizualiza graficele de vanzari
+ @property {Symbol} modificareUtilizatori Dreptul de a modifica statusul utilizatorilor
 
  */
 
@@ -25,7 +26,8 @@ const Drepturi = {
     vizualizareProduse: Symbol("vizualizareProduse"),
     adaugareProduse: Symbol("adaugareProduse"),
     stergereProduse: Symbol("stergereProduse"),
-    vizualizareGrafice: Symbol("vizualizareGrafice")
+    vizualizareGrafice: Symbol("vizualizareGrafice"),
+    modificareUtilizatori: Symbol("modificareUtilizatori")
 }
 
 module.exports = Drepturi;

@@ -27,7 +27,9 @@
     </label>
     <ul class="meniu">
         <li><a href="/index#"><div id="acasa-mediu"><span class="fa-solid fa-house"></span></div><div id="acasa">Home</div></a></li>
-        <li><a href="/inregistrare"><div id="register-mediu"><span class="fa-solid fa-file-invoice"></span></div><div id="register">Register</div></a></li>
+        <% if(!locals.utilizator){ %>
+            <li><a href="/inregistrare"><div id="register-mediu"><span class="fa-solid fa-file-invoice"></span></div><div id="register">Register</div></a></li>
+            <% } %>
         <li><div id="store-mediu"><span class="fa-solid fa-store"></span></div><div id="store-menu">Store</div>
             <ul>
                 <li><a href="/store">ALL</a></li>

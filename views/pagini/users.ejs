@@ -26,12 +26,12 @@
               </thead>
     
               <% for (var i = 0; i < users.length; i++) { 
-                    if(users[i].role!="admin"){
+                   
                     %>
                     <tr>
                         <td>
-                            <button class="btn btn-primary" id="promoteuser">Promote</button>
-                            <button class="btn btn-warning" id="demoteuser">Demote</button>
+                            <button class="btn btn-primary promoteuser" id="promoteuser<%-users[i].user_id%>">Promote</button>
+                            <button class="btn btn-warning demoteuser" id="demoteuser<%-users[i].user_id%>">Demote</button>
                         </td>
                         <td><%- users[i].user_id %></td>
                         <td><%- users[i].username %></td>
@@ -41,12 +41,13 @@
                         <td><%-  users[i].role %></td>
                     </tr> 
        
-                    <% } %>			
+                    		
               <% } %>
             </table>
         </div>
     </main>
     <br><br>
     <%- include("../fragmente/footer.ejs") %>
+    <script src="/resurse/js/promotedemote.js"></script>
 </body>
 </html>

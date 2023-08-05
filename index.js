@@ -607,6 +607,51 @@ app.get("/logout", function(req, res){
     console.log("DELOGARE CU SUCCES");
 })
 
+app.get("/getUserRole/:userId", function(req, res){
+    if(req?.utilizator?.areDreptul?.(Drepturi.modificareUtilizatori)){
+        const userId = req.params.userId;
+        AccessBD.getInstance().select({tabel: "users", campuri: ["role"], conditii: [[`user_id = ${userId}`]]}, function(err, rezQuery){
+            console.log(err);
+            const userRole = rezQuery.rows[0].role;
+            res.json({userRole});
+            console.log("USER ROLE: ", userRole);
+    });
+    } else {
+        afisEroare(res, 403);
+    }
+})
+
+app.put("/promoteUser/:userId", function(req, res){
+    if(req?.utilizator?.areDreptul?.(Drepturi.modificareUtilizatori)){
+        const userId = req.params.userId;
+        AccessBD.getInstance().update({tabel: "users", campuri: {role: "admin"}, conditii: [[`user_id = ${userId}`]]}, function(err, rezUpdate){
+            if(err){
+                console.log(err);
+            } 
+            else{
+                res.json({message: "User promovat cu succes!"})
+            }
+        })
+    } else {
+        afisEroare(res, 403);
+    }
+})
+
+app.put("/demoteUser/:userId", function(req, res){
+    if(req?.utilizator?.areDreptul?.(Drepturi.modificareUtilizatori)){
+        const userId = req.params.userId;
+        AccessBD.getInstance().update({tabel: "users", campuri: {role: "common"}, conditii: [[`user_id = ${userId}`]]}, function(err, rezUpdate){
+            if(err){
+                console.log(err);
+            } 
+            else {
+                res.json({message: "User retrogradat cu succes!"})
+            }
+        })
+    } else {
+        afisEroare(res, 403);
+    }
+})
 // ********************************************************************************************** //
 
 app.get("/*", function(req, res){ //app.get primeste 2 argumente, calea din care porneste, iar functia este o functie callback care primeste req si res
