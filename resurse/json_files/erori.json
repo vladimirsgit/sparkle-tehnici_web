@@ -35,6 +35,13 @@
       "imagine": "lupa.png"
     },
     {
+      "identificator": 429,
+      "status": true,
+      "titlu": "429 - Too Many Requests",
+      "text": "You might want to take a break!",
+      "imagine": "interzis.png"
+    },
+    {
       "identificator": 500,
       "status": true,
       "titlu": "500 - Internal Server Error",

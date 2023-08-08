@@ -19,11 +19,11 @@
                 %>  
                 <figure>
                     <picture>
-                        <source srcset="<%-imag.cale_fisier_mediu %>" media="max-width: 1023px"/>
-                        <source srcset="<%- imag.cale_fisier_mic %>" media="max-width: 480px"/>
-                        <img src="<%-imag.cale_fisier %>" alt="jocuri">
+                        <source srcset="<%=imag.cale_fisier_mediu %>" media="max-width: 1023px"/>
+                        <source srcset="<%= imag.cale_fisier_mic %>" media="max-width: 480px"/>
+                        <img src="<%=imag.cale_fisier %>" alt="jocuri">
                     </picture>
-                    <figcaption><%-imag.text_descriere %> <%= i%>  </figcaption>
+                    <figcaption><%=imag.text_descriere %> <%= i%>  </figcaption>
                 </figure>
             <% }} %>
     </div>

@@ -34,7 +34,7 @@
             <ul>
                 <li><a href="/store">ALL</a></li>
                 <% for(let optiune of locals.optiuniMeniu){ %>
-                <li><a href="/store?category=<%-optiune.unnest%>"><%-optiune.unnest%></a></li> <% } %>
+                <li><a href="/store?category=<%=optiune.unnest%>"><%=optiune.unnest%></a></li> <% } %>
     
             </ul>
         </li>

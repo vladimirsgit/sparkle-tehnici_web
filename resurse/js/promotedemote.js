@@ -38,6 +38,7 @@ function changeUserStatus(action, userId){
             .then(response => response.json())
             .then(data => {
                 console.log("Actualizare cu succes, userul a fost retrogradat!");
+                location.reload();
             })
             .catch(error => {
                 console.error("Nu poti retrograda acest user!");
@@ -52,6 +53,7 @@ function changeUserStatus(action, userId){
             .then(response => response.json())
             .then(data => {
                 console.log("Actualizare cu succes, userul a fost promovat!");
+                location.reload();
             })
             .catch(error => {
                 console.error("Nu poti promova acest user!", userId);

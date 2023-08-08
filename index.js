@@ -114,7 +114,43 @@ var client = new Client({database:"SPARKLE",
             obGlobal.optiuniMeniu=rezCategorie.rows;
         }
     });
-    
+
+// ******************************** SECURITATE ******************************** // 
+
+var ipuriActive = {};
+var nrAccesari = {};
+
+app.all("/*", function(req, res, next){
+   
+   
+    if((nrAccesari[req.ip] > 20) && (Math.floor(new Date().getTime() / 1000) - ipuriActive[req.ip]) < 11){
+        return;
+    }
+    if(ipuriActive[req.ip] == null){
+        nrAccesari[req.ip] = 1;
+        ipuriActive[req.ip] = Math.floor(new Date().getTime() / 1000);
+       
+    } else {
+        if((Math.floor(new Date().getTime() / 1000) - ipuriActive[req.ip]) < 11){
+            nrAccesari[req.ip]+=1;
+            if(nrAccesari[req.ip] > 20){
+                afisEroare(res, 429);
+                return;
+            }
+        } else {
+            nrAccesari[req.ip] = 0;
+            ipuriActive[req.ip] = null;
+            
+        }
+        
+    }
+    next();
+
+})
+
+// function escapeData(dirtyText){
+//     return dirtyText.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+// }
 function initErori(){ //functie pt initializarea erori.json
     let continut = fs.readFileSync(path.join(__dirname, "resurse", "json_files", "erori.json")).toString("utf8"); //Sync face citirea pe loc, cand pornim serverul,  transformam in string in formatul utf8
     // console.log(continut); //printam continutul
@@ -354,7 +390,7 @@ const correctHomePaths = ["/", "/index", "/home"];
 app.get(correctHomePaths, function(req, res){
     let sir = req.session.mesajLogin;
     req.session.mesajLogin = null;
-    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini, mesajLogin: sir}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
+    res.render("pagini/index", {ip:req.ip, imagini:obGlobal.obImagini.imagini, mesajLogin: sir, servertime: new Date().toLocaleTimeString()}); //la randare ii dam niste obiecte pe care sa le poata accesa, IP ul si imaginile
     
 })
 
@@ -381,6 +417,7 @@ app.get("/*.ejs", function(req, res){ //in caz ca se incearca a accesa un EJS, d
 app.post("/inregistrare", function(req, res){
     var username;
     var picture;
+    var originalFilenamePropriu;
     var formular = new formidable.IncomingForm();
     formular.parse(req, async function(err, campuriText, campuriFisier){
         username = campuriText.username;
@@ -411,12 +448,21 @@ app.post("/inregistrare", function(req, res){
             res.render("pagini/inregistrare", {raspuns: "Please fill out the birth date field! Of course we also check on the server-side..."});
         }
         else {
+            let pictureSplit = picture.split(".");
+            let acceptedExtensions = ['.jpeg', '.jpg', '.png']
+            picture = "poza_" + username + path.extname(picture);
+            if(pictureSplit.length > 2 || !acceptedExtensions.includes(path.extname(picture))){
+                picture = '';
+            } 
+            
             utilizNou = new Utilizator({username: username, lastname: lastname, 
             firstname: firstname, password: password, email: email, chat_color: chat_color, phone: phone, picture: path.join("poze_uploadate", username, picture).split(path.sep).join('/'), birth_date: birth_date});
            if(await checkIfOkToCreateUser(username)){
+           
             if(picture == null || picture == ''){
                 utilizNou.picture = 'null';
             }
+           
             utilizNou.salvareUtilizator();
           
             
@@ -425,7 +471,10 @@ app.post("/inregistrare", function(req, res){
                 fs.mkdirSync(folderUser, {recursive: true});
             }
                 if(picture){
-                    fs.renameSync(path.join(__dirname, "temp", picture), path.join(folderUser, picture));
+                  
+                 fs.renameSync(path.join(__dirname, "temp", originalFilenamePropriu), path.join(folderUser, "poza_" + username + path.extname(picture)));
+                } else {
+                    fs.unlinkSync(path.join(__dirname, "temp", originalFilenamePropriu))
                 }
             res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
            
@@ -451,9 +500,19 @@ app.post("/inregistrare", function(req, res){
         if(!fs.existsSync(tempFolder)){
             fs.mkdirSync(tempFolder);
         }
+        if(fisier.originalFilename.includes("../")){
+            fisier.originalFilename.replace("../", "");    
+        } else if(fisier.originalFilename.includes("%2E")){
+            fisier.originalFilename.replace("%2E", "");    
+        } else if(fisier.originalFilename.includes("%2F")){
+            fisier.originalFilename.replace("%2F", "");    
+        }
+        
         fisier.filepath = path.join(tempFolder, fisier.originalFilename);
         picture = fisier.originalFilename;
-
+        originalFilenamePropriu = fisier.originalFilename;
+        //AICI PICTURE ESTE NUMELE FISIERULUI UPLOADAT
+        
     })
 })
 
@@ -463,10 +522,6 @@ function validateField(regEx, fieldData){
 
 async function checkIfOkToCreateUser(username){
     let user = await Utilizator.getUtilizDupaUsernameAsync(username);
-    
-    if(user == null){
-        console.log("null");
-    } else console.log(user);
     return user == null;
 }
 
@@ -527,7 +582,7 @@ app.post("/login", function(req, res){
 
 app.post("/profil", function(req, res){
     if(!req.session.utilizator){
-        console.log("HELLLLLLLLLLLOOOO");
+       
         afisEroare(res, 403);
         res.render("pagini/eroare", {text: "You are not logged in!"});
         return;
@@ -541,7 +596,7 @@ app.post("/profil", function(req, res){
         if(campuriFisier.picture.originalFilename == ''){
             picture = req.session.utilizator.picture;
         } else picture =  path.join("poze_uploadate", campuriText.username, campuriFisier.picture.originalFilename).split(path.sep).join('/');
-        console.log("PICTUREEEEEEEEEEEEE:", campuriFisier.picture);
+        
         fs.rename(campuriFisier.picture.filepath, path.join(__dirname, "resurse", picture), function(err){});
         var parolaSchimbata;
         if(campuriText.newpassword == campuriText.retypednewpassword){
@@ -585,6 +640,18 @@ app.post("/profil", function(req, res){
 })
 
 
+
+app.get("/logout", function(req, res){
+    req.session.destroy();
+    res.locals.utilizator = null;
+    res.render("pagini/logout");
+    console.log("DELOGARE CU SUCCES");
+})
+
+
+// ****************************** ADMIN ACTIONS ****************************** //
+
+
 app.get("/users", function(req, res){
 
     if(req?.utilizator?.areDreptul?.(Drepturi.vizualizareUtilizatori)){
@@ -599,13 +666,6 @@ app.get("/users", function(req, res){
 });
 
 
-app.get("/logout", function(req, res){
-    req.session.destroy();
-    res.locals.utilizator = null;
-    res.render("pagini/logout");
-    console.log("DELOGARE CU SUCCES");
-})
-
 app.get("/getUserRole/:userId", function(req, res){
     if(req?.utilizator?.areDreptul?.(Drepturi.modificareUtilizatori)){
         const userId = req.params.userId;
@@ -613,7 +673,7 @@ app.get("/getUserRole/:userId", function(req, res){
             console.log(err);
             const userRole = rezQuery.rows[0].role;
             res.json({userRole});
-            console.log("USER ROLE: ", userRole);
+            
     });
     } else {
         afisEroare(res, 403);
@@ -645,6 +705,7 @@ app.put("/demoteUser/:userId", function(req, res){
             } 
             else {
                 res.json({message: "User retrogradat cu succes!"})
+
             }
         })
     } else {
@@ -652,6 +713,8 @@ app.put("/demoteUser/:userId", function(req, res){
     }
 })
 
+
+// **************** Delete Account **************** //
 app.delete("/deleteUser", express.json(), function(req, res){
     const username = req.session.utilizator.username;
     console.log(req.body);
@@ -667,6 +730,8 @@ app.delete("/deleteUser", express.json(), function(req, res){
                 Utilizator.stergeUtilizator(username);
                 res.status(200).json({status: 'success', message: 'Account deleted'});
                 req.session.destroy();
+                res.redirect("/")
+                user.trimiteMail("Goodbye!", "We are sad to see you go :(")
             } else {
                 res.status(401).json({status: 'failure', message: 'Invalid password'});
             }

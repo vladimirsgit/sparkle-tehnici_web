@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
     deleteButton.addEventListener("click", () => {
         var password = prompt("Please enter your password:");
         if(password){
-            fetch("deleteUser", {
+            fetch("/deleteUser", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
