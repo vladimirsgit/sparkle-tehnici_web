@@ -186,25 +186,41 @@ class AccessBD{
         this.client.query(comanda, callback);
     }
 
-    updateParametrizat({tabel= "", campuri = [], valori = [], conditii = [[]]} = {}, callback){
+
+    updateParametrizat({tabel = "", campuri = [], valori = [], campuriConditii = [[]], valoriConditii = []} = {}, callback){
         if(campuri.length != valori.length){
             throw new Error("Numarul de campuri difera de numarul de valori");
         }
-
         let campuriActualizate = [];
-
+        //campuri = ["coloana1", "coloana2"]
+        //valori = ["valoare1", "valoare2"]
+        var indexOfValue = 0;
         for(let i = 0; i < campuri.length; i++){
             campuriActualizate.push(`${campuri[i]} = $${i+1}`);
+            indexOfValue = i+1;
         }
+        //campuriActualizate = ["coloana1 = $1", "coloana2 = $2"];
+        
+        //campuriConditii = [["user_id", "username"] OR ["user_id"]];
+        //valoriConditii = [["1", "solotravel"] OR ["2"]];
+        
         let conditieWhere = "";
-        if(conditii.length > 0 && conditii[0].length > 0){
-            for(let i = 0; i < conditii.length; i++){
-                conditii[i] = "(" + conditii[i].join(" and ") + ")";
+        if(campuriConditii.length > 0 && campuriConditii[0].length > 0 && valoriConditii.length > 0 && valoriConditii[0].length > 0){
+            for(let i = 0; i < campuriConditii.length; i++){
+                for(let j = 0; j < campuriConditii[i].length; j++){
+                    campuriConditii[i][j]+= ` = $${++indexOfValue}`;
+                    //adaugam userid = $1, username = $2, samd
+                }
             }
-            conditieWhere = `where ${conditii.join(" or ")}`;
+          //facem join cu and si or
+            for(let i = 0; i < campuriConditii.length; i++){
+                campuriConditii[i] = "(" + campuriConditii[i].join(" and ") + ")";
+            }
+            conditieWhere = `where ${campuriConditii.join(" or ")}`;
         }
-
-        comanda = `uodate ${tabel} set ${campuriActualizate.join(", ")} ${conditieWhere}`;
+        //comanda finala va arata ceva de genul: update users set lastname = $1, firstname = $2 where (username = $3) or (firstname = $4)
+        let comanda = `update ${tabel} set ${campuriActualizate.join(", ")} ${conditieWhere}`;
+        valori = valori.concat(valoriConditii);
         this.client.query(comanda, valori, callback);
     }
 

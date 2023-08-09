@@ -535,10 +535,12 @@ async function checkIfOkToCreateUser(username){
 app.get("/cod_mail/:token/:username", function(req, res){
     try {
         Utilizator.getUtilizDupaUsername(req.params.username, {res:res, token: req.params.token}, function(u, obparam){
-            AccessBD.getInstance().update(
+            AccessBD.getInstance().updateParametrizat(
                 {tabel: "users", 
-                campuri: {confirmed_email: 'true'},
-                conditii: [[`code = '${obparam.token}'`]]},
+                campuri: ["confirmed_email"],
+                valori: ["true"],
+                campuriConditii: [["code"]],
+                valoriConditii: [obparam.token]},
                                             function(err, rezUpdate){
                                                 if(err || rezUpdate.rowCount == 0){
                                                     afisEroare(res, 404);
@@ -614,7 +616,7 @@ app.post("/profil", function(req, res){
             console.log(campuriText);
         AccessBD.getInstance().updateParametrizat({tabel: "users", campuri: ["lastname", "firstname", "email", "chat_color", "picture", "password"], 
         valori: [campuriText.lastname, campuriText.firstname, campuriText.email, campuriText.culoare_chat, picture, parolaSchimbata],
-    conditii: [[`password='${parolaCriptata}'`, `username = '${campuriText.username}'`]]}, function(err, rez){
+    campuriConditii: [["password", "username"]], valoriConditii: [parolaCriptata, campuriText.username]}, function(err, rez){
         if(err){
             console.log(err);
             afisEroare(res, 404);
@@ -642,7 +644,6 @@ app.post("/profil", function(req, res){
 
     })
 })
-
 
 
 app.get("/logout", function(req, res){
