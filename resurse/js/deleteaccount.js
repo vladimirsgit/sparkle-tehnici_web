@@ -13,12 +13,16 @@ window.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 if(data.status == "success"){
-                    console.log("Account deleted!");
+                    window.location.href = "/";
+                    console.log(data.message);
+                    alert(data.message);
                 } else {
                     console.error("Failed to delete account!");
+                    alert("Failed to delete account!");
                 }
             })
             .catch(error => {
+                console.log(error);
                 console.error("Cannot delete account!");
             })
         }

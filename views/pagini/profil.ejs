@@ -11,19 +11,6 @@
     
     <%- include("../fragmente/head.ejs") %>
 
-    <% if(locals.utilizator) {%>
-
-        <script>
-            window.addEventListener("DOMContentLoaded", () => {
-                document.getElementById("inp-username").value = "<%- locals.utilizator.username %>";
-                document.getElementById("inp-username").readOnly = true;
-                document.getElementById("inp-lastname").value = "<%- locals.utilizator.lastname %>";
-                document.getElementById("inp-firstname").value = "<%- locals.utilizator.firstname %>";
-                document.getElementById("inp-email").value = "<%- locals.utilizator.email %>";
-                document.getElementById("inp-tel").value = "<%- locals.utilizator.phone %>";
-                document.getElementById("sel-culoare").value = "<%- locals.utilizator.chat_color %>";
-            })
-        </script>     <% } %>
         </head>
 <body>
     <%- include("../fragmente/header.ejs") %>
@@ -83,9 +70,9 @@
                     <div class="mb-3">
                         <label for="sel-culoare" class="form-label">Chat color</label>
                         <select class="form-select" id="sel-culoare" name="culoare_chat">
-                            <option value="red" selected>rosu</option>
-                            <option value="green">verde</option>
-                            <option value="blue">albastru</option>
+                            <option value="red" selected>red</option>
+                            <option value="green">green</option>
+                            <option value="blue">blue</option>
                         </select>
                     </div>
         
@@ -113,5 +100,19 @@
     <br><br>
     <%- include("../fragmente/footer.ejs") %>
     <script src="/resurse/js/deleteaccount.js"></script>
+    <% if(locals.utilizator) {%>
+
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("inp-username").value = "<%- locals.utilizator.username %>";
+                document.getElementById("inp-username").readOnly = true;
+                document.getElementById("inp-lastname").value = "<%- locals.utilizator.lastname %>";
+                document.getElementById("inp-firstname").value = "<%- locals.utilizator.firstname %>";
+                document.getElementById("inp-email").value = "<%- locals.utilizator.email %>";
+                document.getElementById("inp-tel").value = "<%- locals.utilizator.phone %>";
+                console.log("<%- locals.utilizator.chat_color %>");
+                document.getElementById("sel-culoare").value = "<%-locals.utilizator.chat_color %>";
+            })
+        </script>     <% } %>
 </body>
 </html>

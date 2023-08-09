@@ -186,6 +186,28 @@ class AccessBD{
         this.client.query(comanda, callback);
     }
 
+    updateParametrizat({tabel= "", campuri = [], valori = [], conditii = [[]]} = {}, callback){
+        if(campuri.length != valori.length){
+            throw new Error("Numarul de campuri difera de numarul de valori");
+        }
+
+        let campuriActualizate = [];
+
+        for(let i = 0; i < campuri.length; i++){
+            campuriActualizate.push(`${campuri[i]} = $${i+1}`);
+        }
+        let conditieWhere = "";
+        if(conditii.length > 0 && conditii[0].length > 0){
+            for(let i = 0; i < conditii.length; i++){
+                conditii[i] = "(" + conditii[i].join(" and ") + ")";
+            }
+            conditieWhere = `where ${conditii.join(" or ")}`;
+        }
+
+        comanda = `uodate ${tabel} set ${campuriActualizate.join(", ")} ${conditieWhere}`;
+        this.client.query(comanda, valori, callback);
+    }
+
     // delete({tabel = "", conditiiAnd = []} = {}, callback){
     //     let conditieWhere = "";
     //     if(conditiiAnd.length > 0){

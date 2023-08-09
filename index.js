@@ -8,13 +8,15 @@ const sass = require("sass");
 const {Client} = require("pg");
 const formidable = require("formidable");
 const session = require("express-session");
-
+const helmet = require("helmet")
 const {Utilizator} = require('./resurse/js/module_proprii/utilizator.js');
 const Drepturi = require('./resurse/js/module_proprii/drepturi.js');
 const {RolFactory, RolAdmin, RolModerator, RolClient} = require('./resurse/js/module_proprii/roluri.js')
 const AccessBD = require("./resurse/js/module_proprii/accessbd.js");
 const utilizator = require("./resurse/js/module_proprii/utilizator.js");
 
+const targetUrl = 'http://localhost:8080';
+const numberofReq = 1000;
 
 
 // Utilizator.cautaAsync({username: "facutieri"}).then(rows => {
@@ -120,10 +122,12 @@ var client = new Client({database:"SPARKLE",
 var ipuriActive = {};
 var nrAccesari = {};
 
-app.all("/*", function(req, res, next){
+app.use(helmet.frameguard({ action: 'deny' })); //evitam deschiderea in iframe
+
+app.all("/*", function(req, res, next){ //protectie impotriva DDOS
    
    
-    if((nrAccesari[req.ip] > 20) && (Math.floor(new Date().getTime() / 1000) - ipuriActive[req.ip]) < 11){
+    if((nrAccesari[req.ip] > 15) && (Math.floor(new Date().getTime() / 1000) - ipuriActive[req.ip]) < 11){
         return;
     }
     if(ipuriActive[req.ip] == null){
@@ -133,7 +137,7 @@ app.all("/*", function(req, res, next){
     } else {
         if((Math.floor(new Date().getTime() / 1000) - ipuriActive[req.ip]) < 11){
             nrAccesari[req.ip]+=1;
-            if(nrAccesari[req.ip] > 20){
+            if(nrAccesari[req.ip] > 15){
                 afisEroare(res, 429);
                 return;
             }
@@ -448,7 +452,7 @@ app.post("/inregistrare", function(req, res){
             res.render("pagini/inregistrare", {raspuns: "Please fill out the birth date field! Of course we also check on the server-side..."});
         }
         else {
-            let pictureSplit = picture.split(".");
+            let pictureSplit = picture.split("."); //verificam pt extensii multiple sau extensii neacceptate
             let acceptedExtensions = ['.jpeg', '.jpg', '.png']
             picture = "poza_" + username + path.extname(picture);
             if(pictureSplit.length > 2 || !acceptedExtensions.includes(path.extname(picture))){
@@ -474,7 +478,7 @@ app.post("/inregistrare", function(req, res){
                   
                  fs.renameSync(path.join(__dirname, "temp", originalFilenamePropriu), path.join(folderUser, "poza_" + username + path.extname(picture)));
                 } else {
-                    fs.unlinkSync(path.join(__dirname, "temp", originalFilenamePropriu))
+                    fs.renameSync(path.join(__dirname, "temp", originalFilenamePropriu), path.join(__dirname,  "temp"))
                 }
             res.render("pagini/inregistrare", {raspuns: "You have sucessfully registered!"})
            
@@ -500,7 +504,7 @@ app.post("/inregistrare", function(req, res){
         if(!fs.existsSync(tempFolder)){
             fs.mkdirSync(tempFolder);
         }
-        if(fisier.originalFilename.includes("../")){
+        if(fisier.originalFilename.includes("../")){ //protectie impotriva traversal
             fisier.originalFilename.replace("../", "");    
         } else if(fisier.originalFilename.includes("%2E")){
             fisier.originalFilename.replace("%2E", "");    
@@ -608,9 +612,9 @@ app.post("/profil", function(req, res){
         } else parolaSchimbata = parolaCriptata;
           
             console.log(campuriText);
-        AccessBD.getInstance().update({tabel: "users", campuri: {lastname: campuriText.lastname, firstname: campuriText.firstname, 
-            email: campuriText.email, chat_color: campuriText.culoare_chat, picture: picture, password: parolaSchimbata},
-    conditii: [[`password='${parolaCriptata}'`]]}, function(err, rez){
+        AccessBD.getInstance().updateParametrizat({tabel: "users", campuri: ["lastname", "firstname", "email", "chat_color", "picture", "password"], 
+        valori: [campuriText.lastname, campuriText.firstname, campuriText.email, campuriText.culoare_chat, picture, parolaSchimbata],
+    conditii: [[`password='${parolaCriptata}'`, `username = '${campuriText.username}'`]]}, function(err, rez){
         if(err){
             console.log(err);
             afisEroare(res, 404);
@@ -622,7 +626,7 @@ app.post("/profil", function(req, res){
             req.session.utilizator.lastname = campuriText.lastname;
             req.session.utilizator.firstname = campuriText.firstname;
             req.session.utilizator.email = campuriText.email;
-            req.session.utilizator.chat_color = campuriText.chat_color;
+            req.session.utilizator.chat_color = campuriText.culoare_chat;
             req.session.utilizator.picture = picture;
 
             Utilizator.getUtilizDupaUsername(campuriText.username, {}, function(utiliz, {}, err){
@@ -730,7 +734,6 @@ app.delete("/deleteUser", express.json(), function(req, res){
                 Utilizator.stergeUtilizator(username);
                 res.status(200).json({status: 'success', message: 'Account deleted'});
                 req.session.destroy();
-                res.redirect("/")
                 user.trimiteMail("Goodbye!", "We are sad to see you go :(")
             } else {
                 res.status(401).json({status: 'failure', message: 'Invalid password'});
